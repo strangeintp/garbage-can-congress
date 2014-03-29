@@ -30,7 +30,7 @@ def setSolutionBitLength(l = Solution_Bit_Length):
 
 Satisfaction_Threshold = 0.5  # threshold of satisfaction for voting aye on a bill
 One_Degree_Threshold = 0.5
-Issue_Similarity_Level = 3
+Issue_Similarity_Level = 2
 
 def pdf(values):
     sum_values = sum(values)
@@ -139,11 +139,14 @@ class Legislator(object):
         return matrix
 
 
-    def __init__(self):
+    def __init__(self, default_priorities=[], default_positions=[]):
         self.priorities = {}
         self.positions = {}
         self.links = {} # network link strengths to other legislators
-        priorities = [1 for i in range(Num_of_Issues)]  #seed as uniform
+        if default_priorities:
+            priorities = default_priorities
+        else:
+            priorities = [1 for i in range(Num_of_Issues)]  #seed as uniform
         # allocate priorities by preferential attachment
         # generates a power law distribution of priorities
         # i.e., legislators have high priority on a few issues,
@@ -184,8 +187,11 @@ class State(object):
         # initialize lawmakers
         self.legislators = []
         State.issues = range(Num_of_Issues)
+        default_priorities = [15-3*i for i in range(5)]
+        default_priorities += [1 for i in range(5,Num_of_Issues)]
+        print(default_priorities)
         for i in range(Num_of_Representatives):
-            self.legislators.append(Legislator())
+            self.legislators.append(Legislator(default_priorities))
         network = Legislator.generatePrioritizedNetwork(self.legislators)
         dumpNetwork(network)
 
