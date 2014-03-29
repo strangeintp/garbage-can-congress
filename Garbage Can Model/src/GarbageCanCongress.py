@@ -20,7 +20,7 @@ Num_of_Issues = 10
 def setNumOfIssues(n = Num_of_Issues):
     global Num_of_Issues
     Num_of_Issues = n
-    return n 
+    return n
 
 Solution_Bit_Length = 3
 def setSolutionBitLength(l = Solution_Bit_Length):
@@ -29,6 +29,8 @@ def setSolutionBitLength(l = Solution_Bit_Length):
     return l
 
 Satisfaction_Threshold = 0.5  # threshold of satisfaction for voting aye on a bill
+One_Degree_Threshold = 0.5
+Issue_Similarity_Level = 3
 
 def pdf(values):
     sum_values = sum(values)
@@ -61,6 +63,19 @@ def bitwiseJaccardIndex(a, b):
         c = c>>1
     return 1 - count/Solution_Bit_Length
 
+def binaryTreeSimilarity(a, b):
+    c = a^b
+    sim_level = 1.0
+    sim = 1.0
+    i = 1
+    while c%2 == 0 and i < Solution_Bit_Length:
+        c = c>>1
+        sim_level /= 2
+        i += 1
+    if c%2==1:
+        sim -= sim_level
+    return sim
+
 def dumpNetwork(network):
     file = open("../output/network_out.csv", 'w')
     for i in range(Num_of_Representatives):
@@ -86,7 +101,7 @@ class Legislator(object):
                     link_strength = 0
                     for issue in State.issues:
                         # calculate issue position overlap (Jaccard Index)
-                        overlap = bitwiseJaccardIndex(rep1.positions[issue],rep2.positions[issue])
+                        overlap = binaryTreeSimilarity(rep1.positions[issue],rep2.positions[issue])
                         # weight this issue's contribution to link strength by similarity of priorities
                         link_strength += overlap #*rep1.priorities[issue]
                     # normalize to number of issues and scale between [-1,1],
@@ -98,6 +113,31 @@ class Legislator(object):
                     matrix[i][j] = link_strength
                     matrix[j][i] = link_strength
         return matrix
+
+    @staticmethod
+    def generatePrioritizedNetwork(legislators):
+        matrix = [[0 for i in range(Num_of_Representatives)] for j in range(Num_of_Representatives)]
+        for rep1 in legislators:
+            i = legislators.index(rep1)
+            for rep2 in legislators:
+                j = legislators.index(rep2)
+                if rep1==rep2:
+                    rep1.links[rep2] = 1
+                    matrix[i][i] = 1
+                else:
+                    rep1_issues = sorted(State.issues, key = lambda i: rep1.priorities[i], reverse=True)
+                    link_strength = 0
+                    sum_pri_diffs = 0
+                    for issue in rep1_issues[0:Issue_Similarity_Level]:
+                        similarity = binaryTreeSimilarity(rep1.positions[issue], rep2.positions[issue])
+                        pri_diff = 1 - abs(rep1.priorities[issue] - rep2.priorities[issue])
+                        link_strength += similarity*pri_diff
+                        sum_pri_diffs += pri_diff
+                    link_strength = (link_strength/sum_pri_diffs)*2 - 1
+                    rep1.links[rep2] = link_strength
+                    matrix[i][j] = link_strength
+        return matrix
+
 
     def __init__(self):
         self.priorities = {}
@@ -129,7 +169,7 @@ class Legislator(object):
         sum_pris = 0
         for issue in bill.solutions.keys():
             # sum up Jaccard indeces for solutions vs positions, weighted by priorities
-            s += bitwiseJaccardIndex(self.position[issue], bill.solutions[issue])*self.priorities[issue]
+            s += binaryTreeSimilarity(self.position[issue], bill.solutions[issue])*self.priorities[issue]
             sum_pris += self.priorities[issue]
         s /= sum_pris # normalize to relevant priorities
         return s
@@ -146,7 +186,7 @@ class State(object):
         State.issues = range(Num_of_Issues)
         for i in range(Num_of_Representatives):
             self.legislators.append(Legislator())
-        network = Legislator.generateNetwork(self.legislators)
+        network = Legislator.generatePrioritizedNetwork(self.legislators)
         dumpNetwork(network)
 
     def step(self):
@@ -192,8 +232,8 @@ class Bill(object):
         pass
 
 if __name__ == "__main__":
-    setSolutionBitLength(2)
-    setNumOfIssues(5)
+    setSolutionBitLength(4)
+    setNumOfIssues(20)
     setNumOfRepresentatives(100)
     s = State()
 
