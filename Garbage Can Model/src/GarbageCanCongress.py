@@ -9,6 +9,8 @@ from random import choice
 from random import random
 from random import shuffle
 from random import getrandbits
+from math import exp
+from math import log
 
 Num_of_Representatives = 100
 def setNumOfRepresentatives(n = Num_of_Representatives):
@@ -31,6 +33,14 @@ def setSolutionBitLength(l = Solution_Bit_Length):
 Satisfaction_Threshold = 0.5  # threshold of satisfaction for voting aye on a bill
 One_Degree_Threshold = 0.5
 Issue_Similarity_Level = 2
+
+# Annealer values
+Min_Temp = 0.01
+Max_Temp = 1
+Min_Time = 10
+Max_Time = 100
+Time_Step = 10
+k_B = -0.1/log(0.5)  # accept a decrease of 0.1 in satisfaction with a bill with probability 1/2 at temp=1.0
 
 def pdf(values):
     sum_values = sum(values)
@@ -68,12 +78,13 @@ def binaryTreeSimilarity(a, b):
     sim_level = 1.0
     sim = 1.0
     i = 1
-    while c%2 == 0 and i < Solution_Bit_Length:
+    while i <= Solution_Bit_Length:
+        if c%2==1:
+            sim -= sim_level
         c = c>>1
         sim_level /= 2
         i += 1
-    if c%2==1:
-        sim -= sim_level
+    
     return sim
 
 def dumpNetwork(network):
@@ -166,13 +177,20 @@ class Legislator(object):
     def proposeBill(self):
         issue = choice(self.priorities.keys()) # TODO:  get highest priority issue
         bill = Bill(self, (issue, self.positions[issue]))
-
-    def getSatisfactionWithBill(self, bill):
+        
+    def getCoSponsors(self):
+        cosponsors = []
+        for rep in self.links.keys():
+            if self.links[rep] > 0.5:
+                cosponsors.append(rep)
+        return cosponsors
+    
+    def getSatisfactionWithBill(self, solutions):
         s = 0
         sum_pris = 0
-        for issue in bill.solutions.keys():
+        for issue in solutions.keys():
             # sum up Jaccard indeces for solutions vs positions, weighted by priorities
-            s += binaryTreeSimilarity(self.position[issue], bill.solutions[issue])*self.priorities[issue]
+            s += binaryTreeSimilarity(self.position[issue], solutions[issue])*self.priorities[issue]
             sum_pris += self.priorities[issue]
         s /= sum_pris # normalize to relevant priorities
         return s
@@ -204,13 +222,17 @@ class State(object):
 
     def circulateDraft(self, bill):
         # STUB
-        cosponsors = []
-        bill.anneal(cosponsors)
+        bill.setReviewers(bill.sponsor.getCoSponsors())
+        revdash = bill.solutions.deepcopy()
+        (temps, times) = Annealer.configureLinearSchedule(Min_Temp, Max_Temp, Min_Time, Max_Time, Time_Step)
+        revision = Annealer.anneal(revdash, bill.revise, bill.measureDisSatisfaction, k_B, temps, times)
+        bill.solutions = revision.deepcopy()
 
     def referToCommittee(self, bill):
         # STUB
-        committee = None
-        bill.anneal(committee)
+        #committee = None
+        #bill.anneal(committee)
+        pass
 
     def putToVote(self, bill):
         votes = 0
@@ -232,11 +254,70 @@ class Bill(object):
         self.solutions = {}
         self.sponsor = sponsor
         self.solutions[issue] = proposal
+        self.reviewers = []
+        
+    def setReviewers(self, reviewers):
+        self.reviewers = reviewers
 
-    def anneal(self):
-        # STUB
-        pass
-
+    def revise(self, solutions):  # move bill to a neighbor in state-space
+        revision = solutions.deepcopy()
+        issue = choice(State.issues)  # we could narrow this down so it only changes issues that are high-priority for reviewers
+        # or pick one of the existing reviewers to choose an issue to revise according to reviewer's position
+        bit = choice(range(Solution_Bit_Length))
+        mask = 2**bit
+        if issue in solutions.keys():  # if the issue is currently in the issues list,
+            revision[issue] = revision[issue]^mask  # invert the bit in the current solution
+        else:
+            revision[issue] = mask # otherwise add it to the bill's issues list
+        return revision
+            
+    def measureDisSatisfaction(self, solutions):  # objective function
+        E = 0
+        for reviewer in self.reviewers:
+            E += reviewer.getSatisfactionWithBill(self, solutions)
+        E /= len(self.reviewers)
+        return -E
+    
+class Annealer(object):
+    @staticmethod
+    def anneal(initial_state, move_func, objective_func, k, schedule_temps, schedule_times):
+        '''
+        move_func := the function that moves the target from one point in the state-space to another
+        objective_fun := the objective function that returns an energy E
+        k := the constant that sets probability of acceptance for some energy E and some temperature T0
+        schedule_temps := a list of temperatures to anneal at
+        schedule_times := a list of durations to anneal at each temperature
+        '''
+        best_energy = objective_func(initial_state)
+        best_state = initial_state.deepcopy()
+        prev_state = initial_state.deepcopy()
+        prev_energy = best_energy
+        for step in range(len(schedule_temps)):
+            temp = schedule_temps[step]
+            time = schedule_times[step]
+            for t in range(time):
+                state = move_func(prev_state)
+                energy = objective_func(state)
+                delta_energy = energy-prev_energy
+                # accept the new state if lower energy or probabilistically
+                if energy < prev_energy:
+                    prev_energy = energy
+                    prev_state = state.deepcopy()
+                    if energy < best_energy:
+                        best_energy = energy
+                        best_state = state.deepcopy()
+                elif random() < exp(-delta_energy/(k*temp)):
+                    prev_energy = energy
+                    prev_state = state.deepcopy()
+        return best_state
+    
+    @staticmethod
+    def configureLinearSchedule(min_temp, max_temp, min_time, max_time, time_step):
+        times = list(range(max_time, min_time, -time_step))
+        temp_step = (max_temp - min_temp)/len(times)
+        temps = list(range(max_temp, min_temp, -temp_step))
+        return (temps, times)
+                    
 if __name__ == "__main__":
     setSolutionBitLength(4)
     setNumOfIssues(20)
