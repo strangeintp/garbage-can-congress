@@ -12,6 +12,11 @@ from random import getrandbits
 from math import exp
 from math import log
 
+VERBOSE = True
+def verbose(stuff):
+    if VERBOSE:
+        print(stuff)
+
 Num_of_Representatives = 100
 def setNumOfRepresentatives(n = Num_of_Representatives):
     global Num_of_Representatives
@@ -37,7 +42,7 @@ Issue_Similarity_Level = 2
 # Annealer values
 Min_Temp = 0.01
 Max_Temp = 1
-Min_Time = 10
+Min_Time = 1
 Max_Time = 100
 Time_Step = 10
 k_B = -0.1/log(0.5)  # accept a decrease of 0.1 in satisfaction with a bill with probability 1/2 at temp=1.0
@@ -90,7 +95,7 @@ def binaryTreeSimilarity(a, b):
 def dumpNetwork(network):
     file = open("../output/network_out.csv", 'w')
     for i in range(Num_of_Representatives):
-        #print(network[i])
+        #verbose(network[i])
         for j in range(Num_of_Representatives):
             file.write("%1.5f %s"%(network[i][j], Delimiter))
         file.write("\n")
@@ -175,8 +180,12 @@ class Legislator(object):
             self.positions[i] = getrandbits(Solution_Bit_Length)
 
     def proposeBill(self):
-        issue = choice(self.priorities.keys()) # TODO:  get highest priority issue
+        #issue = choice(list(self.priorities.keys())) # TODO:  get highest priority issue
+        issues = sorted(list(State.issues), key = lambda issue : self.priorities[issue])
+        issue = issues[-1]
+        verbose("\nMain issue: %d" % issue)
         bill = Bill(self, (issue, self.positions[issue]))
+        return bill
         
     def getCoSponsors(self):
         cosponsors = []
@@ -190,7 +199,7 @@ class Legislator(object):
         sum_pris = 0
         for issue in solutions.keys():
             # sum up Jaccard indeces for solutions vs positions, weighted by priorities
-            s += binaryTreeSimilarity(self.position[issue], solutions[issue])*self.priorities[issue]
+            s += binaryTreeSimilarity(self.positions[issue], solutions[issue])*self.priorities[issue]
             sum_pris += self.priorities[issue]
         s /= sum_pris # normalize to relevant priorities
         return s
@@ -205,9 +214,9 @@ class State(object):
         # initialize lawmakers
         self.legislators = []
         State.issues = range(Num_of_Issues)
-        default_priorities = [15-3*i for i in range(5)]
-        default_priorities += [1 for i in range(5,Num_of_Issues)]
-        print(default_priorities)
+        default_priorities = [1+i for i in range(Num_of_Issues)]
+        #default_priorities += [1 for i in range(5,Num_of_Issues)]
+        verbose(default_priorities)
         for i in range(Num_of_Representatives):
             self.legislators.append(Legislator(default_priorities))
         network = Legislator.generatePrioritizedNetwork(self.legislators)
@@ -216,36 +225,59 @@ class State(object):
     def step(self):
         sponsor = choice(self.legislators)
         bill = sponsor.proposeBill()
-        self.circulateDraft(bill)
-        self.referToCommittee(bill)
+        verbose("Initial legislative body dissatisfaction: %1.4f" % bill.measureDisSatisfaction(reviewers=self.legislators))
+        
+        #circulate draft among cosposnors
+        verbose("\nDraft review by Cosponsors:")
+        cosponsors = sponsor.getCoSponsors()
+        verbose("Number of cosponsors: %d" % len(cosponsors))
+        self.circulateBill(bill, cosponsors)
+        
+        #circulate draft among committee
+        verbose("\nCommittee revision:")
+        committee = self.getCommitteeMembers(bill)
+        verbose("Number of committee members: %d" % len(committee))
+        self.circulateBill(bill, committee)
+        
+        # put to vote
+        verbose("\n Final legislative body dissatisfaction: %1.4f" % bill.measureDisSatisfaction(reviewers=self.legislators))
         self.putToVote(bill)
+        
+    def getCommitteeMembers(self, bill):
+        committee = []
+        for rep in self.legislators:
+            if rep.priorities[bill.main_issue] == max(rep.priorities):
+                committee.append(rep)
+        if not committee:
+            reps = sorted(self.legislators, key = lambda rep: rep.priorities[bill.main_issue])
+            number = int(min(len(reps)/10, 5))
+            committee = reps[:number]
+        return committee
 
-    def circulateDraft(self, bill):
-        # STUB
-        bill.setReviewers(bill.sponsor.getCoSponsors())
-        revdash = bill.solutions.deepcopy()
+    def circulateBill(self, bill, reviewers):
+        bill.setReviewers(reviewers)
+        verbose("Initial dissatisfaction: %1.4f"%bill.measureDisSatisfaction())
+        revdash = bill.solutions.copy()
         (temps, times) = Annealer.configureLinearSchedule(Min_Temp, Max_Temp, Min_Time, Max_Time, Time_Step)
         revision = Annealer.anneal(revdash, bill.revise, bill.measureDisSatisfaction, k_B, temps, times)
-        bill.solutions = revision.deepcopy()
-
-    def referToCommittee(self, bill):
-        # STUB
-        #committee = None
-        #bill.anneal(committee)
-        pass
+        bill.solutions = revision.copy()
+        verbose("Post-revision dissatisfaction: %1.4f"%bill.measureDisSatisfaction())
 
     def putToVote(self, bill):
         votes = 0
         for rep in self.legislators:
-            if rep.getSatisfactionWithBill(bill) > Satisfaction_Threshold:
+            if rep.getSatisfactionWithBill(bill.solutions) > Satisfaction_Threshold:
                 votes += 1
+        
+        verbose("Number of votes: %d" % votes)
         if votes > 0.5*Num_of_Representatives:
             self.makeLaw(bill)
 
     def makeLaw(self, bill):
-        pass # TODO - code stuff below
+        # TODO - code stuff below
         # transfer bill's solutions to laws dictionary
         # delete issues from legislators' priorities and positions (issues don't resurface once law is passed)
+        pass
 
 class Bill(object):
 
@@ -254,13 +286,14 @@ class Bill(object):
         self.solutions = {}
         self.sponsor = sponsor
         self.solutions[issue] = proposal
+        self.main_issue = issue
         self.reviewers = []
         
     def setReviewers(self, reviewers):
         self.reviewers = reviewers
 
     def revise(self, solutions):  # move bill to a neighbor in state-space
-        revision = solutions.deepcopy()
+        revision = solutions.copy()
         issue = choice(State.issues)  # we could narrow this down so it only changes issues that are high-priority for reviewers
         # or pick one of the existing reviewers to choose an issue to revise according to reviewer's position
         bit = choice(range(Solution_Bit_Length))
@@ -271,11 +304,15 @@ class Bill(object):
             revision[issue] = mask # otherwise add it to the bill's issues list
         return revision
             
-    def measureDisSatisfaction(self, solutions):  # objective function
+    def measureDisSatisfaction(self, solutions=None, reviewers=None):  # objective function
+        if not reviewers:
+            reviewers = self.reviewers
+        if not solutions:
+            solutions = self.solutions
         E = 0
-        for reviewer in self.reviewers:
-            E += reviewer.getSatisfactionWithBill(self, solutions)
-        E /= len(self.reviewers)
+        for reviewer in reviewers:
+            E += reviewer.getSatisfactionWithBill(solutions)
+        E /= len(reviewers)
         return -E
     
 class Annealer(object):
@@ -289,8 +326,8 @@ class Annealer(object):
         schedule_times := a list of durations to anneal at each temperature
         '''
         best_energy = objective_func(initial_state)
-        best_state = initial_state.deepcopy()
-        prev_state = initial_state.deepcopy()
+        best_state = initial_state.copy()
+        prev_state = initial_state.copy()
         prev_energy = best_energy
         for step in range(len(schedule_temps)):
             temp = schedule_temps[step]
@@ -302,20 +339,20 @@ class Annealer(object):
                 # accept the new state if lower energy or probabilistically
                 if energy < prev_energy:
                     prev_energy = energy
-                    prev_state = state.deepcopy()
+                    prev_state = state.copy()
                     if energy < best_energy:
                         best_energy = energy
-                        best_state = state.deepcopy()
+                        best_state = state.copy()
                 elif random() < exp(-delta_energy/(k*temp)):
                     prev_energy = energy
-                    prev_state = state.deepcopy()
+                    prev_state = state.copy()
         return best_state
     
     @staticmethod
     def configureLinearSchedule(min_temp, max_temp, min_time, max_time, time_step):
         times = list(range(max_time, min_time, -time_step))
         temp_step = (max_temp - min_temp)/len(times)
-        temps = list(range(max_temp, min_temp, -temp_step))
+        temps = [min_temp+temp_step*i for i in range(len(times))]
         return (temps, times)
                     
 if __name__ == "__main__":
@@ -323,4 +360,6 @@ if __name__ == "__main__":
     setNumOfIssues(20)
     setNumOfRepresentatives(100)
     s = State()
+    for i in range(10):
+        s.step()
 
