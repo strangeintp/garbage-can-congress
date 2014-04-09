@@ -43,8 +43,8 @@ Issue_Similarity_Level = 2
 Min_Temp = 0.01
 Max_Temp = 1
 Min_Time = 1
-Max_Time = 100
-Time_Step = 10
+Max_Time = 20
+Time_Step = 2
 k_B = -0.1/log(0.5)  # accept a decrease of 0.1 in satisfaction with a bill with probability 1/2 at temp=1.0
 
 def pdf(values):
@@ -80,7 +80,7 @@ def bitwiseJaccardIndex(a, b):
 
 def binaryTreeSimilarity(a, b):
     c = a^b
-    sim_level = 1.0
+    sim_level = 0.5
     sim = 1.0
     i = 1
     while i <= Solution_Bit_Length:
@@ -214,7 +214,7 @@ class State(object):
         # initialize lawmakers
         self.legislators = []
         State.issues = range(Num_of_Issues)
-        default_priorities = [1+i for i in range(Num_of_Issues)]
+        default_priorities = [1 for i in range(Num_of_Issues)]#[1+i for i in range(Num_of_Issues)]
         #default_priorities += [1 for i in range(5,Num_of_Issues)]
         verbose(default_priorities)
         for i in range(Num_of_Representatives):
@@ -246,10 +246,14 @@ class State(object):
     def getCommitteeMembers(self, bill):
         committee = []
         for rep in self.legislators:
-            if rep.priorities[bill.main_issue] == max(rep.priorities):
+            rep_prioritized_issues = sorted(State.issues, key = lambda issue : rep.priorities[issue])
+            if bill.main_issue in rep_prioritized_issues[-10:-1]:
                 committee.append(rep)
-        if not committee:
+            #if rep.priorities[bill.main_issue] == max(list(rep.priorities.values())):
+                #committee.append(rep)
+        if len(committee)==0:
             reps = sorted(self.legislators, key = lambda rep: rep.priorities[bill.main_issue])
+            #number = [rep for rep in reps if rep.priorities[bill.main_issue] >
             number = int(min(len(reps)/10, 5))
             committee = reps[:number]
         return committee
@@ -357,7 +361,7 @@ class Annealer(object):
                     
 if __name__ == "__main__":
     setSolutionBitLength(4)
-    setNumOfIssues(20)
+    setNumOfIssues(30)
     setNumOfRepresentatives(100)
     s = State()
     for i in range(10):
