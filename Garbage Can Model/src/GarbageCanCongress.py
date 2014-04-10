@@ -136,13 +136,13 @@ class Legislator(object):
         matrix = [[0 for i in range(Num_of_Representatives)] for j in range(Num_of_Representatives)]
         for rep1 in legislators:
             i = legislators.index(rep1)
+            rep1_issues = sorted(State.issues, key = lambda i: rep1.priorities[i], reverse=True)
             for rep2 in legislators:
                 j = legislators.index(rep2)
                 if rep1==rep2:
                     rep1.links[rep2] = 1
                     matrix[i][i] = 1
-                else:
-                    rep1_issues = sorted(State.issues, key = lambda i: rep1.priorities[i], reverse=True)
+                else:                    
                     link_strength = 0
                     sum_pri_diffs = 0
                     for issue in rep1_issues[0:Issue_Similarity_Level]:
@@ -385,7 +385,7 @@ class Annealer(object):
                     
 if __name__ == "__main__":
     setSolutionBitLength(4)
-    setNumOfIssues(30)
+    setNumOfIssues(100)
     setNumOfRepresentatives(100)
     s = State()
     for i in range(10):
