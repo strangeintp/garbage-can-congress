@@ -35,9 +35,10 @@ def setSolutionBitLength(l = Solution_Bit_Length):
     Solution_Bit_Length = l
     return l
 
-Satisfaction_Threshold = 0.5  # threshold of satisfaction for voting aye on a bill
+Satisfaction_Threshold = 0.55  # threshold of satisfaction for voting aye on a bill
 One_Degree_Threshold = 0.5
-Issue_Similarity_Level = 2
+Issue_Similarity_Level = 3
+PDFCM = 5 # Priority Depth For Committee Membership
 
 # Annealer values
 Min_Temp = 0.01
@@ -135,13 +136,13 @@ class Legislator(object):
         matrix = [[0 for i in range(Num_of_Representatives)] for j in range(Num_of_Representatives)]
         for rep1 in legislators:
             i = legislators.index(rep1)
+            rep1_issues = sorted(State.issues, key = lambda i: rep1.priorities[i], reverse=True)
             for rep2 in legislators:
                 j = legislators.index(rep2)
                 if rep1==rep2:
                     rep1.links[rep2] = 1
                     matrix[i][i] = 1
-                else:
-                    rep1_issues = sorted(State.issues, key = lambda i: rep1.priorities[i], reverse=True)
+                else:                    
                     link_strength = 0
                     sum_pri_diffs = 0
                     for issue in rep1_issues[0:Issue_Similarity_Level]:
@@ -187,7 +188,7 @@ class Legislator(object):
         bill = Bill(self, (issue, self.positions[issue]))
         return bill
         
-    def getCoSponsors(self):
+    def pickCoSponsors(self, bill=None):
         cosponsors = []
         for rep in self.links.keys():
             if self.links[rep] > 0.5:
@@ -204,32 +205,59 @@ class Legislator(object):
         s /= sum_pris # normalize to relevant priorities
         return s
 
+class SmartLegislator(Legislator):
+    '''
+    Picks co-sponsors based on similarity of the bill main issue
+    '''
+    def pickCoSponsors(self, bill):
+        '''
+        Note that with an issue similarity depth of one for network formation, 
+        and with only highest-priority issue bills being proposed,
+        this method will not be any different than for the base class, since the same set of legislators
+        will meet the criteria.
+        '''
+        cosponsors = []
+        for rep in State.legislators:
+            support = binaryTreeSimilarity(self.positions[bill.main_issue], rep.positions[bill.main_issue])
+            if support > 0.5:
+                cosponsors.append(rep)
+        return cosponsors
+
 class State(object):
 
-    issues = []  # TODO:  make this more complicated?
-    # e.g., issues could be related by Jaccard index
+    issues = []  
     laws = {}  # a dictionary of passed laws (solutions to issues), key: issue
+    legislators = []
 
     def __init__(self):
         # initialize lawmakers
-        self.legislators = []
+        State.legislators = []
         State.issues = range(Num_of_Issues)
-        default_priorities = [1 for i in range(Num_of_Issues)]#[1+i for i in range(Num_of_Issues)]
-        #default_priorities += [1 for i in range(5,Num_of_Issues)]
-        verbose(default_priorities)
+        seed_priorities = [1 for i in range(Num_of_Issues)]#
+        #seed_priorities = [1+i for i in range(Num_of_Issues)] #uncomment this for a skewed priority list
+        #verbose(default_priorities)
+        seed_positions = State.generatePartyPositions()
         for i in range(Num_of_Representatives):
-            self.legislators.append(Legislator(default_priorities))
-        network = Legislator.generatePrioritizedNetwork(self.legislators)
+            State.legislators.append(SmartLegislator(default_priorities=seed_priorities)) #, default_positions=seed_positions[i]))
+        network = Legislator.generatePrioritizedNetwork(State.legislators)
         dumpNetwork(network)
+        
+    @staticmethod
+    def generatePartyPositions():
+        positions = []
+        
+        return positions
 
     def step(self):
-        sponsor = choice(self.legislators)
+        verbose("=================================   New Bill   =======================================================")
+        sponsor = choice(State.legislators)
         bill = sponsor.proposeBill()
-        verbose("Initial legislative body dissatisfaction: %1.4f" % bill.measureDisSatisfaction(reviewers=self.legislators))
+        verbose("Initial legislative body dissatisfaction: %1.4f" % bill.measureDisSatisfaction(reviewers=State.legislators))
+        self.putToVote(bill)
         
         #circulate draft among cosposnors
         verbose("\nDraft review by Cosponsors:")
-        cosponsors = sponsor.getCoSponsors()
+        cosponsors = sponsor.pickCoSponsors(bill)
         verbose("Number of cosponsors: %d" % len(cosponsors))
         self.circulateBill(bill, cosponsors)
         
@@ -239,23 +267,19 @@ class State(object):
         verbose("Number of committee members: %d" % len(committee))
         self.circulateBill(bill, committee)
         
+        # number of issues covered in bill's final form
+        verbose("Number of issues addressed: %d" % len(bill.solutions.keys()))
+        
         # put to vote
-        verbose("\n Final legislative body dissatisfaction: %1.4f" % bill.measureDisSatisfaction(reviewers=self.legislators))
+        verbose("\nFinal legislative body dissatisfaction: %1.4f" % bill.measureDisSatisfaction(reviewers=State.legislators))
         self.putToVote(bill)
         
     def getCommitteeMembers(self, bill):
         committee = []
-        for rep in self.legislators:
+        for rep in State.legislators:
             rep_prioritized_issues = sorted(State.issues, key = lambda issue : rep.priorities[issue])
-            if bill.main_issue in rep_prioritized_issues[-10:-1]:
+            if bill.main_issue in rep_prioritized_issues[-PDFCM:-1]:
                 committee.append(rep)
-            #if rep.priorities[bill.main_issue] == max(list(rep.priorities.values())):
-                #committee.append(rep)
-        if len(committee)==0:
-            reps = sorted(self.legislators, key = lambda rep: rep.priorities[bill.main_issue])
-            #number = [rep for rep in reps if rep.priorities[bill.main_issue] >
-            number = int(min(len(reps)/10, 5))
-            committee = reps[:number]
         return committee
 
     def circulateBill(self, bill, reviewers):
@@ -269,7 +293,7 @@ class State(object):
 
     def putToVote(self, bill):
         votes = 0
-        for rep in self.legislators:
+        for rep in State.legislators:
             if rep.getSatisfactionWithBill(bill.solutions) > Satisfaction_Threshold:
                 votes += 1
         
@@ -361,7 +385,7 @@ class Annealer(object):
                     
 if __name__ == "__main__":
     setSolutionBitLength(4)
-    setNumOfIssues(30)
+    setNumOfIssues(100)
     setNumOfRepresentatives(100)
     s = State()
     for i in range(10):
