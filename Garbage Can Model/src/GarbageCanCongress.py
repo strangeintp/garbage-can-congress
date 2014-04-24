@@ -9,6 +9,7 @@ from random import choice
 from random import random
 from random import shuffle
 from random import getrandbits
+from random import sample
 from math import exp
 from math import log
 
@@ -35,17 +36,49 @@ def setSolutionBitLength(l = Solution_Bit_Length):
     Solution_Bit_Length = l
     return l
 
-Satisfaction_Threshold = 0.55  # threshold of satisfaction for voting aye on a bill
-One_Degree_Threshold = 0.5
-Issue_Similarity_Level = 3
-PDFCM = 5 # Priority Depth For Committee Membership
+Satisfaction_Threshold = 0.65  # threshold of satisfaction for voting aye on a bill
+PDFCM = 4 # Priority Depth For Committee Membership
+
+#Partisanship Parameters
+Unaffiliated_Fraction = 1.0
+def setUnaffiliatedFraction(f = Unaffiliated_Fraction):
+    global Unaffiliated_Fraction
+    Unaffiliated_Fraction = f
+    return f
+
+'''
+There are two parties:  Green and Yellow.
+u = unaffiliated fraction
+g = green fraction
+N = Unaffiliated + Green + Yellow = N*u + N*(1-u)*g + N*(1-u)*(1-g)
+'''
+# enum for party IDs
+PARTY_NONE = 0
+GREEN = 1
+YELLOW = 2
+
+Green_Fraction = 0.5  # portion of party-affiliated representatives that are in the "Green" party
+def setGreenFraction(f = Green_Fraction):
+    global Green_Fraction
+    Green_Fraction = f
+    return f
+
+Ideology_Issues = 5
+def setIdeologyIssues(n = Ideology_Issues):
+    global Ideology_Issues
+    Ideology_Issues = n
+    return n
+
+Ideology_Bit_Depth = 4
+
+Priority_Multiplier = 2
 
 # Annealer values
 Min_Temp = 0.01
 Max_Temp = 1
 Min_Time = 1
 Max_Time = 20
-Time_Step = 2
+Time_Step = 5
 k_B = -0.1/log(0.5)  # accept a decrease of 0.1 in satisfaction with a bill with probability 1/2 at temp=1.0
 
 def pdf(values):
@@ -145,45 +178,47 @@ class Legislator(object):
                 else:                    
                     link_strength = 0
                     sum_pri_diffs = 0
-                    for issue in rep1_issues[0:Issue_Similarity_Level]:
+                    for issue in rep1_issues[0:Ideology_Issues]:
                         similarity = binaryTreeSimilarity(rep1.positions[issue], rep2.positions[issue])
                         pri_diff = 1 - abs(rep1.priorities[issue] - rep2.priorities[issue])
                         link_strength += similarity*pri_diff
                         sum_pri_diffs += pri_diff
                     link_strength = (link_strength/sum_pri_diffs)*2 - 1
-                    rep1.links[rep2] = link_strength
-                    matrix[i][j] = link_strength
+                    link = link_strength #1 if random()<link_strength else 0
+                    rep1.links[rep2] = link
+                    matrix[i][j] = link
         return matrix
 
 
-    def __init__(self, default_priorities=[], default_positions=[]):
+    def __init__(self, affiliation, priority_issues=[], default_positions={}):
         self.priorities = {}
         self.positions = {}
         self.links = {} # network link strengths to other legislators
-        if default_priorities:
-            priorities = default_priorities
-        else:
-            priorities = [1 for i in range(Num_of_Issues)]  #seed as uniform
-        # allocate priorities by preferential attachment
-        # generates a power law distribution of priorities
-        # i.e., legislators have high priority on a few issues,
-        # medium priority on some issues,
-        # and low priority on most issues
-        # TODO test the resulting distribution
+        self.affiliation = affiliation
+        
+        priorities = [1 for i in range(Num_of_Issues)]
+        for issue in priority_issues:
+            priorities[issue] = Priority_Multiplier * (priority_issues.index(issue) + 1)
+                    
         for i in range(Num_of_Issues**2):
             priorities[randomFromCDF(cdf(priorities))] += 1
         # normalize the priorities to sum = 1
         priorities = pdf(priorities)
-        shuffle(priorities)
         #assign priorities and positions
-        for i in State.issues:
-            self.priorities[i] = priorities.pop(0)
-            self.positions[i] = getrandbits(Solution_Bit_Length)
+        for issue in State.issues:
+            self.priorities[issue] = priorities[issue]
+            self.positions[issue] = getrandbits(Solution_Bit_Length)
+            if issue in default_positions.keys():  # set the last bits according to default position
+                b = Ideology_Bit_Depth
+                #self.positions[issue] = (self.positions[issue]>>b)<<b + default_positions[issue]
+                self.positions[issue] = default_positions[issue]
+    
 
     def proposeBill(self):
         #issue = choice(list(self.priorities.keys())) # TODO:  get highest priority issue
         issues = sorted(list(State.issues), key = lambda issue : self.priorities[issue])
         issue = issues[-1]
+        issue = choice(State.issues)
         verbose("\nMain issue: %d" % issue)
         bill = Bill(self, (issue, self.positions[issue]))
         return bill
@@ -205,48 +240,50 @@ class Legislator(object):
         s /= sum_pris # normalize to relevant priorities
         return s
 
-class SmartLegislator(Legislator):
-    '''
-    Picks co-sponsors based on similarity of the bill main issue
-    '''
-    def pickCoSponsors(self, bill):
-        '''
-        Note that with an issue similarity depth of one for network formation, 
-        and with only highest-priority issue bills being proposed,
-        this method will not be any different than for the base class, since the same set of legislators
-        will meet the criteria.
-        '''
-        cosponsors = []
-        for rep in State.legislators:
-            support = binaryTreeSimilarity(self.positions[bill.main_issue], rep.positions[bill.main_issue])
-            if support > 0.5:
-                cosponsors.append(rep)
-        return cosponsors
 
 class State(object):
 
     issues = []  
-    laws = {}  # a dictionary of passed laws (solutions to issues), key: issue
-    legislators = []
+    laws = {}  # a dictionary of passed laws (solutions to issues), key: issue;  not used at this time
+    legislators = [] 
 
     def __init__(self):
         # initialize lawmakers
         State.legislators = []
         State.issues = range(Num_of_Issues)
-        seed_priorities = [1 for i in range(Num_of_Issues)]#
-        #seed_priorities = [1+i for i in range(Num_of_Issues)] #uncomment this for a skewed priority list
-        #verbose(default_priorities)
-        seed_positions = State.generatePartyPositions()
-        for i in range(Num_of_Representatives):
-            State.legislators.append(SmartLegislator(default_priorities=seed_priorities)) #, default_positions=seed_positions[i]))
+        
+        u = int(Num_of_Representatives * Unaffiliated_Fraction)  # number of unaffiliated members
+        a = Num_of_Representatives - u # number of affiliated members
+        g = int(a * Green_Fraction)
+        y = a - g
+        print(g)
+        print(y)
+                  
+        green_issues = sample(State.issues, Ideology_Issues)
+        yellow_issues = sample(State.issues, Ideology_Issues)
+        print(green_issues)
+        print(yellow_issues)
+        green_positions = {}
+        yellow_positions = {}
+        green_position = 2**(Ideology_Bit_Depth) - 1
+        for issue in green_issues:
+            green_positions[issue] = green_position
+            yellow_positions[issue] = 0
+        for issue in yellow_issues:
+            yellow_positions[issue] = 0
+            green_positions[issue] = green_position
+        print(green_positions)
+        print(yellow_positions)
+        
+        for rep in range(u):
+            State.legislators.append(Legislator(PARTY_NONE))    
+        for rep in range(g):
+            State.legislators.append(Legislator(GREEN, priority_issues=green_issues, default_positions=green_positions))        
+        for rep in range(y):
+            State.legislators.append(Legislator(YELLOW, priority_issues=yellow_issues, default_positions=yellow_positions))
+                
         network = Legislator.generatePrioritizedNetwork(State.legislators)
         dumpNetwork(network)
-        
-    @staticmethod
-    def generatePartyPositions():
-        positions = []
-        
-        return positions
 
     def step(self):
         verbose("=================================   New Bill   =======================================================")
@@ -283,6 +320,8 @@ class State(object):
         return committee
 
     def circulateBill(self, bill, reviewers):
+        if not reviewers:
+            reviewers = sample(State.legislators, 5)
         bill.setReviewers(reviewers)
         verbose("Initial dissatisfaction: %1.4f"%bill.measureDisSatisfaction())
         revdash = bill.solutions.copy()
@@ -385,8 +424,12 @@ class Annealer(object):
                     
 if __name__ == "__main__":
     setSolutionBitLength(4)
-    setNumOfIssues(100)
+    setNumOfIssues(50)
     setNumOfRepresentatives(100)
+    
+    setUnaffiliatedFraction(0.05)
+    setGreenFraction(0.5)
+    setIdeologyIssues(5)
     s = State()
     for i in range(10):
         s.step()
