@@ -1,0 +1,49 @@
+Experiment GCC Post-Calibration
+Histories and networks runs for post-calibration.
+Experiment started 2014-05-02 181139
+There are no variants to combine.  A single job will run, with the defaults.
+######################################################
+Experiment Defaults:
+                          setNumOfIssues :,  	75
+                 setNumOfRepresentatives :,  	100
+                 setUnaffiliatedFraction :,  	0.05
+                        setGreenFraction :,  	0.5
+                       setIdeologyIssues :,  	10
+                setSatisfactionThreshold :,  	0.675
+Experiment Parameter Variations:
+                          setNumOfIssues :,  	[75]
+                 setNumOfRepresentatives :,  	[100]
+                 setUnaffiliatedFraction :,  	[0.05]
+                        setGreenFraction :,  	[0.5]
+                       setIdeologyIssues :,  	[10]
+                setSatisfactionThreshold :,  	[0.675]
+######################################################
+*********************Job Settings*********************
+                          setNumOfIssues :	,75
+                 setNumOfRepresentatives :	,100
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,10
+                setSatisfactionThreshold :	,0.675
+ job ID, setNumOfIssues, setNumOfRepresentatives, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, setSatisfactionThreshold, proposals, laws count, provisions, satisfaction
+ 1,                   75,                  100,                 0.05,                  0.5,                   10,                0.675,200.00,8.00,64.00,0.7211
+ 1,                   75,                  100,                 0.05,                  0.5,                   10,                0.675,200.00,9.00,55.00,0.7483
+ 1,                   75,                  100,                 0.05,                  0.5,                   10,                0.675,200.00,9.00,67.00,0.7412
+averages: ,                   75,                  100,                 0.05,                  0.5,                   10,                0.675,200.00,8.67,62.00,0.7369
+standard deviations: ,                   75,                  100,                 0.05,                  0.5,                   10,                0.675,0.00,0.47,5.10,0.0115
+######################################################
+EXPERIMENT SUMMARY:  JOB AVERAGES
+######################################################
+
+, setNumOfIssues, setNumOfRepresentatives, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, setSatisfactionThreshold, proposals, laws count, provisions, satisfaction
+ 1,                   75,                  100,                 0.05,                  0.5,                   10,                0.675,200.00,8.67,62.00,0.7369
+######################################################
+EXPERIMENT SUMMARY:  JOB STANDARD DEVIATIONS
+######################################################
+
+, setNumOfIssues, setNumOfRepresentatives, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, setSatisfactionThreshold, proposals, laws count, provisions, satisfaction
+ 1,                   75,                  100,                 0.05,                  0.5,                   10,                0.675,0.00,0.47,5.10,0.0115
+######################################################
+Experiment Completed 2014-05-02 181219
+######################################################
+
