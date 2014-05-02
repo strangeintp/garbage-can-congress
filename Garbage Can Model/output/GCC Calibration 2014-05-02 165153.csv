@@ -1,0 +1,49 @@
+Experiment GCC Calibration
+Calibrating the satisfaction threshold to achieve ~5% pass rate of proposals.
+Experiment started 2014-05-02 165153
+There are no variants to combine.  A single job will run, with the defaults.
+######################################################
+Experiment Defaults:
+                          setNumOfIssues :,  	50
+                 setNumOfRepresentatives :,  	100
+                setSatisfactionThreshold :,  	0.6125
+                 setUnaffiliatedFraction :,  	0.5
+                        setGreenFraction :,  	0.5
+                       setIdeologyIssues :,  	5
+Experiment Parameter Variations:
+                          setNumOfIssues :,  	[50]
+                 setNumOfRepresentatives :,  	[100]
+                setSatisfactionThreshold :,  	[0.6125]
+                 setUnaffiliatedFraction :,  	[0.5]
+                        setGreenFraction :,  	[0.5]
+                       setIdeologyIssues :,  	[5]
+######################################################
+*********************Job Settings*********************
+                          setNumOfIssues :	,50
+                 setNumOfRepresentatives :	,100
+                setSatisfactionThreshold :	,0.6125
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,5
+ job ID, setNumOfIssues, setNumOfRepresentatives, setSatisfactionThreshold, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, laws count, provisions, satisfaction
+ 1,                   50,                  100,               0.6125,                  0.5,                  0.5,                    5,15,34,0.6119
+ 1,                   50,                  100,               0.6125,                  0.5,                  0.5,                    5,12,41,0.6053
+ 1,                   50,                  100,               0.6125,                  0.5,                  0.5,                    5,14,29,0.6183
+averages: ,                   50,                  100,               0.6125,                  0.5,                  0.5,                    5,13,34,0.6118
+standard deviations: ,                   50,                  100,               0.6125,                  0.5,                  0.5,                    5,1,4,0.0053
+######################################################
+EXPERIMENT SUMMARY:  JOB AVERAGES
+######################################################
+
+, setNumOfIssues, setNumOfRepresentatives, setSatisfactionThreshold, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, laws count, provisions, satisfaction
+ 1,                   50,                  100,               0.6125,                  0.5,                  0.5,                    5,13,34,0.6118
+######################################################
+EXPERIMENT SUMMARY:  JOB STANDARD DEVIATIONS
+######################################################
+
+, setNumOfIssues, setNumOfRepresentatives, setSatisfactionThreshold, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, laws count, provisions, satisfaction
+ 1,                   50,                  100,               0.6125,                  0.5,                  0.5,                    5,1,4,0.0053
+######################################################
+Experiment Completed 2014-05-02 165219
+######################################################
+

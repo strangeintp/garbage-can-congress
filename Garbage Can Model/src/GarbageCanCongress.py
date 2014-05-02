@@ -10,12 +10,21 @@ from random import random
 from random import shuffle
 from random import getrandbits
 from random import sample
+from random import randint
 from math import exp
 from math import log
 from utility import pdf
 from utility import cdf
 from utility import randomFromCDF
 from utility import getTimeStampString
+from experiment import Experiment
+import traceback
+
+DEBUG = False
+def setDebug(val = DEBUG):
+    global DEBUG
+    DEBUG = val
+    return val
 
 VERBOSE = False
 def setVerbose(val = VERBOSE):
@@ -40,7 +49,8 @@ formatters = []
 
 def setupHistoryFile():
     global history_file
-    filename = "../output/history " + timestamp + ".csv"
+    filename = "../test_output/" if DEBUG else "../output/"
+    filename += "history " + timestamp + ".csv"
     print(filename)
     history_file = open(filename, 'w')
 
@@ -86,8 +96,15 @@ def setSolutionBitLength(l = Solution_Bit_Length):
     Solution_Bit_Length = l
     return l
 
-Satisfaction_Threshold = 0.65  # threshold of satisfaction for voting aye on a bill
+Satisfaction_Threshold = 0.6  # threshold of satisfaction for voting aye on a bill
+def setSatisfactionThreshold(threshold = Satisfaction_Threshold):
+    global Satisfaction_Threshold
+    Satisfaction_Threshold = threshold
+    return threshold
+
 PDFCM = 4 # Priority Depth For Committee Membership
+Friend_Threshold = -0.5
+Minimum_Friends = 5
 
 #Partisanship Parameters
 Unaffiliated_Fraction = 1.0
@@ -148,7 +165,8 @@ def binaryTreeSimilarity(a, b):
     return sim
 
 def dumpNetwork(network):
-    filename = "../output/network " + timestamp + ".csv"
+    filename = "../test_output/" if DEBUG else "../output/"
+    filename += "network " + timestamp + ".csv"
     print(filename)
     file = open(filename, 'w')
     for i in range(Num_of_Representatives):
@@ -157,11 +175,17 @@ def dumpNetwork(network):
             delim = Delimiter if j<Num_of_Representatives-1 else ''
             file.write("%1.5f %s"%(network[i][j], delim))
         file.write("\n")
+    file.write("\n")
+    for i in range(Num_of_Representatives):
+        file.write("%1.5f %s"%(sum(network[i]), Delimiter if i<Num_of_Representatives-1 else ''))
 
 class Legislator(object):
 
     @staticmethod
     def generatePrioritizedNetwork(legislators):
+        '''
+        Return adjacency matrix based only on homophily
+        '''
         matrix = [[0 for i in range(Num_of_Representatives)] for j in range(Num_of_Representatives)]
         for rep1 in legislators:
             i = legislators.index(rep1)
@@ -180,10 +204,55 @@ class Legislator(object):
                         link_strength += similarity*pri_diff
                         sum_pri_diffs += pri_diff
                     link_strength = (link_strength/sum_pri_diffs)*2 - 1
-                    link = link_strength #1 if random()<link_strength else 0
+                    link = link_strength
                     rep1.links[rep2] = link
                     matrix[i][j] = link
         return matrix
+    
+    @staticmethod
+    def preferentialHomophilyNetwork(legislators):
+        '''
+        Returns adjacency matrix based on preferential attachment with homophily
+        '''
+        
+        for i in range(Num_of_Representatives):
+            legislators[i].linkTo(legislators[i],1)
+        for rep1 in sample(legislators, Num_of_Representatives):  # (a shuffle without changing the original list)
+            i = legislators.index(rep1)
+            rep1_issues = sorted(State.issues, key = lambda i: rep1.priorities[i], reverse=True)
+            potential_friends = []
+            for rep2 in legislators:  # first find all potential friends with homophily
+                j = legislators.index(rep2)
+                if rep1!=rep2:                    
+                    link_strength = 0
+                    sum_pri_diffs = 0
+                    for issue in rep1_issues[0:Ideology_Issues]:
+                        similarity = binaryTreeSimilarity(rep1.positions[issue], rep2.positions[issue])
+                        pri_diff = 1 - abs(rep1.priorities[issue] - rep2.priorities[issue])
+                        link_strength += similarity*pri_diff
+                        sum_pri_diffs += pri_diff
+                    link_strength = (link_strength/sum_pri_diffs)*2 - 1
+                    if link_strength > Friend_Threshold:
+                        potential_friends.append(rep2)
+            degrees = [1 for rep in potential_friends]
+            for k in range(Minimum_Friends):
+                degrees = [len(rep.links.values()) for rep in potential_friends]
+                friend_idx = randomFromCDF(cdf(degrees))
+                rep2 = potential_friends[friend_idx]
+                rep1.linkTo(rep2, 1)
+                potential_friends.remove(rep2)  # can't friend someone twice
+                    
+        
+        matrix = [[legislators[i].getLinkValueTo(legislators[j]) for i in range(Num_of_Representatives)] 
+                                                 for j in range(Num_of_Representatives)]
+        return matrix
+    
+    def linkTo(self, other, value):
+        self.links[other] = value
+        other.links[self] = value
+    
+    def getLinkValueTo(self, other):
+        return self.links[other] if other in self.links.keys() else 0
 
 
     def __init__(self, affiliation, priority_issues=[], default_positions={}):
@@ -214,9 +283,10 @@ class Legislator(object):
         #issue = choice(list(self.priorities.keys())) # TODO:  get highest priority issue
         #issues = sorted(list(State.issues), key = lambda issue : self.priorities[issue])
         #issue = issues[-1]
-        issue = choice(State.issues)
-        while(issue in State.laws.keys()):
-            issue = choice(State.issues)
+        issue = choice(State.open_issues)
+        self.current_proposal = issue
+        if issue in State.laws.keys() or issue not in State.open_issues:
+            pass
         verbose("\nMain issue: %d" % issue)
         bill = Bill(self, (issue, self.positions[issue]))
         return bill
@@ -241,7 +311,8 @@ class Legislator(object):
 
 class State(object):
 
-    issues = []  
+    issues = []
+    open_issues = []
     laws = {}  # a dictionary of passed laws (solutions to issues), key: issue;
     legislators = [] 
 
@@ -251,7 +322,9 @@ class State(object):
         verbose(timestamp)
         # initialize lawmakers
         State.legislators = []
-        State.issues = range(Num_of_Issues)
+        State.issues = [i for i in range(Num_of_Issues)]
+        State.open_issues = [i for i in range(Num_of_Issues)]
+        State.laws = {}
         self.law_count = 0
         
         u = int(Num_of_Representatives * Unaffiliated_Fraction)  # number of unaffiliated members
@@ -284,7 +357,8 @@ class State(object):
         for rep in range(y):
             State.legislators.append(Legislator(YELLOW, priority_issues=yellow_issues, default_positions=yellow_positions))
                 
-        network = Legislator.generatePrioritizedNetwork(State.legislators)
+        #network = Legislator.generatePrioritizedNetwork(State.legislators)
+        network = Legislator.preferentialHomophilyNetwork(State.legislators)
         if Histories_To_File:
             dumpNetwork(network)
             setupHistoryFile()
@@ -377,7 +451,18 @@ class State(object):
         # delete issues from legislators' priorities and positions (issues don't resurface once law is passed)
         issues = bill.solutions.keys()
         for issue in issues:
+            if issue not in State.open_issues:
+                pass
+        for issue in issues:
             State.laws[issue] = bill.solutions[issue]
+            try:
+                State.open_issues.remove(issue)
+            except:
+                pass
+#                 print("***********  ERROR ***********\nIssue %d not found!"%issue)
+#                 print("Open issues: %s"%str(State.open_issues))
+#                 print("Closed issues: %s"%str(State.laws.keys()))
+
     
     def closeout(self):
         sat = 0
@@ -394,27 +479,39 @@ class Bill(object):
 
     def __init__(self, sponsor, issue_proposal):
         (issue, proposal) = issue_proposal
+        self.original_issue = issue
+        self.original_proposal = proposal
         self.solutions = {}
         self.sponsor = sponsor
         self.solutions[issue] = proposal
         self.main_issue = issue
         self.reviewers = []
         
+    def distanceFromOriginal(self):
+        distance = 0
+        for issue in self.solutions.keys():
+            if issue == self.original_issue:
+                distance += 1 - binaryTreeSimilarity(self.original_proposal, self.solutions[issue])
+            else :
+                distance += 1
+        return distance
+        
     def setReviewers(self, reviewers):
         self.reviewers = reviewers
 
     def revise(self, solutions):  # move bill to a neighbor in state-space
         revision = solutions.copy()
-        issue = choice(State.issues)
-        while(issue in State.laws.keys()):
-            issue = choice(State.issues)
+        if State.open_issues:
+            issue = choice(State.open_issues)
+        else:
+            issue = choice(solutions.keys())
         # or pick one of the existing reviewers to choose an issue to revise according to reviewer's position
         bit = choice(range(Solution_Bit_Length))
         mask = 2**bit
         if issue in solutions.keys():  # if the issue is currently in the issues list,
             revision[issue] = revision[issue]^mask  # invert the bit in the current solution
         else:  # otherwise add it to the bill's issues list, with a random position on that issue
-            revision[issue] = mask*(0 if random()<0.5 else 1) 
+            revision[issue] = randint(0, (2**Solution_Bit_Length)-1) 
         return revision
             
     def measureDisSatisfaction(self, solutions=None, reviewers=None):  # objective function
@@ -468,9 +565,65 @@ class Annealer(object):
         temps = [min_temp+temp_step*i for i in range(len(times))]
         return (temps, times)
 
+class GCC_Experiment(Experiment):
+
+    def __init__(self):
+        super(GCC_Experiment, self).__init__()
+        self.state = None
+        self.run_output = None
+        writeHistories(True)
+        setDebug(False)
+        setVerbose(False)
+        setSolutionBitLength(4)
+
+    def initiateSim(self):
+        self.state = State()
+        self.proposals = 0
+
+    def stopSim(self):
+        condition = (self.proposals == 200 or len(State.open_issues)==0)
+        if condition:
+            self.run_output = self.state.closeout() 
+        return condition
+
+    def stepSim(self):
+        self.state.step()
+        self.proposals += 1
+
+    def getLawCount(self):
+        return self.run_output[0]
+
+    def getProvisionCount(self):
+        return self.run_output[1]
+    
+    def getTotalSatisfaction(self):
+        return self.run_output[2]
+
+    def setupOutputs(self):
+        self.addOutput(self.getLawCount, "laws count", "%d")
+        self.addOutput(self.getProvisionCount, "provisions", "%d")
+        self.addOutput(self.getTotalSatisfaction, "satisfaction", "%1.4f")
+        # TODO average priority of issues passes
+
+    def setupParameters(self):
+        self.addParameter(setNumOfIssues, 50)
+        self.addParameter(setNumOfRepresentatives, 100)
+        self.addParameter(setSatisfactionThreshold, [0.6125])
+        self.addParameter(setUnaffiliatedFraction, [0.5])
+        self.addParameter(setGreenFraction, [0.5])
+        self.addParameter(setIdeologyIssues, [5])
+
+    def setupExperiment(self):
+        self.Name = "GCC Calibration"
+        self.comments = "Calibrating the satisfaction threshold to achieve ~5% pass rate of proposals"
+        self.setupParameters()
+        self.job_repetitions = 3
+    
+
 def runOnce():
-    setVerbose(True)
-    writeHistories(False)
+    setDebug(False)
+    setVerbose(False)
+    writeHistories(True)
     setSolutionBitLength(4)
     setNumOfIssues(50)
     setNumOfRepresentatives(100)
@@ -478,7 +631,7 @@ def runOnce():
     setUnaffiliatedFraction(0.05)
     setGreenFraction(0.5)
     setIdeologyIssues(5)
-    proposals = 1
+    proposals = 200
     archive("Number of proposals: %d\n"%proposals)
     s = State()
     for i in range(proposals):
@@ -487,4 +640,5 @@ def runOnce():
 
           
 if __name__ == "__main__":
-    runOnce()
+    #runOnce()
+    GCC_Experiment().run()
