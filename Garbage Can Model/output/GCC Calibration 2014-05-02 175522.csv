@@ -1,0 +1,88 @@
+Experiment GCC Calibration
+Calibrating the satisfaction threshold to achieve ~5% pass rate of proposals.
+Experiment started 2014-05-02 175522
+
+######################################################
+Experiment Defaults:
+                          setNumOfIssues :,  	50
+                 setNumOfRepresentatives :,  	100
+                 setUnaffiliatedFraction :,  	0.05
+                        setGreenFraction :,  	0.5
+                       setIdeologyIssues :,  	10
+Experiment Parameter Variations:
+                setSatisfactionThreshold :,  	[0.55, 0.575, 0.6, 0.625, 0.65, 0.675]
+######################################################
+*********************Job Settings*********************
+                setSatisfactionThreshold :	,0.55
+ job ID, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 1,                 0.55,5,50,0.6156
+ 1,                 0.55,5,49,0.6906
+ 1,                 0.55,7,50,0.6057
+averages: ,                 0.55,5,49,0.6373
+standard deviations: ,                 0.55,0,0,0.0379
+*********************Job Settings*********************
+                setSatisfactionThreshold :	,0.575
+ job ID, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 2,                0.575,4,50,0.6782
+ 2,                0.575,5,50,0.6439
+ 2,                0.575,5,50,0.6035
+averages: ,                0.575,4,50,0.6419
+standard deviations: ,                0.575,0,0,0.0305
+*********************Job Settings*********************
+                setSatisfactionThreshold :	,0.6
+ job ID, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 3,                  0.6,3,50,0.6940
+ 3,                  0.6,3,49,0.7224
+ 3,                  0.6,4,50,0.7025
+averages: ,                  0.6,3,49,0.7063
+standard deviations: ,                  0.6,0,0,0.0119
+*********************Job Settings*********************
+                setSatisfactionThreshold :	,0.625
+ job ID, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 4,                0.625,3,49,0.6955
+ 4,                0.625,4,44,0.6253
+ 4,                0.625,8,50,0.6605
+averages: ,                0.625,5,47,0.6604
+standard deviations: ,                0.625,2,2,0.0286
+*********************Job Settings*********************
+                setSatisfactionThreshold :	,0.65
+ job ID, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 5,                 0.65,4,50,0.7351
+ 5,                 0.65,4,45,0.6519
+ 5,                 0.65,5,46,0.7215
+averages: ,                 0.65,4,47,0.7028
+standard deviations: ,                 0.65,0,2,0.0365
+*********************Job Settings*********************
+                setSatisfactionThreshold :	,0.675
+ job ID, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 6,                0.675,5,50,0.6682
+ 6,                0.675,6,49,0.7661
+ 6,                0.675,5,50,0.7454
+averages: ,                0.675,5,49,0.7266
+standard deviations: ,                0.675,0,0,0.0422
+######################################################
+EXPERIMENT SUMMARY:  JOB AVERAGES
+######################################################
+
+, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 1,                 0.55,5,49,0.6373
+ 2,                0.575,4,50,0.6419
+ 3,                  0.6,3,49,0.7063
+ 4,                0.625,5,47,0.6604
+ 5,                 0.65,4,47,0.7028
+ 6,                0.675,5,49,0.7266
+######################################################
+EXPERIMENT SUMMARY:  JOB STANDARD DEVIATIONS
+######################################################
+
+, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 1,                 0.55,0,0,0.0379
+ 2,                0.575,0,0,0.0305
+ 3,                  0.6,0,0,0.0119
+ 4,                0.625,2,2,0.0286
+ 5,                 0.65,0,2,0.0365
+ 6,                0.675,0,0,0.0422
+######################################################
+Experiment Completed 2014-05-02 175647
+######################################################
+

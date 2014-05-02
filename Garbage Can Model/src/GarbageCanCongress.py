@@ -145,8 +145,8 @@ Priority_Multiplier = 2
 Min_Temp = 0.01
 Max_Temp = 1
 Min_Time = 1
-Max_Time = 20
-Time_Step = 5
+Max_Time = 10
+Time_Step = 2
 k_B = -0.1/log(0.5)  # accept a decrease of 0.1 in satisfaction with a bill with probability 1/2 at temp=1.0
 
 
@@ -318,7 +318,6 @@ class State(object):
 
     def __init__(self):
         global timestamp, formatters
-        timestamp = getTimeStampString()
         verbose(timestamp)
         # initialize lawmakers
         State.legislators = []
@@ -326,6 +325,7 @@ class State(object):
         State.open_issues = [i for i in range(Num_of_Issues)]
         State.laws = {}
         self.law_count = 0
+        self.total_change = 0
         
         u = int(Num_of_Representatives * Unaffiliated_Fraction)  # number of unaffiliated members
         a = Num_of_Representatives - u # number of affiliated members
@@ -377,7 +377,7 @@ class State(object):
         dis = bill.measureDisSatisfaction(reviewers=State.legislators)
         verbose("Initial legislative body dissatisfaction: %1.4f" % dis)
         output_vector.append(dis)
-        self.putToVote(bill)
+        votes = self.putToVote(bill)
         
         #circulate draft among cosposnors
         verbose("\nDraft review by Cosponsors:")
@@ -407,6 +407,9 @@ class State(object):
         verbose("\nFinal legislative body dissatisfaction: %1.4f" % dis)
         output_vector.append(dis)
         votes = self.putToVote(bill)
+        if votes > 0.5*Num_of_Representatives:
+            self.makeLaw(bill)
+            self.law_count += 1
         verbose("Number of votes: %d" % votes)
         output_vector.append(votes)
         
@@ -440,9 +443,6 @@ class State(object):
             if rep.getSatisfactionWithBill(bill.solutions) > Satisfaction_Threshold:
                 votes += 1
         
-        if votes > 0.5*Num_of_Representatives:
-            self.makeLaw(bill)
-            self.law_count += 1
         return votes
 
     def makeLaw(self, bill):
@@ -462,6 +462,7 @@ class State(object):
 #                 print("***********  ERROR ***********\nIssue %d not found!"%issue)
 #                 print("Open issues: %s"%str(State.open_issues))
 #                 print("Closed issues: %s"%str(State.laws.keys()))
+        self.total_change += bill.distanceFromOriginal()
 
     
     def closeout(self):
@@ -504,7 +505,7 @@ class Bill(object):
         if State.open_issues:
             issue = choice(State.open_issues)
         else:
-            issue = choice(solutions.keys())
+            issue = choice(list(solutions.keys()))
         # or pick one of the existing reviewers to choose an issue to revise according to reviewer's position
         bit = choice(range(Solution_Bit_Length))
         mask = 2**bit
@@ -569,14 +570,18 @@ class GCC_Experiment(Experiment):
 
     def __init__(self):
         super(GCC_Experiment, self).__init__()
+        global timestamp
+        timestamp = self.datetime
         self.state = None
         self.run_output = None
-        writeHistories(True)
         setDebug(False)
+        writeHistories(True)
         setVerbose(False)
         setSolutionBitLength(4)
 
     def initiateSim(self):
+        global timestamp
+        timestamp = getTimeStampString()
         self.state = State()
         self.proposals = 0
 
@@ -589,6 +594,9 @@ class GCC_Experiment(Experiment):
     def stepSim(self):
         self.state.step()
         self.proposals += 1
+        
+    def getProposals(self):
+        return self.proposals
 
     def getLawCount(self):
         return self.run_output[0]
@@ -600,34 +608,38 @@ class GCC_Experiment(Experiment):
         return self.run_output[2]
 
     def setupOutputs(self):
-        self.addOutput(self.getLawCount, "laws count", "%d")
-        self.addOutput(self.getProvisionCount, "provisions", "%d")
+        self.addOutput(self.getProposals, "proposals", "%1.2f")
+        self.addOutput(self.getLawCount, "laws count", "%1.2f")
+        self.addOutput(self.getProvisionCount, "provisions", "%1.2f")
         self.addOutput(self.getTotalSatisfaction, "satisfaction", "%1.4f")
         # TODO average priority of issues passes
 
     def setupParameters(self):
-        self.addParameter(setNumOfIssues, 50)
+        self.addParameter(setNumOfIssues, 75)
         self.addParameter(setNumOfRepresentatives, 100)
-        self.addParameter(setSatisfactionThreshold, [0.6125])
-        self.addParameter(setUnaffiliatedFraction, [0.5])
+        self.addParameter(setUnaffiliatedFraction, [0.05])
         self.addParameter(setGreenFraction, [0.5])
-        self.addParameter(setIdeologyIssues, [5])
+        self.addParameter(setIdeologyIssues, [10])
+        self.addParameter(setSatisfactionThreshold, [0.675])
 
     def setupExperiment(self):
-        self.Name = "GCC Calibration"
-        self.comments = "Calibrating the satisfaction threshold to achieve ~5% pass rate of proposals"
+        self.Name = "GCC Post-Calibration"
+        self.comments = "Histories and networks runs for post-calibration"
         self.setupParameters()
         self.job_repetitions = 3
     
 
 def runOnce():
-    setDebug(False)
+    global timestamp
+    timestamp = getTimeStampString()
+    setDebug(True)
     setVerbose(False)
     writeHistories(True)
     setSolutionBitLength(4)
     setNumOfIssues(50)
     setNumOfRepresentatives(100)
     
+    setSatisfactionThreshold(0.5)
     setUnaffiliatedFraction(0.05)
     setGreenFraction(0.5)
     setIdeologyIssues(5)
@@ -635,7 +647,8 @@ def runOnce():
     archive("Number of proposals: %d\n"%proposals)
     s = State()
     for i in range(proposals):
-        s.step()
+        if State.open_issues:
+            s.step()
     s.closeout()
 
           

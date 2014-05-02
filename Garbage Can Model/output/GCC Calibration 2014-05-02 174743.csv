@@ -1,0 +1,44 @@
+Experiment GCC Calibration
+Calibrating the satisfaction threshold to achieve ~5% pass rate of proposals.
+Experiment started 2014-05-02 174743
+
+######################################################
+Experiment Defaults:
+                          setNumOfIssues :,  	50
+                 setNumOfRepresentatives :,  	100
+                 setUnaffiliatedFraction :,  	0.05
+                        setGreenFraction :,  	0.5
+Experiment Parameter Variations:
+                       setIdeologyIssues :,  	[3, 1]
+                setSatisfactionThreshold :,  	[0.8, 0.7, 0.6]
+######################################################
+*********************Job Settings*********************
+                       setIdeologyIssues :	,3
+                setSatisfactionThreshold :	,0.8
+ job ID, setIdeologyIssues, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 1,                    3,                  0.8,0,0,0.0000
+ 1,                    3,                  0.8,0,0,0.0000
+ 1,                    3,                  0.8,0,0,0.0000
+averages: ,                    3,                  0.8,0,0,0.0000
+standard deviations: ,                    3,                  0.8,0,0,0.0000
+*********************Job Settings*********************
+                       setIdeologyIssues :	,3
+                setSatisfactionThreshold :	,0.7
+ job ID, setIdeologyIssues, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 2,                    3,                  0.7,2,4,0.6456
+ 2,                    3,                  0.7,2,8,0.7091
+ 2,                    3,                  0.7,1,3,0.6617
+averages: ,                    3,                  0.7,1,5,0.6721
+standard deviations: ,                    3,                  0.7,0,2,0.0270
+*********************Job Settings*********************
+                       setIdeologyIssues :	,3
+                setSatisfactionThreshold :	,0.6
+ job ID, setIdeologyIssues, setSatisfactionThreshold, laws count, provisions, satisfaction
+ 3,                    3,                  0.6,4,12,0.6911
+ 3,                    3,                  0.6,3,17,0.6647
+ 3,                    3,                  0.6,3,34,0.6319
+averages: ,                    3,                  0.6,3,21,0.6626
+standard deviations: ,                    3,                  0.6,0,9,0.0242
+*********************Job Settings*********************
+                       setIdeologyIssues :	,1
+                setSatisfactionThreshold :	,0.8
