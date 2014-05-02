@@ -381,12 +381,14 @@ class State(object):
     
     def closeout(self):
         sat = 0
-        for rep in State.legislators:
-            sat += rep.getSatisfactionWithBill(State.laws)
+        if len(State.laws.values())>0:
+            for rep in State.legislators:
+                sat += rep.getSatisfactionWithBill(State.laws)
         sat /= Num_of_Representatives
         archive("Laws passed: %d\n"%self.law_count)
         archive("Total provisions: %d\n"%len(State.laws.values()))
         archive("Satisfaction with legislation: %1.4f\n"%sat)
+        return (self.law_count, len(State.laws.values()), sat)
 
 class Bill(object):
 
@@ -467,16 +469,16 @@ class Annealer(object):
         return (temps, times)
 
 def runOnce():
-    setVerbose(False)
-    writeHistories(True)
+    setVerbose(True)
+    writeHistories(False)
     setSolutionBitLength(4)
     setNumOfIssues(50)
     setNumOfRepresentatives(100)
     
     setUnaffiliatedFraction(0.05)
     setGreenFraction(0.5)
-    setIdeologyIssues(1)
-    proposals = 200
+    setIdeologyIssues(5)
+    proposals = 1
     archive("Number of proposals: %d\n"%proposals)
     s = State()
     for i in range(proposals):
