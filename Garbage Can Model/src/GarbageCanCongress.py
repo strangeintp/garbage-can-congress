@@ -11,7 +11,6 @@ from random import shuffle
 from random import getrandbits
 from random import sample
 from random import randint
-from math import exp
 from math import log
 from utility import pdf
 from utility import cdf
@@ -19,12 +18,14 @@ from utility import randomFromCDF
 from utility import getTimeStampString
 from experiment import Experiment
 import traceback
+from annealer import Annealer
 
 DEBUG = False
-def setDebug(val = DEBUG):
-    global DEBUG
+debug_directory = "../test_output/"
+def setDebug(val = DEBUG, location = debug_directory):
+    global DEBUG, debug_directory
     DEBUG = val
-    return val
+    debug_directory = location
 
 VERBOSE = False
 def setVerbose(val = VERBOSE):
@@ -49,26 +50,27 @@ formatters = []
 
 def setupHistoryFile():
     global history_file
-    filename = "../test_output/" if DEBUG else "../output/"
+    filename = debug_directory if DEBUG else "../output/"
     filename += "history " + timestamp + ".csv"
     print(filename)
     history_file = open(filename, 'w')
 
-def archive(stuff, formatters=[]):
-    if history_file:
+def archive(stuff, formatters=[], file=history_file):
+    if file:
         if not formatters:
-            history_file.write(stuff)
+            file.write(stuff)
         else:
             for idx in range(len(formatters)):
-                history_file.write(formatters[idx]%stuff[idx])
-                history_file.write(Delimiter if idx<len(formatters)-1 else '')
+                file.write(formatters[idx]%stuff[idx])
+                file.write(Delimiter if idx<len(formatters)-1 else '')
         #history_file.write("\n")
         
-def writeRunInfoHeader():    
+def writeRunInfoHeader(file=None):    
     archive("Timestamp: %s\n"%timestamp)
     archive("Unaffiliated fraction: %d\n"%Unaffiliated_Fraction)    
     archive("Green fraction: %0.2f\n"%Green_Fraction)    
     archive("Ideology issues: %d\n"%Ideology_Issues)
+    archive("State priorities: %d\n"%State_Priorities)
     archive("\n")
     outputs = ["main issue", "congress init dis", "provisional tally"
                "cosponsors", "cosp init dis", "cosp fin dis",
@@ -137,6 +139,12 @@ def setIdeologyIssues(n = Ideology_Issues):
     Ideology_Issues = n
     return n
 
+State_Priorities = 5
+def setStatePriorities(n = State_Priorities):
+    global State_Priorities
+    State_Priorities = n
+    return n
+
 Ideology_Bit_Depth = 4
 
 Priority_Multiplier = 2
@@ -165,19 +173,31 @@ def binaryTreeSimilarity(a, b):
     return sim
 
 def dumpNetwork(network):
-    filename = "../test_output/" if DEBUG else "../output/"
-    filename += "network " + timestamp + ".csv"
-    print(filename)
-    file = open(filename, 'w')
+    filename = debug_directory if DEBUG else "../output/"
+    adj_filename = filename + "adjacency " + timestamp + ".csv"  #adjacency file
+    adj_file = open(adj_filename, 'w')
+    
+    aff_filename = filename + "affiliation " + timestamp + ".csv" #affiliation file
+    aff_file = open(aff_filename, 'w')
+    
+    # header info for adjacency file
+    archive("Timestamp: %s\n"%timestamp, file=adj_file)
+    archive("Unaffiliated fraction: %d\n"%Unaffiliated_Fraction, file=adj_file)    
+    archive("Green fraction: %0.2f\n"%Green_Fraction, file=adj_file)    
+    archive("Ideology issues: %d\n"%Ideology_Issues, file=adj_file)
+    archive("State priorities: %d\n"%State_Priorities, file=adj_file)
+    archive("\n", file=adj_file)
+    
     for i in range(Num_of_Representatives):
         #verbose(network[i])
         for j in range(Num_of_Representatives):
             delim = Delimiter if j<Num_of_Representatives-1 else ''
-            file.write("%1.5f %s"%(network[i][j], delim))
-        file.write("\n")
-    file.write("\n")
+            adj_file.write("%1.5f %s"%(network[i][j], delim))
+        adj_file.write("\n")
+        aff_file.write("%d\n"%State.legislators[i].affiliation)
+    adj_file.write("\n")
     for i in range(Num_of_Representatives):
-        file.write("%1.5f %s"%(sum(network[i]), Delimiter if i<Num_of_Representatives-1 else ''))
+        adj_file.write("%1.5f %s"%(sum(network[i]), Delimiter if i<Num_of_Representatives-1 else ''))
 
 class Legislator(object):
 
@@ -216,7 +236,7 @@ class Legislator(object):
         '''
         
         for i in range(Num_of_Representatives):
-            legislators[i].linkTo(legislators[i],1)
+            legislators[i].linkTo(legislators[i],1)  # create self-link
         for rep1 in sample(legislators, Num_of_Representatives):  # (a shuffle without changing the original list)
             i = legislators.index(rep1)
             rep1_issues = sorted(State.issues, key = lambda i: rep1.priorities[i], reverse=True)
@@ -226,7 +246,7 @@ class Legislator(object):
                 if rep1!=rep2:                    
                     link_strength = 0
                     sum_pri_diffs = 0
-                    for issue in rep1_issues[0:Ideology_Issues]:
+                    for issue in rep1_issues[0:10]:
                         similarity = binaryTreeSimilarity(rep1.positions[issue], rep2.positions[issue])
                         pri_diff = 1 - abs(rep1.priorities[issue] - rep2.priorities[issue])
                         link_strength += similarity*pri_diff
@@ -261,7 +281,8 @@ class Legislator(object):
         self.links = {} # network link strengths to other legislators
         self.affiliation = affiliation
         
-        priorities = [1 for i in range(Num_of_Issues)]
+        # generae priorities by preferential attachment
+        priorities = [1 for i in range(Num_of_Issues)]        
         for issue in priority_issues:
             priorities[issue] = Priority_Multiplier * (priority_issues.index(issue) + 1)
                     
@@ -326,6 +347,7 @@ class State(object):
         State.laws = {}
         self.law_count = 0
         self.total_change = 0
+        self.votes_tally = 0
         
         u = int(Num_of_Representatives * Unaffiliated_Fraction)  # number of unaffiliated members
         a = Num_of_Representatives - u # number of affiliated members
@@ -333,9 +355,10 @@ class State(object):
         y = a - g
         verbose("Number of Green Representatives: %d"%g)
         verbose("Number of Yellow Representatives: %d"%y)
-                  
-        green_issues = sample(State.issues, Ideology_Issues)
-        yellow_issues = sample(State.issues, Ideology_Issues)
+        
+        state_priorities = State.issues[0:State_Priorities]          
+        green_issues = sample(State.issues[State_Priorities:], Ideology_Issues) + state_priorities
+        yellow_issues = sample(State.issues[State_Priorities:], Ideology_Issues) + state_priorities
         verbose("Green issues: " + str(green_issues))
         verbose("Yellow issues: " + str(yellow_issues))
         green_positions = {}
@@ -351,7 +374,8 @@ class State(object):
         verbose("Yellow positions: " + str(yellow_positions))
         
         for rep in range(u):
-            State.legislators.append(Legislator(PARTY_NONE))    
+            priorities = sample(State.issues[State_Priorities:], Ideology_Issues) + state_priorities
+            State.legislators.append(Legislator(PARTY_NONE, priority_issues=priorities))    
         for rep in range(g):
             State.legislators.append(Legislator(GREEN, priority_issues=green_issues, default_positions=green_positions))        
         for rep in range(y):
@@ -414,6 +438,7 @@ class State(object):
         if votes > 0.5*Num_of_Representatives:
             self.makeLaw(bill)
             self.law_count += 1
+            self.votes_tally += votes
         verbose("Number of votes: %d" % votes)
         output_vector.append(votes)
         
@@ -480,7 +505,7 @@ class State(object):
         archive("Satisfaction with legislation: %1.4f\n"%sat)
         ch = 0 if self.law_count==0 else self.total_change/self.law_count
         archive("avg main issue change: %1.3f\n"%ch)
-        return (self.law_count, len(State.laws.values()), sat, ch)
+        return (self.law_count, len(State.laws.values()), sat, ch, self.votes_tally)
 
 class Bill(object):
 
@@ -527,113 +552,6 @@ class Bill(object):
         E /= len(reviewers)
         return -E
     
-class Annealer(object):
-    @staticmethod
-    def anneal(initial_state, move_func, objective_func, k, schedule_temps, schedule_times):
-        '''
-        move_func := the function that moves the target from one point in the state-space to another
-        objective_fun := the objective function that returns an energy E
-        k := the constant that sets probability of acceptance for some energy E and some temperature T0
-        schedule_temps := a list of temperatures to anneal at
-        schedule_times := a list of durations to anneal at each temperature
-        '''
-        best_energy = objective_func(initial_state)
-        best_state = initial_state.copy()
-        prev_state = initial_state.copy()
-        prev_energy = best_energy
-        for step in range(len(schedule_temps)):
-            temp = schedule_temps[step]
-            time = schedule_times[step]
-            for t in range(time):
-                state = move_func(prev_state)
-                energy = objective_func(state)
-                delta_energy = energy-prev_energy
-                # accept the new state if lower energy or probabilistically
-                if energy < prev_energy:
-                    prev_energy = energy
-                    prev_state = state.copy()
-                    if energy < best_energy:
-                        best_energy = energy
-                        best_state = state.copy()
-                elif random() < exp(-delta_energy/(k*temp)):
-                    prev_energy = energy
-                    prev_state = state.copy()
-        return best_state
-    
-    @staticmethod
-    def configureLinearSchedule(min_temp, max_temp, min_time, max_time, time_step):
-        times = list(range(max_time, min_time, -time_step))
-        temp_step = (max_temp - min_temp)/len(times)
-        temps = [min_temp+temp_step*i for i in range(len(times))]
-        return (temps, times)
-
-class GCC_Experiment(Experiment):
-
-    def __init__(self):
-        super(GCC_Experiment, self).__init__()        
-        global timestamp
-        timestamp = self.datetime
-        self.state = None
-        self.run_output = None
-        setDebug(False)
-        writeHistories(False)
-        setVerbose(False)
-        setSolutionBitLength(4)
-        if DEBUG:
-            self.directory = "../test_output/"
-
-    def initiateSim(self):
-        global timestamp
-        timestamp = getTimeStampString()
-        self.state = State()
-        self.proposals = 0
-
-    def stopSim(self):
-        condition = (self.proposals == 200 or len(State.open_issues)==0)
-        if condition:
-            self.run_output = self.state.closeout() 
-        return condition
-
-    def stepSim(self):
-        self.state.step()
-        self.proposals += 1
-        
-    def getProposals(self):
-        return self.proposals
-
-    def getLawCount(self):
-        return self.run_output[0]
-
-    def getProvisionCount(self):
-        return self.run_output[1]
-    
-    def getTotalSatisfaction(self):
-        return self.run_output[2]
-    
-    def getTotalChange(self):
-        return self.run_output[3]
-
-    def setupOutputs(self):
-        self.addOutput(self.getProposals, "proposals", "%1.2f")
-        self.addOutput(self.getLawCount, "laws count", "%1.2f")
-        self.addOutput(self.getProvisionCount, "provisions", "%1.2f")
-        self.addOutput(self.getTotalSatisfaction, "satisfaction", "%1.4f")
-        self.addOutput(self.getTotalChange, "total change", "%1.4f")
-
-    def setupParameters(self):
-        self.addParameter(setNumOfIssues, 75)
-        self.addParameter(setNumOfRepresentatives, 100)
-        self.addParameter(setSatisfactionThreshold, [0.675])
-        self.addParameter(setUnaffiliatedFraction, [0.05, 0.25, 0.5, 0.75])
-        self.addParameter(setGreenFraction, [0.5, 0.75, 0.9])
-        self.addParameter(setIdeologyIssues, [10, 7, 5])
-
-    def setupExperiment(self):
-        self.Name = "GCC Experiment Variations"
-        self.comments = "Main experiment variations for ideology, 30 runs."
-        self.setupParameters()
-        self.job_repetitions = 15
-    
 
 def runOnce():
     global timestamp
@@ -649,6 +567,7 @@ def runOnce():
     setUnaffiliatedFraction(0.05)
     setGreenFraction(0.5)
     setIdeologyIssues(5)
+    setStatePriorities(5)
     proposals = 200
     archive("Number of proposals: %d\n"%proposals)
     s = State()
@@ -659,5 +578,4 @@ def runOnce():
 
           
 if __name__ == "__main__":
-    #runOnce()
-    GCC_Experiment().run()
+    runOnce()

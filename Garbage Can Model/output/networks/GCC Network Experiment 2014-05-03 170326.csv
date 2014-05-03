@@ -1,0 +1,342 @@
+Experiment GCC Network Experiment
+Variations to look at networks under different conditions.
+Since this is just looking at networks, no proposals are run..
+Experiment started 2014-05-03 170326
+
+######################################################
+Experiment Defaults:
+                          setNumOfIssues :,  	75
+                 setNumOfRepresentatives :,  	100
+                setSatisfactionThreshold :,  	0.675
+Experiment Parameter Variations:
+                 setUnaffiliatedFraction :,  	[0.05, 0.5]
+                        setGreenFraction :,  	[0.5, 0.75, 1.0]
+                      setStatePriorities :,  	[0, 5]
+                       setIdeologyIssues :,  	[1, 5]
+######################################################
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170326, 1,                 0.05,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170337, 1,                 0.05,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170349, 1,                 0.05,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                 0.05,                  0.5,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170400, 2,                 0.05,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170412, 2,                 0.05,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170423, 2,                 0.05,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                 0.05,                  0.5,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170435, 3,                 0.05,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170445, 3,                 0.05,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170456, 3,                 0.05,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                 0.05,                  0.5,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170506, 4,                 0.05,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170517, 4,                 0.05,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170527, 4,                 0.05,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                 0.05,                  0.5,                    5,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170537, 5,                 0.05,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170549, 5,                 0.05,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170600, 5,                 0.05,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                 0.05,                 0.75,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170612, 6,                 0.05,                 0.75,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170623, 6,                 0.05,                 0.75,                    0,                    5,1.00,1.00,7.00,0.6419,0.0000,70.0000
+ 2014-05-03 170635, 6,                 0.05,                 0.75,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                 0.75,                    0,                    5,1.00,0.33,2.33,0.2140,0.0000,23.3333
+standard deviations: ,                 0.05,                 0.75,                    0,                    5,0.00,0.47,3.30,0.3026,0.0000,32.9983
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170646, 7,                 0.05,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170657, 7,                 0.05,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170707, 7,                 0.05,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                 0.05,                 0.75,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170718, 8,                 0.05,                 0.75,                    5,                    5,1.00,1.00,2.00,0.7602,0.0000,71.0000
+ 2014-05-03 170728, 8,                 0.05,                 0.75,                    5,                    5,1.00,1.00,4.00,0.7512,0.0000,79.0000
+ 2014-05-03 170738, 8,                 0.05,                 0.75,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                 0.75,                    5,                    5,1.00,0.67,2.00,0.5038,0.0000,50.0000
+standard deviations: ,                 0.05,                 0.75,                    5,                    5,0.00,0.47,1.63,0.3563,0.0000,35.5059
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170748, 9,                 0.05,                  1.0,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170800, 9,                 0.05,                  1.0,                    0,                    1,1.00,1.00,5.00,0.6986,0.0000,66.0000
+ 2014-05-03 170811, 9,                 0.05,                  1.0,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  1.0,                    0,                    1,1.00,0.33,1.67,0.2329,0.0000,22.0000
+standard deviations: ,                 0.05,                  1.0,                    0,                    1,0.00,0.47,2.36,0.3293,0.0000,31.1127
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170823, 10,                 0.05,                  1.0,                    0,                    5,1.00,1.00,1.00,0.9706,0.0000,96.0000
+ 2014-05-03 170834, 10,                 0.05,                  1.0,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170845, 10,                 0.05,                  1.0,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  1.0,                    0,                    5,1.00,0.33,0.33,0.3235,0.0000,32.0000
+standard deviations: ,                 0.05,                  1.0,                    0,                    5,0.00,0.47,0.47,0.4576,0.0000,45.2548
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170857, 11,                 0.05,                  1.0,                    5,                    1,1.00,1.00,3.00,0.8137,0.0000,95.0000
+ 2014-05-03 170908, 11,                 0.05,                  1.0,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 170918, 11,                 0.05,                  1.0,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  1.0,                    5,                    1,1.00,0.33,1.00,0.2712,0.0000,31.6667
+standard deviations: ,                 0.05,                  1.0,                    5,                    1,0.00,0.47,1.41,0.3836,0.0000,44.7834
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170929, 12,                 0.05,                  1.0,                    5,                    5,1.00,1.00,3.00,0.7769,0.0000,97.0000
+ 2014-05-03 170939, 12,                 0.05,                  1.0,                    5,                    5,1.00,1.00,5.00,0.8475,0.0625,96.0000
+ 2014-05-03 170949, 12,                 0.05,                  1.0,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                 0.05,                  1.0,                    5,                    5,1.00,0.67,2.67,0.5415,0.0208,64.3333
+standard deviations: ,                 0.05,                  1.0,                    5,                    5,0.00,0.47,2.05,0.3839,0.0295,45.4924
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 170959, 13,                  0.5,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171011, 13,                  0.5,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171023, 13,                  0.5,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.5,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171034, 14,                  0.5,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171046, 14,                  0.5,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171057, 14,                  0.5,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.5,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171109, 15,                  0.5,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171119, 15,                  0.5,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171130, 15,                  0.5,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.5,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171140, 16,                  0.5,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171150, 16,                  0.5,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171200, 16,                  0.5,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.5,                    5,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171211, 17,                  0.5,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171222, 17,                  0.5,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171234, 17,                  0.5,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                 0.75,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171245, 18,                  0.5,                 0.75,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171257, 18,                  0.5,                 0.75,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171308, 18,                  0.5,                 0.75,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                 0.75,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                 0.75,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171320, 19,                  0.5,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171330, 19,                  0.5,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171341, 19,                  0.5,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                 0.75,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.75
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171351, 20,                  0.5,                 0.75,                    5,                    5,1.00,1.00,1.00,0.6169,0.0000,52.0000
+ 2014-05-03 171402, 20,                  0.5,                 0.75,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171412, 20,                  0.5,                 0.75,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                 0.75,                    5,                    5,1.00,0.33,0.33,0.2056,0.0000,17.3333
+standard deviations: ,                  0.5,                 0.75,                    5,                    5,0.00,0.47,0.47,0.2908,0.0000,24.5130
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171422, 21,                  0.5,                  1.0,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171434, 21,                  0.5,                  1.0,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171445, 21,                  0.5,                  1.0,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  1.0,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                  1.0,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,0
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171457, 22,                  0.5,                  1.0,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171508, 22,                  0.5,                  1.0,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171520, 22,                  0.5,                  1.0,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  1.0,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+standard deviations: ,                  0.5,                  1.0,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,1
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171532, 23,                  0.5,                  1.0,                    5,                    1,1.00,1.00,1.00,0.8044,0.0000,74.0000
+ 2014-05-03 171542, 23,                  0.5,                  1.0,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171553, 23,                  0.5,                  1.0,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  1.0,                    5,                    1,1.00,0.33,0.33,0.2681,0.0000,24.6667
+standard deviations: ,                  0.5,                  1.0,                    5,                    1,0.00,0.47,0.47,0.3792,0.0000,34.8839
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,1.0
+                      setStatePriorities :	,5
+                       setIdeologyIssues :	,5
+ timestamp, job ID, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 2014-05-03 171603, 24,                  0.5,                  1.0,                    5,                    5,1.00,1.00,5.00,0.7026,0.0000,66.0000
+ 2014-05-03 171614, 24,                  0.5,                  1.0,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2014-05-03 171624, 24,                  0.5,                  1.0,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+averages: ,                  0.5,                  1.0,                    5,                    5,1.00,0.33,1.67,0.2342,0.0000,22.0000
+standard deviations: ,                  0.5,                  1.0,                    5,                    5,0.00,0.47,2.36,0.3312,0.0000,31.1127
+######################################################
+EXPERIMENT SUMMARY:  JOB AVERAGES
+######################################################
+
+, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 1,                 0.05,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2,                 0.05,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 3,                 0.05,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 4,                 0.05,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 5,                 0.05,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 6,                 0.05,                 0.75,                    0,                    5,1.00,0.33,2.33,0.2140,0.0000,23.3333
+ 7,                 0.05,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 8,                 0.05,                 0.75,                    5,                    5,1.00,0.67,2.00,0.5038,0.0000,50.0000
+ 9,                 0.05,                  1.0,                    0,                    1,1.00,0.33,1.67,0.2329,0.0000,22.0000
+ 10,                 0.05,                  1.0,                    0,                    5,1.00,0.33,0.33,0.3235,0.0000,32.0000
+ 11,                 0.05,                  1.0,                    5,                    1,1.00,0.33,1.00,0.2712,0.0000,31.6667
+ 12,                 0.05,                  1.0,                    5,                    5,1.00,0.67,2.67,0.5415,0.0208,64.3333
+ 13,                  0.5,                  0.5,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 14,                  0.5,                  0.5,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 15,                  0.5,                  0.5,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 16,                  0.5,                  0.5,                    5,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 17,                  0.5,                 0.75,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 18,                  0.5,                 0.75,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 19,                  0.5,                 0.75,                    5,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 20,                  0.5,                 0.75,                    5,                    5,1.00,0.33,0.33,0.2056,0.0000,17.3333
+ 21,                  0.5,                  1.0,                    0,                    1,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 22,                  0.5,                  1.0,                    0,                    5,1.00,0.00,0.00,0.0000,0.0000,0.0000
+ 23,                  0.5,                  1.0,                    5,                    1,1.00,0.33,0.33,0.2681,0.0000,24.6667
+ 24,                  0.5,                  1.0,                    5,                    5,1.00,0.33,1.67,0.2342,0.0000,22.0000
+######################################################
+EXPERIMENT SUMMARY:  JOB STANDARD DEVIATIONS
+######################################################
+
+, setUnaffiliatedFraction, setGreenFraction, setStatePriorities, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change, total votes
+ 1,                 0.05,                  0.5,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 2,                 0.05,                  0.5,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 3,                 0.05,                  0.5,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 4,                 0.05,                  0.5,                    5,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 5,                 0.05,                 0.75,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 6,                 0.05,                 0.75,                    0,                    5,0.00,0.47,3.30,0.3026,0.0000,32.9983
+ 7,                 0.05,                 0.75,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 8,                 0.05,                 0.75,                    5,                    5,0.00,0.47,1.63,0.3563,0.0000,35.5059
+ 9,                 0.05,                  1.0,                    0,                    1,0.00,0.47,2.36,0.3293,0.0000,31.1127
+ 10,                 0.05,                  1.0,                    0,                    5,0.00,0.47,0.47,0.4576,0.0000,45.2548
+ 11,                 0.05,                  1.0,                    5,                    1,0.00,0.47,1.41,0.3836,0.0000,44.7834
+ 12,                 0.05,                  1.0,                    5,                    5,0.00,0.47,2.05,0.3839,0.0295,45.4924
+ 13,                  0.5,                  0.5,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 14,                  0.5,                  0.5,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 15,                  0.5,                  0.5,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 16,                  0.5,                  0.5,                    5,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 17,                  0.5,                 0.75,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 18,                  0.5,                 0.75,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 19,                  0.5,                 0.75,                    5,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 20,                  0.5,                 0.75,                    5,                    5,0.00,0.47,0.47,0.2908,0.0000,24.5130
+ 21,                  0.5,                  1.0,                    0,                    1,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 22,                  0.5,                  1.0,                    0,                    5,0.00,0.00,0.00,0.0000,0.0000,0.0000
+ 23,                  0.5,                  1.0,                    5,                    1,0.00,0.47,0.47,0.3792,0.0000,34.8839
+ 24,                  0.5,                  1.0,                    5,                    5,0.00,0.47,2.36,0.3312,0.0000,31.1127
+######################################################
+Experiment Completed 2014-05-03 171635
+######################################################
+
