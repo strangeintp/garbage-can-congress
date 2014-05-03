@@ -1,0 +1,508 @@
+Experiment GCC Experiment Variations
+Variations on Ideology combinations, one run each for initial indications..
+Experiment started 2014-05-02 185351
+
+######################################################
+Experiment Defaults:
+                          setNumOfIssues :,  	75
+                 setNumOfRepresentatives :,  	100
+                setSatisfactionThreshold :,  	0.675
+Experiment Parameter Variations:
+                 setUnaffiliatedFraction :,  	[0.05, 0.25, 0.5, 0.75]
+                        setGreenFraction :,  	[0.5, 0.6, 0.75, 0.9]
+                       setIdeologyIssues :,  	[10, 5, 1]
+######################################################
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 1,                 0.05,                  0.5,                   10,200.00,9.00,66.00,0.6991,0.0903
+averages: ,                 0.05,                  0.5,                   10,200.00,9.00,66.00,0.6991,0.0903
+standard deviations: ,                 0.05,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 2,                 0.05,                  0.5,                    5,200.00,3.00,29.00,0.7001,0.1667
+averages: ,                 0.05,                  0.5,                    5,200.00,3.00,29.00,0.7001,0.1667
+standard deviations: ,                 0.05,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 3,                 0.05,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.05,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.05,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 4,                 0.05,                  0.6,                   10,200.00,8.00,64.00,0.6077,0.0469
+averages: ,                 0.05,                  0.6,                   10,200.00,8.00,64.00,0.6077,0.0469
+standard deviations: ,                 0.05,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 5,                 0.05,                  0.6,                    5,200.00,5.00,18.00,0.7075,0.0500
+averages: ,                 0.05,                  0.6,                    5,200.00,5.00,18.00,0.7075,0.0500
+standard deviations: ,                 0.05,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 6,                 0.05,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.05,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.05,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 7,                 0.05,                 0.75,                   10,200.00,7.00,73.00,0.6687,0.2321
+averages: ,                 0.05,                 0.75,                   10,200.00,7.00,73.00,0.6687,0.2321
+standard deviations: ,                 0.05,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 8,                 0.05,                 0.75,                    5,200.00,5.00,29.00,0.6903,0.0125
+averages: ,                 0.05,                 0.75,                    5,200.00,5.00,29.00,0.6903,0.0125
+standard deviations: ,                 0.05,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 9,                 0.05,                 0.75,                    1,200.00,1.00,1.00,0.7650,0.0000
+averages: ,                 0.05,                 0.75,                    1,200.00,1.00,1.00,0.7650,0.0000
+standard deviations: ,                 0.05,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 10,                 0.05,                  0.9,                   10,200.00,8.00,57.00,0.7466,0.0000
+averages: ,                 0.05,                  0.9,                   10,200.00,8.00,57.00,0.7466,0.0000
+standard deviations: ,                 0.05,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 11,                 0.05,                  0.9,                    5,200.00,6.00,46.00,0.6897,0.0208
+averages: ,                 0.05,                  0.9,                    5,200.00,6.00,46.00,0.6897,0.0208
+standard deviations: ,                 0.05,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.05
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 12,                 0.05,                  0.9,                    1,200.00,1.00,1.00,0.7844,0.0000
+averages: ,                 0.05,                  0.9,                    1,200.00,1.00,1.00,0.7844,0.0000
+standard deviations: ,                 0.05,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 13,                 0.25,                  0.5,                   10,200.00,6.00,51.00,0.6948,0.0521
+averages: ,                 0.25,                  0.5,                   10,200.00,6.00,51.00,0.6948,0.0521
+standard deviations: ,                 0.25,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 14,                 0.25,                  0.5,                    5,200.00,3.00,21.00,0.6898,0.2083
+averages: ,                 0.25,                  0.5,                    5,200.00,3.00,21.00,0.6898,0.2083
+standard deviations: ,                 0.25,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 15,                 0.25,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.25,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.25,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 16,                 0.25,                  0.6,                   10,200.00,8.00,54.00,0.7067,0.0312
+averages: ,                 0.25,                  0.6,                   10,200.00,8.00,54.00,0.7067,0.0312
+standard deviations: ,                 0.25,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 17,                 0.25,                  0.6,                    5,200.00,2.00,8.00,0.6568,0.0000
+averages: ,                 0.25,                  0.6,                    5,200.00,2.00,8.00,0.6568,0.0000
+standard deviations: ,                 0.25,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 18,                 0.25,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.25,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.25,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 19,                 0.25,                 0.75,                   10,200.00,7.00,59.00,0.6741,0.1607
+averages: ,                 0.25,                 0.75,                   10,200.00,7.00,59.00,0.6741,0.1607
+standard deviations: ,                 0.25,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 20,                 0.25,                 0.75,                    5,200.00,5.00,18.00,0.6629,0.0000
+averages: ,                 0.25,                 0.75,                    5,200.00,5.00,18.00,0.6629,0.0000
+standard deviations: ,                 0.25,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 21,                 0.25,                 0.75,                    1,200.00,1.00,4.00,0.6487,0.0000
+averages: ,                 0.25,                 0.75,                    1,200.00,1.00,4.00,0.6487,0.0000
+standard deviations: ,                 0.25,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 22,                 0.25,                  0.9,                   10,200.00,9.00,47.00,0.7209,0.0069
+averages: ,                 0.25,                  0.9,                   10,200.00,9.00,47.00,0.7209,0.0069
+standard deviations: ,                 0.25,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 23,                 0.25,                  0.9,                    5,200.00,5.00,25.00,0.6968,0.1500
+averages: ,                 0.25,                  0.9,                    5,200.00,5.00,25.00,0.6968,0.1500
+standard deviations: ,                 0.25,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.25
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 24,                 0.25,                  0.9,                    1,200.00,1.00,1.00,0.8175,0.0000
+averages: ,                 0.25,                  0.9,                    1,200.00,1.00,1.00,0.8175,0.0000
+standard deviations: ,                 0.25,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 25,                  0.5,                  0.5,                   10,200.00,1.00,6.00,0.6409,0.0000
+averages: ,                  0.5,                  0.5,                   10,200.00,1.00,6.00,0.6409,0.0000
+standard deviations: ,                  0.5,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 26,                  0.5,                  0.5,                    5,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                  0.5,                  0.5,                    5,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 27,                  0.5,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                  0.5,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 28,                  0.5,                  0.6,                   10,200.00,4.00,20.00,0.6750,0.0000
+averages: ,                  0.5,                  0.6,                   10,200.00,4.00,20.00,0.6750,0.0000
+standard deviations: ,                  0.5,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 29,                  0.5,                  0.6,                    5,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                  0.5,                  0.6,                    5,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 30,                  0.5,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                  0.5,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 31,                  0.5,                 0.75,                   10,200.00,7.00,27.00,0.6409,0.0089
+averages: ,                  0.5,                 0.75,                   10,200.00,7.00,27.00,0.6409,0.0089
+standard deviations: ,                  0.5,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 32,                  0.5,                 0.75,                    5,200.00,4.00,15.00,0.6936,0.0000
+averages: ,                  0.5,                 0.75,                    5,200.00,4.00,15.00,0.6936,0.0000
+standard deviations: ,                  0.5,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 33,                  0.5,                 0.75,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                  0.5,                 0.75,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                  0.5,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 34,                  0.5,                  0.9,                   10,200.00,7.00,47.00,0.6549,0.0714
+averages: ,                  0.5,                  0.9,                   10,200.00,7.00,47.00,0.6549,0.0714
+standard deviations: ,                  0.5,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 35,                  0.5,                  0.9,                    5,200.00,5.00,15.00,0.6888,0.0000
+averages: ,                  0.5,                  0.9,                    5,200.00,5.00,15.00,0.6888,0.0000
+standard deviations: ,                  0.5,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.5
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 36,                  0.5,                  0.9,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                  0.5,                  0.9,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                  0.5,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 37,                 0.75,                  0.5,                   10,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                  0.5,                   10,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 38,                 0.75,                  0.5,                    5,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                  0.5,                    5,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.5
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 39,                 0.75,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 40,                 0.75,                  0.6,                   10,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                  0.6,                   10,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 41,                 0.75,                  0.6,                    5,200.00,2.00,2.00,0.5858,0.1250
+averages: ,                 0.75,                  0.6,                    5,200.00,2.00,2.00,0.5858,0.1250
+standard deviations: ,                 0.75,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.6
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 42,                 0.75,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 43,                 0.75,                 0.75,                   10,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                 0.75,                   10,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 44,                 0.75,                 0.75,                    5,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                 0.75,                    5,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.75
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 45,                 0.75,                 0.75,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                 0.75,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,10
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 46,                 0.75,                  0.9,                   10,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                  0.9,                   10,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,5
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 47,                 0.75,                  0.9,                    5,200.00,1.00,2.00,0.6348,0.0000
+averages: ,                 0.75,                  0.9,                    5,200.00,1.00,2.00,0.6348,0.0000
+standard deviations: ,                 0.75,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+*********************Job Settings*********************
+                 setUnaffiliatedFraction :	,0.75
+                        setGreenFraction :	,0.9
+                       setIdeologyIssues :	,1
+ job ID, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 48,                 0.75,                  0.9,                    1,200.00,0.00,0.00,0.0000,0.0000
+averages: ,                 0.75,                  0.9,                    1,200.00,0.00,0.00,0.0000,0.0000
+standard deviations: ,                 0.75,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+######################################################
+EXPERIMENT SUMMARY:  JOB AVERAGES
+######################################################
+
+, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 1,                 0.05,                  0.5,                   10,200.00,9.00,66.00,0.6991,0.0903
+ 2,                 0.05,                  0.5,                    5,200.00,3.00,29.00,0.7001,0.1667
+ 3,                 0.05,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 4,                 0.05,                  0.6,                   10,200.00,8.00,64.00,0.6077,0.0469
+ 5,                 0.05,                  0.6,                    5,200.00,5.00,18.00,0.7075,0.0500
+ 6,                 0.05,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 7,                 0.05,                 0.75,                   10,200.00,7.00,73.00,0.6687,0.2321
+ 8,                 0.05,                 0.75,                    5,200.00,5.00,29.00,0.6903,0.0125
+ 9,                 0.05,                 0.75,                    1,200.00,1.00,1.00,0.7650,0.0000
+ 10,                 0.05,                  0.9,                   10,200.00,8.00,57.00,0.7466,0.0000
+ 11,                 0.05,                  0.9,                    5,200.00,6.00,46.00,0.6897,0.0208
+ 12,                 0.05,                  0.9,                    1,200.00,1.00,1.00,0.7844,0.0000
+ 13,                 0.25,                  0.5,                   10,200.00,6.00,51.00,0.6948,0.0521
+ 14,                 0.25,                  0.5,                    5,200.00,3.00,21.00,0.6898,0.2083
+ 15,                 0.25,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 16,                 0.25,                  0.6,                   10,200.00,8.00,54.00,0.7067,0.0312
+ 17,                 0.25,                  0.6,                    5,200.00,2.00,8.00,0.6568,0.0000
+ 18,                 0.25,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 19,                 0.25,                 0.75,                   10,200.00,7.00,59.00,0.6741,0.1607
+ 20,                 0.25,                 0.75,                    5,200.00,5.00,18.00,0.6629,0.0000
+ 21,                 0.25,                 0.75,                    1,200.00,1.00,4.00,0.6487,0.0000
+ 22,                 0.25,                  0.9,                   10,200.00,9.00,47.00,0.7209,0.0069
+ 23,                 0.25,                  0.9,                    5,200.00,5.00,25.00,0.6968,0.1500
+ 24,                 0.25,                  0.9,                    1,200.00,1.00,1.00,0.8175,0.0000
+ 25,                  0.5,                  0.5,                   10,200.00,1.00,6.00,0.6409,0.0000
+ 26,                  0.5,                  0.5,                    5,200.00,0.00,0.00,0.0000,0.0000
+ 27,                  0.5,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 28,                  0.5,                  0.6,                   10,200.00,4.00,20.00,0.6750,0.0000
+ 29,                  0.5,                  0.6,                    5,200.00,0.00,0.00,0.0000,0.0000
+ 30,                  0.5,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 31,                  0.5,                 0.75,                   10,200.00,7.00,27.00,0.6409,0.0089
+ 32,                  0.5,                 0.75,                    5,200.00,4.00,15.00,0.6936,0.0000
+ 33,                  0.5,                 0.75,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 34,                  0.5,                  0.9,                   10,200.00,7.00,47.00,0.6549,0.0714
+ 35,                  0.5,                  0.9,                    5,200.00,5.00,15.00,0.6888,0.0000
+ 36,                  0.5,                  0.9,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 37,                 0.75,                  0.5,                   10,200.00,0.00,0.00,0.0000,0.0000
+ 38,                 0.75,                  0.5,                    5,200.00,0.00,0.00,0.0000,0.0000
+ 39,                 0.75,                  0.5,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 40,                 0.75,                  0.6,                   10,200.00,0.00,0.00,0.0000,0.0000
+ 41,                 0.75,                  0.6,                    5,200.00,2.00,2.00,0.5858,0.1250
+ 42,                 0.75,                  0.6,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 43,                 0.75,                 0.75,                   10,200.00,0.00,0.00,0.0000,0.0000
+ 44,                 0.75,                 0.75,                    5,200.00,0.00,0.00,0.0000,0.0000
+ 45,                 0.75,                 0.75,                    1,200.00,0.00,0.00,0.0000,0.0000
+ 46,                 0.75,                  0.9,                   10,200.00,0.00,0.00,0.0000,0.0000
+ 47,                 0.75,                  0.9,                    5,200.00,1.00,2.00,0.6348,0.0000
+ 48,                 0.75,                  0.9,                    1,200.00,0.00,0.00,0.0000,0.0000
+######################################################
+EXPERIMENT SUMMARY:  JOB STANDARD DEVIATIONS
+######################################################
+
+, setUnaffiliatedFraction, setGreenFraction, setIdeologyIssues, proposals, laws count, provisions, satisfaction, total change
+ 1,                 0.05,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 2,                 0.05,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 3,                 0.05,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 4,                 0.05,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 5,                 0.05,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 6,                 0.05,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 7,                 0.05,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 8,                 0.05,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 9,                 0.05,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 10,                 0.05,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 11,                 0.05,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 12,                 0.05,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 13,                 0.25,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 14,                 0.25,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 15,                 0.25,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 16,                 0.25,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 17,                 0.25,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 18,                 0.25,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 19,                 0.25,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 20,                 0.25,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 21,                 0.25,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 22,                 0.25,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 23,                 0.25,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 24,                 0.25,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 25,                  0.5,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 26,                  0.5,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 27,                  0.5,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 28,                  0.5,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 29,                  0.5,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 30,                  0.5,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 31,                  0.5,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 32,                  0.5,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 33,                  0.5,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 34,                  0.5,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 35,                  0.5,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 36,                  0.5,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 37,                 0.75,                  0.5,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 38,                 0.75,                  0.5,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 39,                 0.75,                  0.5,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 40,                 0.75,                  0.6,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 41,                 0.75,                  0.6,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 42,                 0.75,                  0.6,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 43,                 0.75,                 0.75,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 44,                 0.75,                 0.75,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 45,                 0.75,                 0.75,                    1,0.00,0.00,0.00,0.0000,0.0000
+ 46,                 0.75,                  0.9,                   10,0.00,0.00,0.00,0.0000,0.0000
+ 47,                 0.75,                  0.9,                    5,0.00,0.00,0.00,0.0000,0.0000
+ 48,                 0.75,                  0.9,                    1,0.00,0.00,0.00,0.0000,0.0000
+######################################################
+Experiment Completed 2014-05-02 190451
+######################################################
+

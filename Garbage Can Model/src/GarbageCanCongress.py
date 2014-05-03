@@ -70,10 +70,10 @@ def writeRunInfoHeader():
     archive("Green fraction: %0.2f\n"%Green_Fraction)    
     archive("Ideology issues: %d\n"%Ideology_Issues)
     archive("\n")
-    outputs = ["main issue", "congress init dis",
+    outputs = ["main issue", "congress init dis", "provisional tally"
                "cosponsors", "cosp init dis", "cosp fin dis",
                "com size", "com init dis", "com fin dis", 
-               "# issues", "congress final dis", "votes"]
+               "# issues", "main issue change", "congress final dis", "votes"]
     formats = ["%s" for output in outputs]
     archive(outputs, formats)
     archive("\n")
@@ -103,7 +103,7 @@ def setSatisfactionThreshold(threshold = Satisfaction_Threshold):
     return threshold
 
 PDFCM = 4 # Priority Depth For Committee Membership
-Friend_Threshold = -0.5
+Friend_Threshold = 0
 Minimum_Friends = 5
 
 #Partisanship Parameters
@@ -364,8 +364,8 @@ class State(object):
             setupHistoryFile()
             writeRunInfoHeader()
             
-        formatters = ["%d", "%1.4f", "%d", "%1.4f","%1.4f",
-                      "%d", "%1.4f", "%1.4f", "%d", "%1.4f", "%d\n"]
+        formatters = ["%d", "%1.4f", "%d", "%d", "%1.4f","%1.4f",
+                      "%d", "%1.4f", "%1.4f", "%d", "%1.3f", "%1.4f", "%d\n"]
 
     def step(self):
         global output_vector
@@ -378,6 +378,7 @@ class State(object):
         verbose("Initial legislative body dissatisfaction: %1.4f" % dis)
         output_vector.append(dis)
         votes = self.putToVote(bill)
+        output_vector.append(votes)
         
         #circulate draft among cosposnors
         verbose("\nDraft review by Cosponsors:")
@@ -401,6 +402,9 @@ class State(object):
         provisions = len(bill.solutions.keys())
         verbose("Number of issues addressed: %d" % provisions)
         output_vector.append(provisions)
+        bill_change = bill.distanceFromOriginal()
+        verbose("Main issue change: %1.3f"% bill_change)
+        output_vector.append(bill_change)
         
         # put to vote
         dis = bill.measureDisSatisfaction(reviewers=State.legislators)
@@ -474,7 +478,9 @@ class State(object):
         archive("Laws passed: %d\n"%self.law_count)
         archive("Total provisions: %d\n"%len(State.laws.values()))
         archive("Satisfaction with legislation: %1.4f\n"%sat)
-        return (self.law_count, len(State.laws.values()), sat)
+        ch = 0 if self.law_count==0 else self.total_change/self.law_count
+        archive("avg main issue change: %1.3f\n"%ch)
+        return (self.law_count, len(State.laws.values()), sat, ch)
 
 class Bill(object):
 
@@ -489,12 +495,7 @@ class Bill(object):
         self.reviewers = []
         
     def distanceFromOriginal(self):
-        distance = 0
-        for issue in self.solutions.keys():
-            if issue == self.original_issue:
-                distance += 1 - binaryTreeSimilarity(self.original_proposal, self.solutions[issue])
-            else :
-                distance += 1
+        distance =  1 - binaryTreeSimilarity(self.original_proposal, self.solutions[self.main_issue])
         return distance
         
     def setReviewers(self, reviewers):
@@ -569,15 +570,17 @@ class Annealer(object):
 class GCC_Experiment(Experiment):
 
     def __init__(self):
-        super(GCC_Experiment, self).__init__()
+        super(GCC_Experiment, self).__init__()        
         global timestamp
         timestamp = self.datetime
         self.state = None
         self.run_output = None
         setDebug(False)
-        writeHistories(True)
+        writeHistories(False)
         setVerbose(False)
         setSolutionBitLength(4)
+        if DEBUG:
+            self.directory = "../test_output/"
 
     def initiateSim(self):
         global timestamp
@@ -606,27 +609,30 @@ class GCC_Experiment(Experiment):
     
     def getTotalSatisfaction(self):
         return self.run_output[2]
+    
+    def getTotalChange(self):
+        return self.run_output[3]
 
     def setupOutputs(self):
         self.addOutput(self.getProposals, "proposals", "%1.2f")
         self.addOutput(self.getLawCount, "laws count", "%1.2f")
         self.addOutput(self.getProvisionCount, "provisions", "%1.2f")
         self.addOutput(self.getTotalSatisfaction, "satisfaction", "%1.4f")
-        # TODO average priority of issues passes
+        self.addOutput(self.getTotalChange, "total change", "%1.4f")
 
     def setupParameters(self):
         self.addParameter(setNumOfIssues, 75)
         self.addParameter(setNumOfRepresentatives, 100)
-        self.addParameter(setUnaffiliatedFraction, [0.05])
-        self.addParameter(setGreenFraction, [0.5])
-        self.addParameter(setIdeologyIssues, [10])
         self.addParameter(setSatisfactionThreshold, [0.675])
+        self.addParameter(setUnaffiliatedFraction, [0.05, 0.25, 0.5, 0.75])
+        self.addParameter(setGreenFraction, [0.5, 0.75, 0.9])
+        self.addParameter(setIdeologyIssues, [10, 7, 5])
 
     def setupExperiment(self):
-        self.Name = "GCC Post-Calibration"
-        self.comments = "Histories and networks runs for post-calibration"
+        self.Name = "GCC Experiment Variations"
+        self.comments = "Main experiment variations for ideology, 30 runs."
         self.setupParameters()
-        self.job_repetitions = 3
+        self.job_repetitions = 15
     
 
 def runOnce():
