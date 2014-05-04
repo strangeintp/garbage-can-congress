@@ -70,13 +70,35 @@ class GCC_Experiment(Experiment):
         self.addParameter(gcc.setNumOfIssues, 75)
         self.addParameter(gcc.setNumOfRepresentatives, 100)
         self.addParameter(gcc.setSatisfactionThreshold, [0.675])
-        self.addParameter(gcc.setUnaffiliatedFraction, [0.05, 0.25, 0.5, 0.75])
-        self.addParameter(gcc.setGreenFraction, [0.5, 0.75, 0.9])
-        self.addParameter(gcc.setIdeologyIssues, [10, 7, 5])
+        
+        self.addParameter(gcc.setUnaffiliatedFraction, [0.05, 0.5])
+        self.addParameter(gcc.setGreenFraction, [0.5, 0.75, 1.0])
+        self.addParameter(gcc.setStatePriorities, [0, 5])
+        self.addParameter(gcc.setIdeologyIssues, [0, 5])
 
     def setupExperiment(self):
-        self.Name = "GCC Main Experiment"
-        self.comments = "Ideology Variations, 30 realizations per configuration "
+        self.Name = "GCC Main Experiment - National Priorities -"
+        self.comments = "Main experiment version 2 - with state priorities - 30 realizations per configuration "
+        self.setupParameters()
+        self.job_repetitions = 30
+        
+class GCC_Experiment_NoIdeology(GCC_Experiment):
+
+    def __init__(self):
+        super(GCC_Experiment_NoIdeology, self).__init__()
+        
+    def setupParameters(self):
+        self.addParameter(gcc.setNumOfIssues, 75)
+        self.addParameter(gcc.setNumOfRepresentatives, 100)
+        self.addParameter(gcc.setSatisfactionThreshold, [0.675])
+        
+        self.addParameter(gcc.setUnaffiliatedFraction, [1.0])
+        self.addParameter(gcc.setStatePriorities, [0, 5])
+        self.addParameter(gcc.setIdeologyIssues, [0, 5])
+
+    def setupExperiment(self):
+        self.Name = "GCC Main Experiment - National Priorities - No Parties"
+        self.comments = "Main experiment version 3 - with state priorities but no parties - 30 realizations per configuration "
         self.setupParameters()
         self.job_repetitions = 30
 
@@ -107,6 +129,6 @@ class GCC_Network_Experiment(GCC_Experiment):
         
 if __name__ == "__main__":
     #runOnce()
-    #GCC_Experiment().run()
-    GCC_Network_Experiment().run()
-          
+    GCC_Experiment().run()
+    #GCC_Network_Experiment().run()
+    #GCC_Experiment_NoIdeology().run()

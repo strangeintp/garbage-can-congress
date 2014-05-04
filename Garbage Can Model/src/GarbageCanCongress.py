@@ -257,10 +257,11 @@ class Legislator(object):
             degrees = [1 for rep in potential_friends]
             for k in range(Minimum_Friends):
                 degrees = [len(rep.links.values()) for rep in potential_friends]
-                friend_idx = randomFromCDF(cdf(degrees))
-                rep2 = potential_friends[friend_idx]
-                rep1.linkTo(rep2, 1)
-                potential_friends.remove(rep2)  # can't friend someone twice
+                if degrees:
+                    friend_idx = randomFromCDF(cdf(degrees))
+                    rep2 = potential_friends[friend_idx]
+                    rep1.linkTo(rep2, 1)
+                    potential_friends.remove(rep2)  # can't friend someone twice
                     
         
         matrix = [[legislators[i].getLinkValueTo(legislators[j]) for i in range(Num_of_Representatives)] 
