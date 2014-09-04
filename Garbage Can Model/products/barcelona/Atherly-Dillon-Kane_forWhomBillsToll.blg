@@ -1,0 +1,19 @@
+[0] Config.pm:425> INFO - This is Biber 1.7
+[0] Config.pm:428> INFO - Logfile is 'Atherly-Dillon-Kane_forWhomBillsToll.blg'
+[62] biber:252> INFO - === Fri Aug  8, 2014, 17:44:06
+[62] Biber.pm:333> INFO - Reading 'Atherly-Dillon-Kane_forWhomBillsToll.bcf'
+[124] Biber.pm:630> INFO - Found 27 citekeys in bib section 0
+[137] Biber.pm:2997> INFO - Processing section 0
+[151] Biber.pm:3134> INFO - Looking for bibtex format file 'billTolls.bib' for section 0
+[153] bibtex.pm:925> INFO - Decoding LaTeX character macros into UTF-8
+[155] bibtex.pm:800> INFO - Found BibTeX data source 'billTolls.bib'
+[180] Biber.pm:3134> INFO - Looking for bibtex format file 'Projects-garbageCanCongress.bib' for section 0
+[181] bibtex.pm:925> INFO - Decoding LaTeX character macros into UTF-8
+[185] bibtex.pm:800> INFO - Found BibTeX data source 'Projects-garbageCanCongress.bib'
+[194] Utils.pm:169> WARN - BibTeX subsystem: /tmp/xxfE_iKii8/Projects-garbageCanCongress.bib_18568.utf8, line 6, warning: 170 characters of junk seen at toplevel
+[290] Biber.pm:2883> INFO - Overriding locale 'en_US.utf8' default tailoring 'variable = shifted' with 'variable = non-ignorable'
+[290] Biber.pm:2889> INFO - Sorting 'entry' list 'apa' keys
+[291] Biber.pm:2893> INFO - No sort tailoring available for locale 'en_US.utf8'
+[374] bbl.pm:480> INFO - Writing 'Atherly-Dillon-Kane_forWhomBillsToll.bbl' with encoding 'UTF-8'
+[377] bbl.pm:553> INFO - Output to Atherly-Dillon-Kane_forWhomBillsToll.bbl
+[377] Biber.pm:105> INFO - WARNINGS: 1
