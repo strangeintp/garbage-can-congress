@@ -149,6 +149,36 @@ Max_Time = 10
 Time_Step = 2
 k_B = -0.1/log(0.5)  # accept a decrease of 0.1 in satisfaction with a bill with probability 1/2 at temp=1.0
 
+def pdf(values):
+    sum_values = sum(values)
+    return [v/sum_values for v in values]
+
+def cdf(values):
+    distribution = []
+    sum_values = sum(values)
+    sum_cdf = 0
+    for value in values:
+        sum_cdf += value/sum_values
+        distribution.append(sum_cdf)
+    return distribution
+
+def randomFromCDF(distribution):
+    # choose an index from distribution given the CDF in distribution
+    # note that values in distribution must be monotonically increasing,
+    # and distributed in the range (0+,1]!
+    r = random()
+    index = 0
+    while(r > distribution[index]):
+        index += 1
+    return index
+
+def bitwiseJaccardIndex(a, b):
+    c = a^b
+    count = 0
+    for i in range(Solution_Bit_Length):
+        count += (c%2)
+        c = c>>1
+    return 1 - count/Solution_Bit_Length
 
 def binaryTreeSimilarity(a, b):
     c = a^b
@@ -269,6 +299,7 @@ class Legislator(object):
             priorities[randomFromCDF(cdf(priorities))] += 1
         # normalize the priorities to sum = 1
         priorities = pdf(priorities)
+        shuffle(priorities)
         #assign priorities and positions
         for issue in State.issues:
             self.priorities[issue] = priorities[issue]
@@ -308,6 +339,23 @@ class Legislator(object):
         s /= sum_pris # normalize to relevant priorities
         return s
 
+class SmartLegislator(Legislator):
+    '''
+    Picks co-sponsors based on similarity of the bill main issue
+    '''
+    def pickCoSponsors(self, bill):
+        '''
+        Note that with an issue similarity depth of one for network formation, 
+        and with only highest-priority issue bills being proposed,
+        this method will not be any different than for the base class, since the same set of legislators
+        will meet the criteria.
+        '''
+        cosponsors = []
+        for rep in State.legislators:
+            support = binaryTreeSimilarity(self.positions[bill.main_issue], rep.positions[bill.main_issue])
+            if support > 0.5:
+                cosponsors.append(rep)
+        return cosponsors
 
 class State(object):
 

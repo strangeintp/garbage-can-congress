@@ -1,101 +1,203 @@
-## This is some network analysis of the matrix outputs from Vince's 
-#  python simulation.
-##
+### This is the entry point for analaysis of the garbage-can model of 
+#   congress. The model uses simulated annealing to alter bills proposing
+#   policy issues by adding minor policy issues to make them fit better with
+#   other members' policy issue agendas.
+# 
+#   Subordinate files (history.R and networks.R) examine the changes each bill
+#   undergoes before the floor vote and the network structure between members
+#   when the bill was introduced.  We were curious what difference the entry
+#   point of a bill might make on whether it passes (structurlly).
+#
+#   This analysis parses the model output from several experiments so that we
+#   can see the differences in parameters like party affiliation mixes and 
+#   the number and criticality of issues
+#
+################################################################################
 
-## Overhead
-#  RStudio does this kind of stuff for me, but in case you use R from the 
-#  command line, remember to set the current working directory
-#setwd("~/Code/CSS739_COT/garbage-can-congress/")
-
-
-## Libraries
-#  I prefer iGraph for network analysis and viz. It seems to be faster than
-#  the more commonly-used NetworkX package. Be aware, however, that igraph
-#  objects are dense (almost mystical) things that are best dealt with only
-#  using the igraph methods and no other way.
-library("igraph", lib.loc="/usr/lib64/R/library")
-library("ggplot2", lib.loc="/usr/lib64/R/library")
-
+library(lattice)
+library(reshape2)
+library(ggplot2)
+library(plyr)
 
 ## Data
-#  I converted the .xlsx files to .csv with OpenCalc and import them here first
-#  as objects, then as graphs (via matrices, because dataframes don't become
-#  graph matrices) 
+#  Establish the data directory relative to the working directory, then id
+#  some column names 
+dataDir <- "Garbage Can Model/output/" 
 
-df1_05 <- read.csv("Garbage Can Model/output/network_out_1_05.csv", 
-                   header=F)
-m1_05 <- as.matrix(df1_05)
-g1_05 <- graph.adjacency(m1_05, 
-                         mode="lower", 
-                         weighted=TRUE, 
-                         diag=FALSE)
-
-df1_10 <- read.csv("Garbage Can Model/output/network_out_1_10.csv", 
-                   header=F)
-g1_10 <- graph.adjacency(as.matrix(df1_10), # a little more directly
-                         mode="lower", 
-                         weighted=TRUE, 
-                         diag=FALSE)
-
-df2_05 <- read.csv("Garbage Can Model/output/network_out_2_05.csv", 
-                   header=F)
-g2_05 <- graph.adjacency(as.matrix(df2_05), 
-                         mode="lower", 
-                         weighted=TRUE, 
-                         diag=FALSE)
-
-df2_10 <- read.csv("Garbage Can Model/output/network_out_2_10.csv", 
-                   header=F)
-g2_10 <- graph.adjacency(as.matrix(df2_10), 
-                         mode="lower", 
-                         weighted=TRUE, 
-                         diag=FALSE)
+# Main Experiment => me
+me <- read.csv(paste(dataDir,
+                       "GCC Main Experiment - National Priorities - 2014-05-04 154654_mod.csv",
+                          sep=""),
+                    strip.white = TRUE,
+                    header=TRUE,
+                    sep=",",
+               colClasses=c(job.ID="factor",
+                            setUnaffiliatedFraction="factor",
+                            setGreenFraction="factor",
+                            setStatePriorities="factor",
+                            setIdeologyIssues="factor") 
+               )
+# Main Experiment, No Parties => me.np
+me.np <- read.csv(paste(dataDir,
+                     "GCC Main Experiment - National Priorities - No Parties 2014-05-03 175733_mod.csv",
+                     sep=""),
+               strip.white = TRUE,
+               header=TRUE,
+               sep=",")
 
 
-## Exploration
-#  Now that we have a few sets of data to look at, let's do some visual 
-#  exploration to see what's interesting about the data. Start small...
-
-# Of course, we know that every attribute is measured against every other 
-# attribute, so the degree for every vector is 99.
-degree(g1_05)
-# and the hairball shows us what we're up against if we're comparing how
-# things relate to one another.
-plot(g1_05)
-# Wow. That is incredibly uninformative. Ultimately, we'll be interested 
-# in the before and after analyses; what the measures look like after each
-# anealing process
-
-g1_05  # Tells us about the graph: UNW means undirected, named, weighted
-
-#  iGraph has a handy function that sums-up the edge weights of the edge 
-#  connecting each vertex. We shouldn't have any loops and this is an 
-#  undirected graph so there's no sense comparing in/out/all/total
-
-gs1_05 <- graph.strength(g1_05)
-head(gs1_05)
-plot(gs1_05,ylab="strength", xlab="vertex")
-# That's too scattered to make any sense.  Let's see what happens if we 
-# reorder by strength values. Can we see that some vertices are stronger
-# and some weaker? 
-gsdf1_05 <- as.data.frame(graph.strength(g1_05))
-colnames(gsdf1_05) <- "strength"
-k1_05 <- order(gsdf1_05$strength)
-ogs1_05 <- gsdf1_05[k1_05,]
-plot(ogs1_05,ylab="strength", xlab="vertex")
-# That's odd, isn't it? why do the values cluster like that, I wonder?
-ogs1_05
-# We consistently get a step of .8 over a range -7.8--5.8, it seems. Likely 
-# an artifact of the number of edges?
-
-# I think all this is leading toward a multiple-column chart with vertex
-# labels as rows and columns for fit 'as introduced', 'after socialization',
-# 'after committee' and 'after floor'. There are some balance points at which
-# 50% or more of vertices need to be on the positive side of the vote.
+tv <- ggplot(me, aes(reorder(job.ID, total.votes, FUN=median), total.votes)) +  
+  geom_boxplot(aes(reorder(job.ID, total.votes, FUN=median), total.votes, alpha=0)) + 
+  geom_jitter (alpha=I(1/5)) + 
+  stat_summary(fun.data = "mean_se", colour = "red") + 
+  theme(axis.title.y=element_text(angle=0)) +
+  labs(title="Quantiles with Jittered Total Votes by Job, Sorted by Median Values ") +
+  xlab("Jobs, by ID") + 
+  ylab("Total \nVotes")
+tv
+ggsave(tv, file="votes_byJob_jitterQuants.png")
 
 
+laws <- ggplot(me, aes(reorder(job.ID, laws.count, FUN=median), laws.count)) +  
+  geom_boxplot(aes(reorder(job.ID, laws.count, FUN=median), laws.count, alpha=0)) + 
+  geom_jitter (alpha=I(1/5)) + 
+  stat_summary(fun.data = "mean_se", colour = "red") + 
+  theme(axis.title.y=element_text(angle=0)) +
+  labs(title="Quantiles with Jittered Total Laws Passed by Job, Sorted by Median Values ") +
+  xlab("Jobs, by ID") + 
+  ylab("New \nLaws")
+laws
+ggsave(laws, file="laws_byJob_jitterQuants.png")
 
 
+lawsf1 <- ggplot(me, 
+                 aes(reorder(job.ID, laws.count, FUN=median), 
+                     laws.count)) + 
+  geom_jitter(alpha=I(1/5)) + 
+  stat_summary(fun.data = "mean_se", colour = "red") + 
+  theme(axis.title.y=element_text(angle=0)) +
+  facet_grid(. ~ setStatePriorities + setIdeologyIssues) +
+  labs(title="Quantiles with Jittered Total Laws Passed by Job, Sorted by Median Values") +
+  xlab("Jobs by ID, State Priorities (top facet) and Ideology Issues (bottom facet)") + 
+  ylab("New \nLaws")
+lawsf1
+ggsave(lawsf1, file="laws_byJob_byStatePrior_byIdeology.png")
 
+
+lawsf2 <- ggplot(me, 
+                 aes(reorder(job.ID, laws.count, FUN=median), 
+                     laws.count)) + 
+  geom_jitter(alpha=I(1/5)) + 
+  stat_summary(fun.data = "mean_se", colour = "red") + 
+  theme(axis.title.y=element_text(angle=0)) +
+  facet_grid(. ~ setUnaffiliatedFraction + setGreenFraction) +
+  labs(title="Quantiles with Jittered Total Laws Passed by Job, Sorted by Median Values") +
+  xlab("Jobs by ID, Unaffiliated Fraction (top facet) and Green Fraction (bottom facet)") + 
+  ylab("New \nLaws")
+lawsf2
+ggsave(lawsf2, file="laws_byJob_byUnaffiliated_byGreen.png")
+
+# A smaller verion of the main experiment dataset; 
+# jobs 1, 3, 5, 9, 13, 14, 15, 16, 17, 21 have been removed.
+nonzero.jobs <- c(2, 4, 6, 7, 8, 10, 12, 18, 19, 20, 22, 23, 24)
+mes <- subset(me, 
+              select=c(job.ID, 
+                     provisions, 
+                     satisfaction, 
+                     total.votes, 
+                     laws.count,
+                     total.change,
+                     setUnaffiliatedFraction,
+                     setGreenFraction,
+                     setStatePriorities,
+                     setIdeologyIssues),
+              subset=(job.ID %in% nonzero.jobs))
+
+mes$job.f <- factor(mes$job.ID, levels=c("2", "4", "6", "7", "8", "10", "12",
+                                           "18", "19", "20", "22", "23", "24"))
+
+prov.sat <- qplot(provisions, satisfaction, data=mes,
+             geom="point", alpha = I(1/5), 
+             main="Average Satisfaction by Number of Additional Provisions \nfor Select Jobs",
+             xlab = "Number of Additional Provisions by (top-to-bottom): \nJob ID, # State Priorities, #Ideology Issues, % Unaffiliated, %Green Party", 
+             ylab = "Satisfaction") +
+  geom_smooth(method = "lm", se = F) + 
+#  scale_y_log10() +
+  theme(axis.title.y=element_text(angle=0), axis.text.y=element_text(size=5.5)) +
+  theme(axis.text.x=element_text(size=5.5)) +
+  theme(strip.text.y=element_text(size=7, angle=0, hjust=0, vjust=0.9)) +
+  facet_grid(. ~ job.f + 
+               setStatePriorities + 
+               setIdeologyIssues +
+               setUnaffiliatedFraction +
+               setGreenFraction
+             )
+prov.sat
+ggsave(prov.sat, file="main_sat_prov_byJob.png")
+
+prov.votes <- qplot(provisions, total.votes, data=mes,
+                  geom="point", alpha = I(1/5), 
+                  main="Total Votes by Number of Additional Provisions \nfor Select Jobs",
+                  xlab = "Number of Additional Provisions by (top-to-bottom): \nJob ID, # State Priorities, #Ideology Issues, % Unaffiliated, %Green Party", 
+                  ylab = "Total \nVotes") +
+  geom_smooth(method = "lm", se = T) +
+  theme(axis.title.y=element_text(angle=0), 
+        axis.text.y=element_text(size=5.5)) +
+  theme(axis.text.x=element_text(size=5.5)) +
+  facet_grid(. ~ job.f + 
+               setStatePriorities + 
+               setIdeologyIssues +
+               setUnaffiliatedFraction +
+               setGreenFraction 
+               ) 
+prov.votes
+ggsave(prov.votes, file="main_votes_prov_byJob_byPrior_byIdeoIssues.png")
+
+# How many bills became laws in this matrix?
+prov.laws <- qplot(provisions, laws.count, data=mes,
+                    geom="point", alpha = I(1/5), 
+                    main="Laws Passed by Number of Additional Provisions \nfor Select Jobs",
+                    xlab = "Number of Additional Provisions by by (top-to-bottom): \nJob ID, # State Priorities, #Ideology Issues, % Unaffiliated, %Green Party", 
+                    ylab = "Laws \nPassed") +
+  geom_smooth(method = "lm", se = T) + 
+  theme(axis.title.y=element_text(angle=0), axis.text.y=element_text(size=5.5)) +
+  theme(axis.text.x=element_text(size=5.5)) +
+  theme(strip.text.y=element_text(size=7, angle=0, hjust=0, vjust=0.9)) +
+  facet_grid(. ~ job.f + 
+               setStatePriorities + 
+               setIdeologyIssues +
+               setUnaffiliatedFraction +
+               setGreenFraction
+             )  
+prov.laws
+ggsave(prov.laws, file="main_laws_prov_byJob.png")
+
+# So how much do these things matter anyway? 
+mrm <- lm(mes$laws.count ~ mes$provisions * mes$total.votes * mes$satisfaction)
+summary(mrm)
+# Not such good predictors of the outcome, it seems (duh)
+
+mrme <- lm(me$total.change ~ me$provisions )
+             #mes$total.votes * 
+             mes$satisfaction * 
+             #mes$setUnaffiliatedFraction * 
+             #mes$setGreenFraction * 
+             mes$setStatePriorities )
+             #mes$setIdeologyIssues) 
+
+red.mrme <- step(mrme, direction="backward")
+# based on the stepwise comparisson, I'm backing out the total.votes (probably
+# autocorrelated with laws.count, satisfaction and setIdeologyIssues)
+summary(red.mrme)
+
+summary(mrme)
+
+confint(mrme, level=0.99)
+
+
+## Citations for R and R packages used here
+pks <- c("igraph", "network", "sna", "ergm", "qgraph", "reshape2", "ggplot2", 
+         "plyr", "lattice")
+lapply(pks, citation)
 
 

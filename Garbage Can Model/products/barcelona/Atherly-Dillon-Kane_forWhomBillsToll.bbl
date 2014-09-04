@@ -1,0 +1,580 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{entry}{apa}
+    \entry{a95}{book}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=eccbfb6ab6a3a161f0ed4847f8ab204c}{Aldrich}{A\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=eccbfb6ab6a3a161f0ed4847f8ab204c}{Aldrich}{A\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Chicago}%
+      }
+      \list{publisher}{1}{%
+        {University of Press}%
+      }
+      \strng{namehash}{eccbfb6ab6a3a161f0ed4847f8ab204c}
+      \strng{fullhash}{eccbfb6ab6a3a161f0ed4847f8ab204c}
+      \field{sortinit}{A}
+      \field{labelyear}{1995}
+      \field{labeltitle}{Why Parties?}
+      \field{title}{Why Parties?}
+      \field{year}{1995}
+    \endentry
+    \entry{Barabasi1999}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=bdb1c824b05a300ab8a5c0651716b4bf}{Barabási}{B\bibinitperiod}{Albert-lászló}{A\bibinithyphendelim l\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=ba374d9d56eedd7d3caede3da5a44e49}{Albert}{A\bibinitperiod}{Reka}{R\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=bdb1c824b05a300ab8a5c0651716b4bf}{Barabási}{B\bibinitperiod}{Albert-lászló}{A\bibinithyphendelim l\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=ba374d9d56eedd7d3caede3da5a44e49}{Albert}{A\bibinitperiod}{Reka}{R\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{e0863820c76e259e30030518aef1d81f}
+      \strng{fullhash}{e0863820c76e259e30030518aef1d81f}
+      \field{sortinit}{B}
+      \field{labelyear}{1999}
+      \field{labelmonth}{10}
+      \field{labeltitle}{{Emergence of Scaling in Random Networks}}
+      \field{issn}{00368075}
+      \field{journaltitle}{October}
+      \field{month}{10}
+      \field{number}{5439}
+      \field{title}{{Emergence of Scaling in Random Networks}}
+      \field{volume}{509}
+      \field{year}{1999}
+      \field{pages}{509\bibrangedash 512}
+      \verb{doi}
+      \verb 10.1126/science.286.5439.509
+      \endverb
+      \verb{url}
+      \verb http://www.sciencemag.org/cgi/doi/10.1126/science.286.5439.509
+      \endverb
+    \endentry
+    \entry{b48}{article}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=3b84791c9bd29ca5547674a43c33c0c7}{Black}{B\bibinitperiod}{Duncan}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=3b84791c9bd29ca5547674a43c33c0c7}{Black}{B\bibinitperiod}{Duncan}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Chicago}%
+      }
+      \strng{namehash}{3b84791c9bd29ca5547674a43c33c0c7}
+      \strng{fullhash}{3b84791c9bd29ca5547674a43c33c0c7}
+      \field{sortinit}{B}
+      \field{labelyear}{1948}
+      \field{labeltitle}{On the Rationale of Group Decision-making}
+      \field{journaltitle}{Journal of Political Economy}
+      \field{number}{23–34}
+      \field{title}{On the Rationale of Group Decision-making}
+      \field{volume}{56}
+      \field{year}{1948}
+    \endentry
+    \entry{br11}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=ca94db64f5bb66c282826d10a29e40b8}{Bratton}{B\bibinitperiod}{Kathleen}{K\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=0e11fc616423a309375d93deeebae1c8}{Rouse}{R\bibinitperiod}{Stella}{S\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=ca94db64f5bb66c282826d10a29e40b8}{Bratton}{B\bibinitperiod}{Kathleen}{K\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=0e11fc616423a309375d93deeebae1c8}{Rouse}{R\bibinitperiod}{Stella}{S\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{ded2fb47eb730c867d4797b1dca93380}
+      \strng{fullhash}{ded2fb47eb730c867d4797b1dca93380}
+      \field{sortinit}{B}
+      \field{labelyear}{2011}
+      \field{labeltitle}{Networks in the Legislative Arena: How Group Dynamics Affect Co-Sponsorship}
+      \field{journaltitle}{Legislative Studies Quarterly}
+      \field{number}{3}
+      \field{title}{Networks in the Legislative Arena: How Group Dynamics Affect Co-Sponsorship}
+      \field{volume}{36}
+      \field{year}{2011}
+    \endentry
+    \entry{cm93}{book}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=1,hash=60ec94dacc0db2397841aa9f87dff291}{Cox}{C\bibinitperiod}{Gary\bibnamedelima W.}{G\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{uniquename=2,hash=181176cdb0aecf8ee9e6c99b3ce2b777}{McCubbins}{M\bibinitperiod}{Mathew}{M\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=1,hash=60ec94dacc0db2397841aa9f87dff291}{Cox}{C\bibinitperiod}{Gary\bibnamedelima W.}{G\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{uniquename=2,hash=181176cdb0aecf8ee9e6c99b3ce2b777}{McCubbins}{M\bibinitperiod}{Mathew}{M\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {University of California Press}%
+      }
+      \strng{namehash}{da9d660a080c5221f149cfea86456fee}
+      \strng{fullhash}{da9d660a080c5221f149cfea86456fee}
+      \field{sortinit}{C}
+      \field{labelyear}{1993}
+      \field{labeltitle}{Legislative Leviathan: Party Government in the House}
+      \field{title}{Legislative Leviathan: Party Government in the House}
+      \field{year}{1993}
+    \endentry
+    \entry{cm05}{book}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=1,hash=b32ff96173f2f4ba36efc857c99c0679}{Cox}{C\bibinitperiod}{Gary}{G\bibinitperiod}{}{}{}{}}%
+        {{uniquename=2,hash=8a64ad8875bc2e4f5dc690b27885612c}{McCubbins}{M\bibinitperiod}{Matthew}{M\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=1,hash=b32ff96173f2f4ba36efc857c99c0679}{Cox}{C\bibinitperiod}{Gary}{G\bibinitperiod}{}{}{}{}}%
+        {{uniquename=2,hash=8a64ad8875bc2e4f5dc690b27885612c}{McCubbins}{M\bibinitperiod}{Matthew}{M\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{4bb42c6f2ed452dbde15206a1ba34a73}
+      \strng{fullhash}{4bb42c6f2ed452dbde15206a1ba34a73}
+      \field{sortinit}{C}
+      \field{labelyear}{2005}
+      \field{labeltitle}{Setting the Agenda}
+      \field{title}{Setting the Agenda}
+      \field{year}{2005}
+    \endentry
+    \entry{ec12}{article}{}
+      \name{labelname}{4}{}{%
+        {{uniquename=0,hash=66600a0658e8a46b993b0f97e042c84b}{Epskamp}{E\bibinitperiod}{Sacha}{S\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=cb4afd607116e5189ea1b3c27fce1ac9}{Schmittmann}{S\bibinitperiod}{Verena\bibnamedelima D.}{V\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=d2ede1485024c2475ed4cdfd2ae2e7f6}{Cramer}{C\bibinitperiod}{Angelique\bibnamedelimb O.\bibnamedelimi J.}{A\bibinitperiod\bibinitdelim O\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=65b66c163ae7aa90fd735ab96a8cce25}{Borsboom}{B\bibinitperiod}{Denny}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{4}{}{%
+        {{uniquename=0,hash=66600a0658e8a46b993b0f97e042c84b}{Epskamp}{E\bibinitperiod}{Sacha}{S\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=cb4afd607116e5189ea1b3c27fce1ac9}{Schmittmann}{S\bibinitperiod}{Verena\bibnamedelima D.}{V\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=d2ede1485024c2475ed4cdfd2ae2e7f6}{Cramer}{C\bibinitperiod}{Angelique\bibnamedelimb O.\bibnamedelimi J.}{A\bibinitperiod\bibinitdelim O\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=65b66c163ae7aa90fd735ab96a8cce25}{Borsboom}{B\bibinitperiod}{Denny}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{03eeb57b7ebf410cb89d73f54947e8f4}
+      \strng{fullhash}{d160b5dcfc4f48ca8a71a946fdf3f888}
+      \field{sortinit}{E}
+      \field{labelyear}{2012}
+      \field{labeltitle}{qgraph: Network Visualizations of Relationships in Psychometric Data}
+      \field{edition}{Journal of Statistical Software}
+      \field{series}{4}
+      \field{title}{qgraph: Network Visualizations of Relationships in Psychometric Data}
+      \field{volume}{48}
+      \field{year}{2012}
+    \endentry
+    \entry{gk89}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=03487797e41a7236c428d18847ec3c4e}{Gilligan}{G\bibinitperiod}{Thomas}{T\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=c7780ef7a2eda59206b58307dff7b9dc}{Krehbiel}{K\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=03487797e41a7236c428d18847ec3c4e}{Gilligan}{G\bibinitperiod}{Thomas}{T\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=c7780ef7a2eda59206b58307dff7b9dc}{Krehbiel}{K\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{2159ca841c6ce8cbe3aca4cb74104796}
+      \strng{fullhash}{2159ca841c6ce8cbe3aca4cb74104796}
+      \field{sortinit}{G}
+      \field{labelyear}{1989}
+      \field{labeltitle}{Asymmetric Information and Legislative Rules with a Heterogeneous Committee}
+      \field{journaltitle}{American Journal of Political Science}
+      \field{number}{2}
+      \field{title}{Asymmetric Information and Legislative Rules with a Heterogeneous Committee}
+      \field{volume}{33}
+      \field{year}{1989}
+    \endentry
+    \entry{Granovetter1978}{article}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=8e87ebad79af69a33e0af51b6f2e1def}{Granovetter}{G\bibinitperiod}{M}{M\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=8e87ebad79af69a33e0af51b6f2e1def}{Granovetter}{G\bibinitperiod}{M}{M\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{8e87ebad79af69a33e0af51b6f2e1def}
+      \strng{fullhash}{8e87ebad79af69a33e0af51b6f2e1def}
+      \field{sortinit}{G}
+      \field{labelyear}{1978}
+      \field{labeltitle}{{Threshold models of collective behavior}}
+      \field{journaltitle}{American journal of sociology}
+      \field{number}{6}
+      \field{title}{{Threshold models of collective behavior}}
+      \field{volume}{83}
+      \field{year}{1978}
+      \field{pages}{1420\bibrangedash 1443}
+      \verb{file}
+      \verb :home/cw/Documents/School/Research/1978\_Granovetter\_thresholdModels-collectiveBehavior.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/2778111
+      \endverb
+    \endentry
+    \entry{hw90}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=cd866112ae3fe666e4569f296f3cf919}{Hall}{H\bibinitperiod}{Richard}{R\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=65bcd4fcdce280ab07152fbab35bf621}{Wayman}{W\bibinitperiod}{Frank}{F\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=cd866112ae3fe666e4569f296f3cf919}{Hall}{H\bibinitperiod}{Richard}{R\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=65bcd4fcdce280ab07152fbab35bf621}{Wayman}{W\bibinitperiod}{Frank}{F\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{568b1d3a08a1d389d600bac7d59ac4a3}
+      \strng{fullhash}{568b1d3a08a1d389d600bac7d59ac4a3}
+      \field{sortinit}{H}
+      \field{labelyear}{1990}
+      \field{labeltitle}{Buying Time: Moneyed Interests and the Mobilization of Bias in Congressional Committees}
+      \field{journaltitle}{The American Political Science Review}
+      \field{number}{3}
+      \field{title}{Buying Time: Moneyed Interests and the Mobilization of Bias in Congressional Committees}
+      \field{volume}{84}
+      \field{year}{1990}
+    \endentry
+    \entry{hk98}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=5d66c4ad65dd05d01136f3e12e9f97c5}{Hojnacki}{H\bibinitperiod}{Marie}{M\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=e6b0fc587cfd59af0b6dbca6816c49ee}{Kimball}{K\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=5d66c4ad65dd05d01136f3e12e9f97c5}{Hojnacki}{H\bibinitperiod}{Marie}{M\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=e6b0fc587cfd59af0b6dbca6816c49ee}{Kimball}{K\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{9232c4dee0ffbde22a9d173957b99532}
+      \strng{fullhash}{9232c4dee0ffbde22a9d173957b99532}
+      \field{sortinit}{H}
+      \field{labelyear}{1998}
+      \field{labeltitle}{Organized Interests and the Decision of Who to Lobby in Congress}
+      \field{journaltitle}{The American Political Science Review}
+      \field{number}{4}
+      \field{title}{Organized Interests and the Decision of Who to Lobby in Congress}
+      \field{volume}{92}
+      \field{year}{1998}
+    \endentry
+    \entry{hg08}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=e12ccae5b1795a29c5e6bc2d129bd775}{Humphries}{H\bibinitperiod}{M.\bibnamedelimi D.}{M\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=9e677b588d152fff5ee1f11eef23bc29}{Gurney}{G\bibinitperiod}{K.}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=e12ccae5b1795a29c5e6bc2d129bd775}{Humphries}{H\bibinitperiod}{M.\bibnamedelimi D.}{M\bibinitperiod\bibinitdelim D\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=9e677b588d152fff5ee1f11eef23bc29}{Gurney}{G\bibinitperiod}{K.}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{8fd47c00cc1b615fe06d2e46884720a7}
+      \strng{fullhash}{8fd47c00cc1b615fe06d2e46884720a7}
+      \field{sortinit}{H}
+      \field{labelyear}{2008}
+      \field{labeltitle}{Network "small-world-ness": a quantitative method for determining canonical network equivalence}
+      \field{journaltitle}{PLoS One}
+      \field{number}{4}
+      \field{title}{Network "small-world-ness": a quantitative method for determining canonical network equivalence}
+      \field{volume}{3}
+      \field{year}{2008}
+    \endentry
+    \entry{k89}{book}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=9b319ca9be435c52f91572f9ba122926}{Kingdon}{K\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=9b319ca9be435c52f91572f9ba122926}{Kingdon}{K\bibinitperiod}{John}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {University of Michigan Press}%
+      }
+      \strng{namehash}{9b319ca9be435c52f91572f9ba122926}
+      \strng{fullhash}{9b319ca9be435c52f91572f9ba122926}
+      \field{sortinit}{K}
+      \field{labelyear}{1989}
+      \field{labeltitle}{Congressmen's Voting Decisions}
+      \field{title}{Congressmen's Voting Decisions}
+      \field{year}{1989}
+    \endentry
+    \entry{kgv}{article}{}
+      \name{labelname}{3}{}{%
+        {{uniquename=0,hash=dd8c9103b9bc9a0ffea4a618a83d9444}{Kirkpatrick}{K\bibinitperiod}{S.}{S\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=44fe7cfb613ab228a901fd9ee7f7e471}{Gelatt}{G\bibinitperiod}{C.}{C\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=a69e5e96f892d4d7243c866832631a48}{Vecchi}{V\bibinitperiod}{1983}{1\bibinitperiod}{}{}{M.\bibnamedelimi P.}{M\bibinitperiod\bibinitdelim P\bibinitperiod}}%
+      }
+      \name{author}{3}{}{%
+        {{uniquename=0,hash=dd8c9103b9bc9a0ffea4a618a83d9444}{Kirkpatrick}{K\bibinitperiod}{S.}{S\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=44fe7cfb613ab228a901fd9ee7f7e471}{Gelatt}{G\bibinitperiod}{C.}{C\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=a69e5e96f892d4d7243c866832631a48}{Vecchi}{V\bibinitperiod}{1983}{1\bibinitperiod}{}{}{M.\bibnamedelimi P.}{M\bibinitperiod\bibinitdelim P\bibinitperiod}}%
+      }
+      \strng{namehash}{a85e48cc584c3f15558d2ffb409b3ef1}
+      \strng{fullhash}{09e65a2fabd4e31416e6e8664e90ca9a}
+      \field{sortinit}{K}
+      \field{labelyear}{nodate}
+      \field{labeltitle}{Optimization by Simulated Annealing}
+      \field{journaltitle}{Science}
+      \field{title}{Optimization by Simulated Annealing}
+      \field{volume}{220}
+    \endentry
+    \entry{k91}{book}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=c7780ef7a2eda59206b58307dff7b9dc}{Krehbiel}{K\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=c7780ef7a2eda59206b58307dff7b9dc}{Krehbiel}{K\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {University of Michigan Press}%
+      }
+      \strng{namehash}{c7780ef7a2eda59206b58307dff7b9dc}
+      \strng{fullhash}{c7780ef7a2eda59206b58307dff7b9dc}
+      \field{sortinit}{K}
+      \field{labelyear}{1991}
+      \field{labeltitle}{Information and Legislative Organization}
+      \field{title}{Information and Legislative Organization}
+      \field{year}{1991}
+    \endentry
+    \entry{k98}{book}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=c7780ef7a2eda59206b58307dff7b9dc}{Krehbiel}{K\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=c7780ef7a2eda59206b58307dff7b9dc}{Krehbiel}{K\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Chicago University Press}%
+      }
+      \strng{namehash}{c7780ef7a2eda59206b58307dff7b9dc}
+      \strng{fullhash}{c7780ef7a2eda59206b58307dff7b9dc}
+      \field{sortinit}{K}
+      \field{labelyear}{1998}
+      \field{labeltitle}{Pivotal Politics: A Theory of US Lawmaking}
+      \field{title}{Pivotal Politics: A Theory of US Lawmaking}
+      \field{year}{1998}
+    \endentry
+    \entry{m78}{book}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=e5a813dc05e2954f7bd98207946627cb}{Mann}{M\bibinitperiod}{Thomas}{T\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=e5a813dc05e2954f7bd98207946627cb}{Mann}{M\bibinitperiod}{Thomas}{T\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{e5a813dc05e2954f7bd98207946627cb}
+      \strng{fullhash}{e5a813dc05e2954f7bd98207946627cb}
+      \field{sortinit}{M}
+      \field{labelyear}{1978}
+      \field{labeltitle}{Unsafe at Any Margin: Interpreting Congressional Elections}
+      \field{title}{Unsafe at Any Margin: Interpreting Congressional Elections}
+      \field{year}{1978}
+    \endentry
+    \entry{m74}{book}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=121cd5c06fbf015b026e354b071507d9}{Mayhew}{M\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=121cd5c06fbf015b026e354b071507d9}{Mayhew}{M\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{121cd5c06fbf015b026e354b071507d9}
+      \strng{fullhash}{121cd5c06fbf015b026e354b071507d9}
+      \field{sortinit}{M}
+      \field{labelyear}{1974}
+      \field{labeltitle}{Congress: The Electoral Connection}
+      \field{title}{Congress: The Electoral Connection}
+      \field{year}{1974}
+    \endentry
+    \entry{m04}{article}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=21dee1289a11a09b4bd6e6ddaa7c322d}{McKelvey}{M\bibinitperiod}{Bill}{B\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=21dee1289a11a09b4bd6e6ddaa7c322d}{McKelvey}{M\bibinitperiod}{Bill}{B\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{21dee1289a11a09b4bd6e6ddaa7c322d}
+      \strng{fullhash}{21dee1289a11a09b4bd6e6ddaa7c322d}
+      \field{sortinit}{M}
+      \field{labelyear}{2004}
+      \field{labeltitle}{Toward a complexity science of entrepreneurship}
+      \field{journaltitle}{Journal of Business Venturing}
+      \field{title}{Toward a complexity science of entrepreneurship}
+      \field{volume}{19}
+      \field{year}{2004}
+    \endentry
+    \entry{msc01}{article}{}
+      \name{labelname}{3}{}{%
+        {{uniquename=0,hash=40745d61073c99ee0def9458e6d38d5a}{McPherson}{M\bibinitperiod}{Miller}{M\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=2cc3684d579b36454501253f522f56ae}{Smith-Lovin}{S\bibinithyphendelim L\bibinitperiod}{Lynn}{L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=e16bc012761f23e00ff974ca04cd743c}{Cool}{C\bibinitperiod}{James}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{3}{}{%
+        {{uniquename=0,hash=40745d61073c99ee0def9458e6d38d5a}{McPherson}{M\bibinitperiod}{Miller}{M\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=2cc3684d579b36454501253f522f56ae}{Smith-Lovin}{S\bibinithyphendelim L\bibinitperiod}{Lynn}{L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=e16bc012761f23e00ff974ca04cd743c}{Cool}{C\bibinitperiod}{James}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{4f6db0d641093d4bbf43ddb74dedda28}
+      \strng{fullhash}{41dfe7a40bd4c3d9ed3637d5c8479b99}
+      \field{sortinit}{M}
+      \field{labelyear}{2001}
+      \field{labeltitle}{Birds of a Feather: Homophily in Social Networks}
+      \field{journaltitle}{Annual Review of Sociology}
+      \field{title}{Birds of a Feather: Homophily in Social Networks}
+      \field{volume}{27}
+      \field{year}{2001}
+    \endentry
+    \entry{mrrt53}{article}{}
+      \name{labelname}{4}{}{%
+        {{uniquename=0,hash=4e0ca9f6b68fce31c7db5ccf3793c2a1}{Metropolis}{M\bibinitperiod}{N.}{N\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=d2ec013b9c652942aff69419eeabc602}{Rosenbluth}{R\bibinitperiod}{A.\bibnamedelimi W.}{A\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=b52e068654ef4e90e0562c5ea5dc9e0e}{Rosenbluth}{R\bibinitperiod}{M.\bibnamedelimi N.}{M\bibinitperiod\bibinitdelim N\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=68da8fe39b6811d57fe48d77f947e395}{Teller}{T\bibinitperiod}{A.\bibnamedelimi H.}{A\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{4}{}{%
+        {{uniquename=0,hash=4e0ca9f6b68fce31c7db5ccf3793c2a1}{Metropolis}{M\bibinitperiod}{N.}{N\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=d2ec013b9c652942aff69419eeabc602}{Rosenbluth}{R\bibinitperiod}{A.\bibnamedelimi W.}{A\bibinitperiod\bibinitdelim W\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=b52e068654ef4e90e0562c5ea5dc9e0e}{Rosenbluth}{R\bibinitperiod}{M.\bibnamedelimi N.}{M\bibinitperiod\bibinitdelim N\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=68da8fe39b6811d57fe48d77f947e395}{Teller}{T\bibinitperiod}{A.\bibnamedelimi H.}{A\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{15a18b4c56b3f3600009973b84a5baf5}
+      \strng{fullhash}{4ed5d628d4a9389fd4392df6e03bbb8b}
+      \field{sortinit}{M}
+      \field{labelyear}{1953}
+      \field{labeltitle}{Equations of State Calculations by Fast Computing Machines}
+      \field{journaltitle}{Journal of Chemical Physics}
+      \field{number}{6}
+      \field{title}{Equations of State Calculations by Fast Computing Machines}
+      \field{volume}{21}
+      \field{year}{1953}
+    \endentry
+    \entry{ns02}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=2c0da9553e236d20505ad391297dda86}{Nourse}{N\bibinitperiod}{Victoria}{V\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=7d55c146a778478fade8ae12ddd92281}{Schacter}{S\bibinitperiod}{Jane}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=2c0da9553e236d20505ad391297dda86}{Nourse}{N\bibinitperiod}{Victoria}{V\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=7d55c146a778478fade8ae12ddd92281}{Schacter}{S\bibinitperiod}{Jane}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{c14ddbdb10361ffb246708cf28af2ac6}
+      \strng{fullhash}{c14ddbdb10361ffb246708cf28af2ac6}
+      \field{sortinit}{N}
+      \field{labelyear}{2002}
+      \field{labeltitle}{The Politics of Legislative Drafting - A Congressional Case Study}
+      \field{journaltitle}{New York University Law Review}
+      \field{title}{The Politics of Legislative Drafting - A Congressional Case Study}
+      \field{volume}{77}
+      \field{year}{2002}
+    \endentry
+    \entry{pr97}{book}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=247a5827b0b9b1f5efc00fa22e367c73}{Poole}{P\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=1451269397523626c1c93c961319e8a8}{Rosenthal}{R\bibinitperiod}{Howard}{H\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=247a5827b0b9b1f5efc00fa22e367c73}{Poole}{P\bibinitperiod}{Keith}{K\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=1451269397523626c1c93c961319e8a8}{Rosenthal}{R\bibinitperiod}{Howard}{H\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{a2531650d3cdff3a78fbfe24f49e1c61}
+      \strng{fullhash}{a2531650d3cdff3a78fbfe24f49e1c61}
+      \field{sortinit}{P}
+      \field{labelyear}{1997}
+      \field{labeltitle}{Congress: A Political-Economic History of Roll Call Voting}
+      \field{title}{Congress: A Political-Economic History of Roll Call Voting}
+      \field{year}{1997}
+    \endentry
+    \entry{r91}{book}{}
+      \name{labelname}{1}{}{%
+        {{uniquename=0,hash=b54fa4756408b0099a384b625e2c94c1}{Rhode}{R\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=b54fa4756408b0099a384b625e2c94c1}{Rhode}{R\bibinitperiod}{David}{D\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Chicago}%
+      }
+      \list{publisher}{1}{%
+        {University Press}%
+      }
+      \strng{namehash}{b54fa4756408b0099a384b625e2c94c1}
+      \strng{fullhash}{b54fa4756408b0099a384b625e2c94c1}
+      \field{sortinit}{R}
+      \field{labelyear}{1991}
+      \field{labeltitle}{Parties and Leaders in the Post-Reform House}
+      \field{title}{Parties and Leaders in the Post-Reform House}
+      \field{year}{1991}
+    \endentry
+    \entry{sw87}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=55314f2806587ea6ed1897d3965d8cc6}{Shepsle}{S\bibinitperiod}{Kenneth}{K\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=dfe17e6739841df2ae67f92326877385}{Weingast}{W\bibinitperiod}{Barry}{B\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=55314f2806587ea6ed1897d3965d8cc6}{Shepsle}{S\bibinitperiod}{Kenneth}{K\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=dfe17e6739841df2ae67f92326877385}{Weingast}{W\bibinitperiod}{Barry}{B\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{a553003566bfa6cc29489998ab1809b9}
+      \strng{fullhash}{a553003566bfa6cc29489998ab1809b9}
+      \field{sortinit}{S}
+      \field{labelyear}{1987}
+      \field{labeltitle}{The Institutional Foundations of Committee Power}
+      \field{journaltitle}{The American Political Science Review}
+      \field{number}{1}
+      \field{title}{The Institutional Foundations of Committee Power}
+      \field{volume}{81}
+      \field{year}{1987}
+    \endentry
+    \entry{tf10}{article}{}
+      \name{labelname}{2}{}{%
+        {{uniquename=0,hash=38d1293cd59d7e40b36e088bae518e80}{Tam-Cho}{T\bibinithyphendelim C\bibinitperiod}{Wendy}{W\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=b7241aef9a9368c039f4ba6479b8a046}{Fowler}{F\bibinitperiod}{James}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=38d1293cd59d7e40b36e088bae518e80}{Tam-Cho}{T\bibinithyphendelim C\bibinitperiod}{Wendy}{W\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=b7241aef9a9368c039f4ba6479b8a046}{Fowler}{F\bibinitperiod}{James}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{cd1039488117afdd47c011b98a1b32c7}
+      \strng{fullhash}{cd1039488117afdd47c011b98a1b32c7}
+      \field{sortinit}{T}
+      \field{labelyear}{2010}
+      \field{labeltitle}{Legislative Success in a Small World: Social Network Analysis and the Dynamics of Congressional Legislation}
+      \field{journaltitle}{The Journal of Politics}
+      \field{number}{1}
+      \field{title}{Legislative Success in a Small World: Social Network Analysis and the Dynamics of Congressional Legislation}
+      \field{volume}{72}
+      \field{year}{2010}
+    \endentry
+    \entry{zftpfm08}{article}{}
+      \name{labelname}{6}{}{%
+        {{uniquename=0,hash=28f91f3a4b62ce57b7a533e742e8aae1}{Zhang}{Z\bibinitperiod}{Yan}{Y\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=1d97bbd9de09710ef6f43f45d83d59ce}{Friend}{F\bibinitperiod}{A.\bibnamedelimi J.}{A\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=567e70ae75ba0a6db8dfd3af89540c16}{Traud}{T\bibinitperiod}{Amanda\bibnamedelima L.}{A\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=221d05440cfc296639c741b1d34bdf6e}{Porter}{P\bibinitperiod}{Mason\bibnamedelima A.}{M\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=1c554d718e0448482c5f108fb348855f}{Fowler}{F\bibinitperiod}{James\bibnamedelima H.}{J\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=42937c33b8c25f2a9b6022798b994ded}{Mucha}{M\bibinitperiod}{Peter\bibnamedelima J.}{P\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+      }
+      \name{author}{6}{}{%
+        {{uniquename=0,hash=28f91f3a4b62ce57b7a533e742e8aae1}{Zhang}{Z\bibinitperiod}{Yan}{Y\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=1d97bbd9de09710ef6f43f45d83d59ce}{Friend}{F\bibinitperiod}{A.\bibnamedelimi J.}{A\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=567e70ae75ba0a6db8dfd3af89540c16}{Traud}{T\bibinitperiod}{Amanda\bibnamedelima L.}{A\bibinitperiod\bibinitdelim L\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=221d05440cfc296639c741b1d34bdf6e}{Porter}{P\bibinitperiod}{Mason\bibnamedelima A.}{M\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=1c554d718e0448482c5f108fb348855f}{Fowler}{F\bibinitperiod}{James\bibnamedelima H.}{J\bibinitperiod\bibinitdelim H\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=42937c33b8c25f2a9b6022798b994ded}{Mucha}{M\bibinitperiod}{Peter\bibnamedelima J.}{P\bibinitperiod\bibinitdelim J\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{37b129e5ba18129997157b8fc224c8d9}
+      \strng{fullhash}{180754e161f8591e47faf5a88913b163}
+      \field{sortinit}{Z}
+      \field{labelyear}{2008}
+      \field{labeltitle}{Community structure in Congressional co-sponsorship networks}
+      \field{journaltitle}{Physica A: Statistical Mechanics and its Applications}
+      \field{number}{7}
+      \field{title}{Community structure in Congressional co-sponsorship networks}
+      \field{volume}{387}
+      \field{year}{2008}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
