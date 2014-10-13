@@ -1,0 +1,108 @@
+\documentclass[pdftex,12pt]{llncs}
+  \usepackage[american]{babel}
+  \usepackage{fullpage}
+  \usepackage{wrapfig}
+%  \newcommand{\x}[1]{ }
+  % This is where the bibliography stuff needs to happen
+  \usepackage[style=apa,backend=biber]{biblatex}
+  \DeclareLanguageMapping{english}{american-apa}
+  \addbibresource{billTolls.bib}
+  \addbibresource{Projects-garbageCanCongress.bib}
+  \usepackage[utf8]{inputenc}
+  \usepackage{csquotes} % context sensitive quotes ---makes this look good
+  \usepackage[pdftex]{graphicx}
+  \usepackage{xfrac}
+  \usepackage{cleveref}
+
+
+\begin{document}
+
+\section{Model Description}
+
+\subsection{Model Overview}
+In this section, we present a model of policy formation based on simulated annealing. 
+Conceptually, a bill is sponsored and considered by a network of legislators. 
+During the informal drafting stage, an initial, informal group of policy-makers develops the framework of legislation through a round of annealing and builds some support for passage. 
+After formal introduction of the bill, the draft is then referred to a committee of interested members, who are allowed to alter the legislation through an additional round of annealing, reflecting committee agenda-setting powers \parencite{cm93, cm05}.  After committee revision, the bill is then voted on by the entire legislative body.
+
+Legislators are initialized with priorities and positions on a common list of issues. Model parameters determine the extent to which legislator priorities and positions conform to ideological party agenda.  Legislators are connected to each other in a social network, which is generated using both homophily \parencite{msc01, br11} and preferential attachment \parencite{Barabasi1999}.
+
+We implement the model in a Python simulation, with an object-oriented design. 
+There are three high-level classes that interact in the model: \texttt{State}, \texttt{Legislator}, and \texttt{Bill}.  
+We describe these further in separate sections below.
+The fixed and free parameters of the model are listed and described in the Technical Appendix.
+
+\subsection{Model Initialization} 
+The three main functions accomplished during model initialization are setting up the model environment with default issue priorities and positions via the \texttt{State} object, generating legislators with heterogeneous priorities and positions, and generating a social network among the legislators.
+
+\subsubsection{Initializing the Model Environment (the \texttt{State} object)}
+The \texttt{State} object generates a starting template of priorities and positions to be used during the stochastic generation of individual legislator preferences.  Issue priorities are seeded with initial values according to the model parameters \texttt{Ideology\_Issues} and \texttt{State\_Priorities}.  Thus, a \texttt{State\_Priorities} number of issues in the problem set are seeded with a high priority value to be used by all legislators.  
+For our model, we assume that several core issues represent powerful, crystallizing factors that differentiate our simulated parties.  
+We justify this assumption with existing research which indicates that legislator preferences generally reduce to a single dimension in the case of floor votes (Poole and Rosenthal 1997). Thus, for party affiliations, individual party "platforms" consist of vectors of positions and priorities on a set of issues that includes both \texttt{State\_Priorities} and a random sample of high-priority \texttt{Ideology\_Issues}.  Initial positions in this set are polar opposites for the two parties reflected in this model, with ideology strength determined by the \texttt{Ideology\_Bit\_Depth} parameter.  Priorities are seeded with values according to issues' indeces in the issues list, with state priorities having the highest seed values.
+
+\subsubsection{\texttt{Legislator} Initialization}
+Each legislator's issue priorities are assigned with a stochastic preferential attachment method to the seed values provided by the state object. (See the Technical Appendix for details.)  
+This generates a power law distribution of priorities, so that a legislator places very high priority on a small number of issues but low priority on most issues.  Congressmen - or indeed, any policy-maker - have particular issues about which they care deeply and prioritize more highly.  We consider the power-law distribution of issue priority strengths a reasonable assumption to reflect this in the model.  It also results in legislators having some correlation in priorities to the extent that their seed priorities are the same, but heterogeneity is introduced stochastically.
+
+The final component of preference generation assumes that affiliated legislators adopt the positions of their party.  For all other issues (and all issues for unaffiliated legislators), positions are assigned randomly from the range $[0, 2^{Solution\_Bit\_Length} - 1]$, inclusive (\textit{i.e.}, a random bit string of a predefined length, set to the variable \texttt{solution\_bit\_length}).  
+
+The end-result of this process is a set of legislator agents with unique policy preferences.  These policy preferences are conditioned by party ideologies and state priorities.  Thus there is strong issue-position and -priority correlation between party-affiliated legislators but some heterogeneity.
+
+\subsubsection{Network Generation}
+Having generated a population of legislator agents that have heterogeneous preferences on some issues and shared preferences on others, we complete model initialization by generating a social network among legislators using those preferences.
+This network is designed to capture the social dynamics of legislating, in that a Congressmen will naturally have a set of friends and close colleagues that he interacts with more than others.
+
+Drawing on legislator positions and priorities, we generate a social network using \textit{preferential-attachment} and homophily mechanisms.
+
+Homophily (similarity of position between two legislators) is the unary inverse $(1 - x)$ of distance, which we calculate as a modified Hamming distance between two \texttt{issue} bit strings (their respective positions).  The modification is that the most significant bits of a position carry higher weight than lower significant bits (i.e., in increasing powers of \sfrac{1}{2}).  The modified Hamming calculation is more reasonable in that it could be said to model any two legislators agreeing on the generalities of a solution to an issue---say, ``for'' or ``against''--- while perhaps differing on implementation details.  On any given issue, this results in a bi-modal (rather than uniform) distribution of all legislator positions; in a completely uncorrelated population---a Congress of independents---a uniform significance of bits towards homophily creates an extremely low likelihood of any two legislators having sufficient agreement over the entire solution space to meet any reasonable assumption of friendship threshold.
+
+A legislator's potential friends are defined as the set of legislator agents who have a minimum similarity of \textit{friend-threshold} total homophily on all issues with the legislator.  Total similarity is the issue priority-weighted and -normalized sum of homophilies on issue positions.
+Edge assignment is as described in Barabasi and Albert (1999): each time an edge is added, a probability distribution is generated from the degree distribution in the sub-network of potential friends, and a target node for the edge is selected randomly from that \textit{pdf}. 
+The typical outcome of this procedure is a network among legislator agents with both \textit{small-world} and \textit{scale-free} properties, consistent with existing research on social networks in Congress \parencite{Granovetter1978}.
+
+\subsection{Simulation Algorithm Overview}
+Having defined a population of legislators and their relationship to each-other, we next establish a procedure for legislators to engage in the business of law-making.\footnote{One might argue that this is a departure from realism, as the current Congress does not appear to do this. However, we are attempting to generate a broadly generalizable model of law-making in legislatures. Some legislatures do legislate, periodically.}  In our model of law-making, the simulation sequentially repeats the following process for 200 proposals (or halts if all issues are passed into law): 
+
+\begin{enumerate}
+  \item Proposal:
+  \begin{enumerate}
+    \item A random legislator is chosen to sponsor a bill.
+    \item The sponsor proposes a draft bill on any issue that has not already been addressed by law.
+  \end{enumerate}
+  \item Draft circulation among cosponsors:
+  \begin{enumerate}
+    \item All legislators connected to the sponsor in the social network are selected as cosponsors.
+    \item The cosponsors revise the draft using simulated annealing; new issues may be added to the bill during the revision process and solutions on existing issues may change.
+  \end{enumerate}
+  \item Committee review:
+  \begin{enumerate}
+    \item The draft is referred to a committee; committees are chosen according to legislators for whom the main issue of the bill is a high priority.
+    \item The committee revises the bill by simulated annealing; again, new issues may be added and existing solutions changed as a result.
+  \end{enumerate} 
+  \item Floor vote:
+    \begin{enumerate}
+    \item The bill is referred to the floor for a vote.
+    \item A legislator votes 'yes' to a bill when her satisfaction with it is greater than the model parameter \texttt{satisfaction\_threshold}.
+    \item If the bill passes by simple majority (\textgreater 50\% votes), the bill is made into law; \textit{i.e.}, the solutions addressed by the bill are recorded and the issues may not be revisited for the remainder of the realization.
+  \end{enumerate} 
+\end{enumerate} 
+
+\subsubsection{Simulated Annealing}
+The simulated annealer implements the Metropolis algorithm for simulated annealing \parencite{mrrt53, kgv}: a state with lower energy than the current state is accepted, while a state with higher energy is accepted with probability $P(state) = e^{\Delta E/kT}$.  
+
+Our energy function is the cumulative dissatisfaction of all reviewers over all dimensions of the bill, where each reviewer's dissatisfaction is a priority-weighted and -normalized sum of the modified Hamming distances between the reviewer's preferred solutions to the current solutions proposed by the bill.  For our model, we selected $k$ such that, at a temperature of $1.0$, an increase of $0.1$ in dissatisfaction is accepted with probability \sfrac{1}{2}.  The temperature annealing schedule is configured linearly.
+
+\subsection{Model Verification, Validation, and Calibration}
+We verified the model through code review and incremental testing.
+We tested sub-units of functionality by verifying expected intermediate outputs before implementing more complex functionality.
+We made little effort to validate outputs, as this is an exploratory model.  
+Where applicable, we have stated our assumptions and validated them against either literature or reasonable expectations.  
+For example, we cap the maximum number of committees a legislator agent may serve on by an approximation of the actual limitation imposed on real-world Congressmen.
+
+Similarly, we calibrate legislators' \textit{satisfaction thresholds}---the point at which they agree with legislation---to a level that generates a pass-rate of approximate 4\%, which is comparable to passage rates in the actual US Congress, which have varied between 2\% and 7\% in recent history (see Figure \ref{billpassrate}).\footnote{Pass rates are equal to the total number of bills passed in a given Congress divided by the total counts of introduced legislation for that Congress. Other metrics of legislative productivity as a proportion of items considered generate similar results. Data to calculate pass rates was collected from Civic Impulse LLC (http://www.govtrack.us).\label{passfn}}
+
+
+\printbibliography
+
+
+\end{document}
