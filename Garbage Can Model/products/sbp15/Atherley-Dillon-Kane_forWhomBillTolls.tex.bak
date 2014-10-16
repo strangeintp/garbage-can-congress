@@ -1,0 +1,209 @@
+%This research paper---as opposed to a “narrative/composition” paper (e.g., for an English course)---is a written report based on a systematic analysis that you conduct on a topic concerning Complexity Theory in the Social Sciences. Your analysis will apply a selection of concepts, theories, models, or other ideas covered in this course. The actual analysis comes first; the paper comes second, so think of this paper as a “lab report:” you write it up after you have conducted your experiment. Do not begin writing this paper before you have finished (or almost finished) your analysis, otherwise you will likely encounter serious problems. As a general guideline, papers like this are usually 15-20 pages in length. Double-space the entire paper, except the Bibliography. 
+%
+%Use any major citation style (Turabian, MLA, Chicago); just be consistent throughout.
+%
+
+%Use any major citation style (Turabian, MLA, Chicago); just be consistent throughout.
+\documentclass[pdftex,12pt]{llncs}
+  \usepackage[american]{babel}
+  \usepackage{wrapfig}
+%  \newcommand{\x}[1]{ }
+  % This is where the bibliography stuff needs to happen
+  \usepackage[style=apa,backend=biber]{biblatex}
+  \DeclareLanguageMapping{english}{american-apa}
+  %\addbibresource{billTolls.bib}
+  %\addbibresource{Projects-garbageCanCongress.bib}
+  \usepackage[utf8]{inputenc}
+  \usepackage{csquotes} % context sensitive quotes ---makes this look good
+  \usepackage[pdftex]{graphicx}
+  \usepackage{xfrac}
+  \usepackage{cleveref}
+
+
+\begin{document}
+
+\title{For Whom the Bill Tolls}
+\subtitle{A Simulated Annealing Model of \ldots }
+%\titlerunning{}
+\author{Scott Atherley \and Clarence Dillon \and Vince Kane}
+\institute{George Mason University\\
+ \thanks{We wish to thank Maksim Tsvetovat who introduced us to the garbage can model in his course on Computational Organizational Theory and inspired us to extend it, adapt it, and to think about organizations and processes where it seems to fit especially well.}
+% \email{satherle@gmu.edu \and cdillon2@gmu.edu \and vkane2@gmu.edu}}
+  \email{\{satherle, cdillon2, vkane2\}@gmu.edu}}
+
+\maketitle
+   
+
+
+%Cover page: Title, Your Name, ID, Course name, Date, and Abstract ( < 200 words).
+%Title: Descriptive, well-focused, and brief. Use a subtitle to provide more information. Some hypothetical examples: “Power Law Analysis of Wealth in Ireland and Peru: A Comparative Analysis”; “Scaling in the International Airline Network“, “Governmental Capacity and Criticality in Domestic Political Instability”; “Comparing Estimates of the Pareto Exponent”. Pick a tentative title first. 
+%
+%Do not settle on a final title until your paper is completely finished. 
+%
+
+
+\section{Introduction}
+%(approximately .5 pages) Write this section last! 
+
+%A common (bad) idea is to begin by writing this section first—it just doesn’t work because it tends to get too long and disconnected from core results. Introduce the topic of your research and its motivation. Address these questions: 
+%
+%What is the main topic? 
+%
+%Why is it important? 
+%
+%What do some existing works (from readings and your own background bibliographic research) say about this topic?
+%
+%Conclude this section with a summary paragraph stating (one sentence each): 
+%the specific topic; 
+%main hypothesis examined in your analysis; 
+%approach used for this study; 
+%major finding. Use boldface each time you use a course term for the first time (e.g., Pareto exponent, criticality, heavy tail, exponential distribution, etc.).
+
+\section{Method of Analysis}
+%(3 pages) Write this section third! 
+%
+%This section identifies and defines those concepts, models, theories, or other course ideas and tools that you used in order to carry out your analysis. Which concepts, data, theories, principles or other analytical tools from the course—from lectures or readings—did you use in this study? Which sources?
+%
+%Which data processing procedures? Which cases or samples? Which time periods (epochs)? Key:reproducibility! I must be able to replicate your findings, based on the information provided in this section.
+
+\subsection{Model Overview}
+In this section, we present a model of policy formation based on simulated annealing. Conceptually, a bill is sponsored by a single legislator, reviewed and revised (by simulated annealing) by a network of the sponsor's friends, then referred to a committee of interested members who are allowed to alter the legislation through an additional round of annealing --- reflecting committee agenda-setting powers \parencite{cm93, cm05} --- and finally voted on by the entire legislative body.
+Legislators are initialized with priorities and positions on a common list of issues. Model parameters determine the extent to which legislator priorities and positions conform to ideological party agenda. Legislators are connected to each other in a social network, which is generated using both homophily \parencite{msc01, br11} and preferential attachment \parencite{Barabasi1999}.
+We implement the model in Python, with an object-oriented design.
+There are three high-level classes that interact in the model: \texttt{State}, \texttt{Legislator}, and \texttt{Bill}.
+We describe these further in sections below.
+The fixed and free parameters of the model are listed and described in the Technical Appendix.
+
+\subsection{Model Initialization}
+The three main functions accomplished during model initialization are setting up the model environment with default issue priorities and positions via the \texttt{State} object, generating legislators with heterogeneous priorities and positions, and generating a social network among the legislators.
+
+\subsubsection{Initializing the Model Environment (the \texttt{State} object)}
+The \texttt{State} object generates seed vectors of priorities and positions to be used during the stochastic generation of individual legislator preferences. Issue priorities are seeded with initial values according to the model parameters \texttt{Ideology\_Issues} and \texttt{State\_Priorities}. For our model, we assume that several core issues represent powerful, crystallizing factors that differentiate our simulated parties. Thus, for party affiliations, individual party "platforms" consist of vectors of positions and priorities on a set of issues that includes both \texttt{State\_Priorities} and a random sample of high-priority \texttt{Ideology\_Issues}.
+
+\subsubsection{\texttt{Legislator} Initialization}
+Each legislator's issue priorities are assigned with stochastic preferential attachment method to the seed values provided by the \texttt{State} object. (See the Technical Appendix for details.)
+This generates a power law distribution of priorities, so that a legislator places very high priority on a small number of issues but low priority on most issues; we consider this a reasonable assumption. It also results in legislators having some correlation in priorities to the extent that their seed priorities are the same, but heterogeneity is stochastically introduced.
+The final component of preference generation assumes that affiliated legislators adopt the positions of their party. For all other issues (and all issues for unaffiliated legislators), positions are assigned randomly from the range $[0, 2^{Solution\_Bit\_Length} - 1]$, inclusive (\textit{i.e.}, a random bit string of a predefined length, set to the variable \texttt{solution\_bit\_length}).
+The end-result of this process is a set of legislator agents with unique policy preferences. These policy preferences are conditioned by party ideologies and state priorities. Thus there is strong issue-position and -priority correlation between party-affiliated legislators but some heterogeneity, and some affiliation among unaffiliated members as well.
+
+\subsubsection{Network Generation}
+Having generated a population of legislator agents that have heterogeneous preferences on some issues and shared preferences on others, we complete model initialization by generating a social network among legislators using those preferences.
+This network is designed to capture the social dynamics of legislating, in that a Congressmen will naturally have a set of friends and close colleagues that he interacts with more than others.
+Drawing on legislator positions and priorities, we generate a social network using preferential-attachment and homophily mechanisms.
+A legislator's potential friends are defined as the set of legislator agents who have a minimum similarity of \textit{friend-threshold} total homophily on all issues with the legislator. Total similarity is the issue priority-weighted and -normalized sum of homophilies on issue positions. Homophily (similarity of position between two legislators) in turn relies on a modified Hamming distance calculation between the two \texttt{issue} bit strings encoding their respective positions, wherein the most significant bits of a position carry higher weight than lower significant bits (i.e., in increasing powers of \sfrac{1}{2}), resulting in a bi-modal (rather than uniform) distribution of all legislator homophilies on any given issue.
+Edge assignment is as described in Barabasi and Albert (1999), with target nodes selected randomly from a \textit{pdf} of degree distribution in the sub-network of potential friends.
+The typical outcome of this procedure is a network among legislator agents with \textit{small-world} properties, consistent with existing research on social networks in Congress \parencite{Granovetter1978}.
+
+\subsection{Simulation Algorithm Overview}
+Having defined a population of legislators and their relationship to each-other, we next establish a procedure for legislators to engage in the business of law-making.\footnote{One might argue that this is a departure from realism, as the current Congress does not appear to do this. However, we are attempting to generate a broadly generalizable model of law-making in legislatures. Some legislatures do legislate, periodically.} In our model of law-making, the simulation sequentially repeats the following process for 200 proposals (or halts if all issues are passed into law):
+\begin{enumerate}
+\item Proposal:
+\begin{enumerate}
+\item A random legislator is chosen to sponsor a bill.
+\item The sponsor proposes a draft bill on any issue that has not already been addressed by law.
+\end{enumerate}
+\item Draft circulation among cosponsors:
+\begin{enumerate}
+\item All legislators connected to the sponsor in the social network are selected as cosponsors.
+\item The cosponsors revise the draft using simulated annealing; new issues may be added to the bill during the revision process and solutions on existing issues may change.
+\end{enumerate}
+\item Committee review:
+\begin{enumerate}
+\item The draft is referred to a committee; committees are chosen according to legislators for whom the main issue of the bill is a high priority.
+\item The committee revises the bill by simulated annealing; again, new issues may be added and existing solutions changed as a result.
+\end{enumerate}
+\item Floor vote:
+\begin{enumerate}
+\item The bill is referred to the floor for a vote.
+\item A legislator votes `yes' to a bill when her satisfaction with it is greater than the model parameter \texttt{satisfaction\_threshold}.
+\item If the bill passes by simple majority (\textgreater 50\% votes), the bill is made into law; \textit{i.e.}, the solutions addressed by the bill are recorded and the issues may not be revisited for the remainder of the realization.
+\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Simulated Annealing}
+The simulated annealer implements the Metropolis algorithm for simulated annealing \parencite{mrrt53, kgv}: a state with lower energy than the current state is accepted, while a state with higher energy is accepted with probability $P(state) = e^{\Delta E/kT}$.
+Our energy function is the cumulative dissatisfaction of all reviewers over all dimensions of the bill, where each reviewer's dissatisfaction is a priority-weighted and -normalized sum of the modified Hamming distances between the reviewer's preferred solutions and the current solutions proposed by the bill. For our model, we selected $k$ such that, at a temperature of $1.0$, an increase of $0.1$ in dissatisfaction is accepted with probability \sfrac{1}{2}. The temperature annealing schedule is configured linearly.
+
+\subsection{Model Verification, Validation, and Calibration}
+We verified the model through code review and incremental testing.
+We tested sub-units of functionality by verifying expected intermediate outputs before implementing more complex functionality.
+We made little effort to validate outputs, as this is an exploratory model.
+Where applicable, we have stated our assumptions and validated them against either literature or reasonable expectations.
+For example, we cap the maximum number of committees a legislator agent may serve on by an approximation of the actual limitation imposed on real-world Congressmen.
+Similarly, we calibrate legislators' \textit{satisfaction thresholds}---the point at which they agree with legislation---to a level that generates a pass-rate of approximate 4\%, which is comparable to passage rates in the actual US Congress, which have varied between 2\% and 7\% in recent history (see Figure \ref{billpassrate}).\footnote{Pass rates are equal to the total number of bills passed in a given Congress divided by the total counts of introduced legislation for that Congress. Other metrics of legislative productivity as a proportion of items considered generate similar results. Data to calculate pass rates was collected from Civic Impulse LLC (http://www.govtrack.us).\label{passfn}}
+
+
+\section{Results and Findings} 
+%(2 pages) Write this section first!
+%
+%Present your results of analysis in this section.
+We tested our model against variations in network structures and issue priorities to see the effects these have on productivity and satisfaction. We assess productivity by the number of laws that get passed (the number of \textit{pro} decisions made). We examine satisfaction by the number of votes for a proposal and by how well a final draft ``fits'' individual preferences at the time of final voting. We found that only settings with externally-defined issue priorities produced any new laws. Settings in which there were either ideology-based priorities, state priorities or both returned more nuanced results. Counter-intuitively, we found that (average) satisfaction with final decisions decreases as more provisions are added. The sole exception being a case with an evenly-divided affiliation and ideology-based priorities.  
+ 
+%What did your analysis reveal?
+
+%What did the ideas identified in the previous section show you when applied to the topic of your research? 
+
+%State your findings using vocabulary learned in the course. 
+%Imagine making an oral presentation of your main findings or results. 
+%State your first main finding or result. Then the second, and so on. You may
+%want to include graphs, maps, tables, chronologies, diagrams, etc. to support your
+%analysis. Label each item.
+
+\section{Discussion}
+%(3 pages including tables, figures) Write this section second! 
+%
+%This section is entirely based on section 3.
+
+\subsection{Discussion of Findings}
+%What do your findings mean? 
+%What did you learn? 
+%Answer the “so what?” question about your analysis. 
+%Provide direct answers to the question(s)/puzzle(s) in section 1 (Introduction).
+%What did you expect to find before you began the study? 
+%What did you actually find? 
+%Different? 
+%Why?
+
+\subsection{Discussion of Broader Implications}
+%Discuss the implications of your results for a broader set of ideas beyond the specific domain of analysis. Which aspects of your findings can you generalize to a larger set of patterns or cases? Interesting extentions?
+
+\subsection{Implications for future research}
+%How would you conduct a follow-up study? 
+%Would you do things differently? 
+%How so?
+
+\subsection{Implications for policy or other applications, if any}
+%Do your findings have any implications for policy? 
+%Local policy? 
+%National domestic or foreign policy? 
+%Global international policy?
+
+\section{Summary} 
+%(<0.5 pages) 
+%State the main problem or puzzle that motivated this investigation.
+%State your major finding
+%State your major implication
+
+%\newpage
+\printbibliography
+%BIBLIOGRAPHIC REFERENCES (<2 PAGES)
+%If undecided about style, follow the standard author-year format used in most social
+%science publications: e.g., Smith (1990). 
+%
+%Follow standard bibliographic reference format in this section: 
+%
+%Last name, First Name. Year of publication. Title.
+
+
+\part{Appendices}
+%Supporting documentation. 
+%Replication-replication-replication!
+%
+%Any additional supporting document (e.g., source data [BURN A CD FOR THIS], extensive tables, a treaty, Congressional hearings, etc.) or information which is too long to include in the main body of the text because it would distract or interrupt the continuity. 
+%
+%Other guidelines: 
+%For text, use only 12-point Times font, as in this document. Sansserifed fonts are okay for titles or captions—do not use in text.
+%
+%Again, double space all text. 
+%Do not use single spacing.
+\end{document}

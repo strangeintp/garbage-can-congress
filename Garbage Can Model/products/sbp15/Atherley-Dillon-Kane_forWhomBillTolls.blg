@@ -1,0 +1,5 @@
+[0] Config.pm:425> INFO - This is Biber 1.7
+[0] Config.pm:428> INFO - Logfile is 'Atherley-Dillon-Kane_forWhomBillTolls.blg'
+[63] biber:252> INFO - === Wed Oct 15, 2014, 18:55:41
+[63] Biber.pm:333> INFO - Reading 'Atherley-Dillon-Kane_forWhomBillTolls.bcf'
+[124] Utils.pm:169> WARN - No data sources defined!
