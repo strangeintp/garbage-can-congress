@@ -423,22 +423,22 @@ Our results indicate that, as more issues are added to a bill, overall legislato
 Adding issues to appease a minority garners fewer votes and decreases both productivity and overall satisfaction. 
 Finally, some structures are not likely to produce legislation, regardless of other factors involved. 
 
-Model outputs indicate that legislatures with strong party structures are more productive than legislatures with weak parties. 
-This finding is consistent with extant literature regarding emergence of parties in the U.S. Congress as solutions to the collective action problem of generating legislative productivity \parencite{a95}. 
-Our model suggests that partisanship is not necessarily an impediment to productivity;  contrary to pundit complaints that excessive partisanship has harmed legislative productivity. 
-Our model suggests that incremental appeasement might be impeding Congress's ability to produce legislation.
-
 These results suggest several interesting extensions for future research regarding network structures and individual preferences. 
 The structure of parties in our simulated legislature could be expanded, to provide a point of comparison with other, more diverse party systems; \textit{e.g.}, proportional representation systems, with many small parties.  
 Further investigations of the relationship between legislator preferences and network formation might generate interesting results. 
 These two factors seem to be fundamental to the ability of legislators to form effective coalitions.
 Varying initial conditions for legislator preferences, perhaps in conjunction with experimental alterations of party structures, could produce a better understanding of the impact of networks on legislation.
 Future research might also search for the extent to which a lack of party affiliation changes productivity (number of new laws) or efficiency (number of additional issues required to garner a vote) or a tipping point at which the correlation switches from positive to negative.
+We could also extend the model to examine the chances of a bill being passed, depending on which fraction of the membership proposes it: might a bill have better chances of succeeding if a member has a co-sponsor from another party propose the legislation?
 
 Future work could integrate real-world network and preference data into the model. There is an increasing wealth of data on connections between legislators in a variety of deliberating bodies, ranging from national legislatures to smaller local councils. This data might be leveraged to test predictions regarding the impact of party strength and network structure on legislative productivity. It would be worthwhile to collect network metrics for each legislative session and test for correlation between these deeper network characteristics and productivity and efficiency.
- 
-Finally, we could extend the model to examine the chances of a bill being passed, depending on which fraction of the membership proposes it---might a bill have better chances of succeeding if a member has a co-sponsor from another party propose the legislation.
-It is increasingly taken for granted that Congress is destroying itself with partisanship. This paper suggests that other, more difficult to measure, factors might actually be the cause of Congress's apparent dysfunction. 
+
+Model outputs indicate that legislatures with strong party structures are more productive than legislatures with weak parties. 
+This finding is consistent with extant literature regarding emergence of parties in the U.S. Congress as solutions to the collective action problem of generating legislative productivity \parencite{a95}. 
+Our model suggests that partisanship is not necessarily an impediment to productivity;  contrary to pundit complaints that excessive partisanship has harmed legislative productivity. 
+Our model suggests that incremental appeasement might be impeding Congress's ability to produce legislation.
+It is increasingly taken for granted that Congress is destroying itself with partisanship.  
+This paper suggests that other factors might actually be the cause of Congress's apparent dysfunction.
 
 \newpage
 \appendix
