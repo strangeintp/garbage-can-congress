@@ -21,90 +21,67 @@
 \begin{document}
 
 \title{For Whom the Bill Tolls}
-
-\subtitle{A Simulated Annealing Model of \ldots }
-
+\subtitle{Policy Formation through Simulated Annealing }
 \author{Scott Atherley \and Clarence Dillon \and Vince Kane}
-
 \institute{George Mason University\\
-  \thanks{We wish to thank Maksim Tsvetovat who inspired this project when he introduced us to the garbage can model in his course on Computational Organizational Theory. We also wish to thank an anonymous reviewer of a previous version of this paper who inspired us rewrite it from the current perspective.}
-  \email{\{satherle, cdillon2, vkane2\}@gmu.edu}}
-
+\thanks{We wish to thank Maksim Tsvetovat who introduced us to the garbage can model in his course on Computational Organizational Theory and inspired us to extend it, adapt it, and to think about organizations and processes where it seems to fit especially well.}
+\email{\{satherle, cdillon2, vkane2\}@gmu.edu}}
 \maketitle
-
 %Cover page: Title, Your Name, ID, Course name, Date, and Abstract ( < 200 words).
 %Title: Descriptive, well-focused, and brief. Use a subtitle to provide more information. Some hypothetical examples: “Power Law Analysis of Wealth in Ireland and Peru: A Comparative Analysis”; “Scaling in the International Airline Network“, “Governmental Capacity and Criticality in Domestic Political Instability”; “Comparing Estimates of the Pareto Exponent”. Pick a tentative title first.
 %
 %Do not settle on a final title until your paper is completely finished.
 %
-
 \section{Introduction}
 %(approximately .5 pages) Write this section last!
-%A common (bad) idea is to begin by writing this section first—it just doesn’t work because it tends to get too long and disconnected from core results. Introduce the topic of your research and its motivation. Address these questions:
-%
-%What is the main topic?
-%
-%Why is it important?
-%
-%What do some existing works (from readings and your own background bibliographic research) say about this topic?
-%
-%Conclude this section with a summary paragraph stating (one sentence each):
-%the specific topic;
-%main hypothesis examined in your analysis;
-%approach used for this study;
-%major finding. Use boldface each time you use a course term for the first time (e.g., Pareto exponent, criticality, heavy tail, exponential distribution, etc.).
-
-
-
-\section{Methods}
-%(3-4 pages) Write this section third!
-%
-%This section identifies and defines those concepts, models, theories, or other course ideas and tools that you used in order to carry out your analysis. Which concepts, data, theories, principles or other analytical tools from the course—from lectures or readings—did you use in this study? Which sources?
-%
-%Which data processing procedures? Which cases or samples? Which time periods (epochs)? Key:reproducibility! I must be able to replicate your findings, based on the information provided in this section.
-
+... straw man ...
+It is a trope of Western democratic ideals that a democracy (representative or otherwise) produces the greatest happiness for its citizenry, or the least unhappiness for a majority of it.
+On the other hand, we also suspect that as a policy-making system, it is highly inefficient and -- in the extreme -- unproductive.
+Our intuition -- and to some extent, political experience -- tells us that a diversity or high bipolarity of policy preferences may result in legislative deadlock and lower overall satisfaction with legislative outcomes.
+Theory abounds on these topics (TBD citations - need Scott's input!); (TBD: what about empirics?); as yet, however, the literature does not evidence any computational models attempting to address these questions quantitatively.
+We examine here the dynamics of a body politic generating policy, under the constraints of heterogeneous schedules of preferences on a set of issues, amongst which some issues are more important than others, and between which there are varying levels of correlation in preference (e.g., party platform ideology).
+Through a computational approach, we quantitatively address questions such as: what are the policy impacts of unified, vs. bimodal, vs. completely uncorrelated sets of preferences?
+(Compare the Unites States' two-party system with multi-party systems existing elsewhere, for example).
+How well are the resulting policies received by the policy makers (and by extension, those whom they represent)?
+Can the presence of non-partisan influences (e.g., "independents" in a two-party system) moderate partisan deadlock?
+As a case study for policy-making, we model the U.S. Congress.
+We considered simulated annealing to be the non-deterministic optimization method most analogous to the bill revision process, in that it optimizes on total energy state (legislative body satisfaction) within a system of competing constraints (legislator preferences).
+However, as a generalized model of policy-making, the results are broadly applicable to a wide range of policy-making organizations, whether they be legislative bodies at the national or local level, regulatory bodies, standards organizations, or conference committees.
+In the following sections, we describe the modeling methodology, present results, discuss the findings, and conclude with suggestions for further work.
+\section{Model and Methods}
 \subsection{Model Overview}
 In this section, we describe implementation of a model of policy formation through simulated annealing.
 Conceptually, a bill is sponsored by a single legislator, reviewed and revised through two rounds of simulated annealing (by a network of the sponsor's friends and a committee of interested members), and finally voted on by the entire legislative body.
 Legislators are initialized with priorities and positions on a common list of issues, with preferences stochastically generated according to quantified state priorities and party ideologies.
 Legislators are connected to each other in a social network, generated using both homophily \parencite{msc01, br11} and preferential attachment \parencite{Barabasi1999}.
 The initialization and simulation processes are described further in sections below.
-\footnote{In the interest of brevity, we have omitted some detail descriptions of the initialization and simulation; however, these details may be found in the online supplement at \url{https://github.com/strangeintp/garbage-can-congress} and are referenced where applicable below.}
-
+\footnote{In the interest of brevity, we have omitted some detail descriptions of the initialization and simulation; however, these details may be found in the online supplement at TBD and are referenced where applicable below.}
 \subsection{Model Initialization}
 Each model realization is initialized by generating default issue priorities and positions via the \texttt{State} object, legislators with heterogeneous priorities and positions, and a social network among the legislators.
-
 \subsubsection{Initializing the Model Environment}
 For our model, we assume that several core issues represent powerful, crystallizing factors that differentiate our simulated parties.
 Thus, party "platforms" consist of vectors of positions and priorities on a set of issues that includes both \texttt{State\_Priorities} and a random sample of high-priority \texttt{Ideology\_Issues} (TBD: S?).
 These vectors are used as "seeds" for the stochastic generation of individual legislator preferences.
-
 \subsubsection{Legislator Initialization}
-Each legislator's issue priorities are assigned with a stochastic preferential attachment method  (TBD: S?) to the seed values provided by the \texttt{State} object, generating a power law distribution of priorities for that legislator, and providing some correlation in legislator priorities to the extent that seed vectors are correlated through state priorities and party ideology.
+Each legislator's issue priorities are assigned with a stochastic preferential attachment method (TBD: S?) to the seed values provided by the \texttt{State} object, generating a power law distribution of priorities for that legislator, and providing some correlation in legislator priorities to the extent that seed vectors are correlated through state priorities and party ideology.
 We assume that party-affiliated legislators adopt the positions of their party; for all other issues (and all issues for unaffiliated legislators), positions are assigned uniform randomly from the range of allowed position values ($2^4$ for our model).
-
 The end-result of this process is a set of legislator agents with heterogeneous but correlated policy preferences as conditioned by party ideologies and state priorities, and with the strength of correlation determined by party-alignment.
-
 \subsubsection{Network Generation}
-Model initialization is completed with a social network designed to capture the social dynamics of legislating, in that a Congressmen will naturally have a set of friends and close colleagues that he interacts with more than others. 
+Model initialization is completed with a social network designed to capture the social dynamics of legislating, in that a Congressmen will naturally have a set of friends and close colleagues that he interacts with more than others.
 The network is generated using preferential attachment and total homophily over the generated preferences.
- 
-Preferential attachment is as described in Barabasi and Albert (1999), with $m=5$ new edges selected randomly from a \textit{pdf} of degree distribution in the sub-network of potential friends of each legislator. 
+Preferential attachment is as described in Barabasi and Albert (1999), with $m=5$ new edges selected randomly from a \textit{pdf} of degree distribution in the sub-network of potential friends of each legislator.
 The set of potential friends is selected using an issue-priority weighted homophily over all issues (TBD: S?).
-
 The typical outcome of this procedure is a network among legislator agents with "small-world" properties (TBD cite Watts and Strogatz), consistent with existing research on social networks in Congress \parencite{Granovetter1978}.
-
 \subsection{Simulation Algorithm Overview}
 Having defined a population of legislators and their relationship to each-other, we next establish a procedure for legislators to engage in the business of law-making.\footnote{One might argue that this is a departure from realism, as the current Congress does not appear to do this.
 However, we are attempting to generalize a model of law-making in legislatures.
 Some legislatures do legislate, periodically.}
 In our model of law-making, the simulation sequentially repeats the following process for 200 proposals (or halts if all issues are passed into law):
-
 \begin{enumerate}
 \item Proposal:
 \begin{enumerate}
 \item A random legislator is chosen to sponsor a bill.
-\item The sponsor proposes a draft bill on any issue that has not already been addressed by law.  This initial draft reflects the sponsor's position on that issue.
+\item The sponsor proposes a draft bill on any issue that has not already been addressed by law. This initial draft reflects the sponsor's position on that issue.
 \end{enumerate}
 \item Draft circulation among cosponsors:
 \begin{enumerate}
@@ -124,22 +101,20 @@ Legislators for whom the main issue of the bill is a high priority are assigned 
 \item If the bill passes by simple majority (\textgreater 50\% votes), the bill is made into law; \textit{i.e.}, the solutions addressed by the bill are recorded and the issues may not be revisited for the remainder of the realization.
 \end{enumerate}
 \end{enumerate}
-
 \subsubsection{Simulated Annealing}
 Bill revision is implemented by the Metropolis algorithm for simulated annealing \parencite{mrrt53, kgv}.
-Our energy function is the cumulative dissatisfaction of all reviewers over all dimensions of the bill (TBD S?).  Increases of $0.1$ in dissatisfaction were accepted with probability \sfrac{1}{2} at the maximum temperature (higher satisfaction energy states are automatically accepted).
+Our energy function is the cumulative dissatisfaction of all reviewers over all dimensions of the bill (TBD S?). Increases of $0.1$ in dissatisfaction were accepted with probability \sfrac{1}{2} at the maximum temperature (higher satisfaction energy states are automatically accepted).
 The annealing schedule is discussed in TBD: S?.
-
 \subsection{Model Calibration}
-We calibrated legislators' \textit{satisfaction thresholds}---the point at which they vote "yes" on legislation---to achieve a ~4\% pass-rate, comparable to average, historical pass-rates in the U.S. Congress (between 2\% and 7\% in recent history).\footnote{Pass rates are equal to the total number of bills passed in a given Congress divided by the total counts of introduced legislation for that Congress. Data to calculate pass rates was collected from Civic Impulse LLC (http://www.govtrack.us).\label{passfn}}
-
+We calibrated legislators' \textit{satisfaction thresholds}---the point at which they vote "yes" on legislation---to achieve a ~4\% pass-rate, comparable to passage rates in the actual US Congress (between 2\% and 7\% in recent history).\footnote{Pass rates are equal to the total number of bills passed in a given Congress divided by the total counts of introduced legislation for that Congress. Data to calculate pass rates was collected from Civic Impulse LLC (http://www.govtrack.us).\label{passfn}}
 \subsection{Experiments}
-Table \ref{params} identifies the model parameters and values over which a suite of experiments was run.
+Table TBD identifies the model parameters and values over which a suite of experiments was run.
 A factorial design was used to select combinations of values on which to run experiments.
-We ran 30 realizations for each combination of values.
+30 realizations were run for each combination of values.
 To keep the data set manageable, the run history for only a single realization was recorded, as a sample, for each experiment.
-We recorded these metrics for each realization:  number of laws passed, number of issues addressed by law, and legislative body satisfactions over all bills before and after SA revisions.
-We also calculated aggregate statistics (averages and standard deviations) and recorded the output metrics of all realizations of an experiment.
+However, the following metrics were recorded for each realization: number of laws passed, number of issues addressed by law, and legislative body satisfactions over all bills before and after SA revisions.
+Aggregate statistics (averages and standard deviations) were also calculated and recorded for the output metrics of all realizations of an experiment.
+
 
 \begin{table}
  \caption{Simulation Parameter Space}
