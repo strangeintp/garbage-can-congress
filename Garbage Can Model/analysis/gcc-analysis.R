@@ -76,29 +76,33 @@ stripplot(me$laws.count ~ me$provisions | me$setUnaffiliatedFraction + me$setGre
 
 tmd(me$laws.count ~ me$provisions | me$setUnaffiliatedFraction + me$setGreenFraction + me$setStatePriorities + me$setIdeologyIssues)
 
-tv <- ggplot(me, aes(reorder(job.ID, total.votes, FUN=median), total.votes)) +  
-  geom_boxplot(aes(reorder(job.ID, total.votes, FUN=median), total.votes, alpha=0)) + 
+png("Garbage Can Model/analysis/plots/votes_byJob_jitterQuints.png", width=800 , height=300)
+tv <- ggplot(me, aes(reorder(job.ID, total.votes, FUN=mean), total.votes)) +  
+  geom_boxplot(aes(reorder(job.ID, total.votes, FUN=mean), total.votes, alpha=0)) + 
   geom_jitter (alpha=I(1/5)) + 
   stat_summary(fun.data = "mean_se", colour = "red") + 
   theme(axis.title.y=element_text(angle=0)) +
-  labs(title="Quantiles with Jittered Total Votes by Job, Sorted by Median Values ") +
-  xlab("Jobs, by ID") + 
+  labs(title="Total Votes by Case: \nJitters & quintiles, sorted by mean values (red)") +
+  xlab("Cases, by ID") + 
   ylab("Total \nVotes")
 tv
-ggsave(tv, file="votes_byJob_jitterQuants.png")
+ggsave(tv, file="Garbage Can Model/analysis/plots/votes_byJob_jitterQuints.png", width=9.5, height=5.0, dpi=600)
+dev.off()
 
-
-laws <- ggplot(me, aes(reorder(job.ID, laws.count, FUN=median), laws.count)) +  
-  geom_boxplot(aes(reorder(job.ID, laws.count, FUN=median), laws.count, alpha=0)) + 
+png("Garbage Can Model/analysis/plots/laws_byJob_jitterQuints.png", width=800 , height=300)
+laws <- ggplot(me, aes(reorder(job.ID, laws.count, FUN=mean), laws.count)) +  
+  geom_boxplot(aes(reorder(job.ID, laws.count, FUN=mean), laws.count, alpha=0)) + 
   geom_jitter (alpha=I(1/5)) + 
+#  geom_smooth(aes(group = 1), method = "loess", se = F, colour = "blue") +
   stat_summary(fun.data = "mean_se", colour = "red") + 
   theme(axis.title.y=element_text(angle=0)) +
-  labs(title="Total Laws Passed by Case: \nJitters showing quintiles & sorted by median values (red)") +
+  labs(title="New Laws Passed by Case: \nJitters & quintiles, sorted by mean values (red)") +
   theme(legend.position = "none") +
   xlab("Cases by ID") + 
   ylab("New \nLaws")
 laws
-ggsave(laws, file="Garbage Can Model/analysis/plots/laws_byJob_jitterQuints.png")
+ggsave(laws, file="Garbage Can Model/analysis/plots/laws_byJob_jitterQuints.png", width=9.5, height=5.0, dpi=600)
+dev.off()
 
 
 lawsf1 <- ggplot(me, 
@@ -148,10 +152,40 @@ mes$job.f <- factor(mes$job.ID, levels=c("2", "4", "6", "7", "8", "10", "11",
                                          "12", "18", "19", "20", "22", "23",
                                          "24"))
 
+fac_labeller <- function(var, value){
+  value <- as.character(value)
+  if (var=="job.ID") { 
+    value[value] <- paste("Case ", value)
+  } 
+  if (var=="setGreenFraction") {
+    value[value=="0.5"] <- "50% "
+    value[value=="0.75"]<- "75% "
+    value[value=="1"]   <- "100%"
+  }
+  if (var=="setUnaffiliatedFraction") {
+    value[value=="0.05"] <- "5%  "
+    value[value=="0.50"] <- "50% "
+  } 
+  if (var=="setStatePriorities") {
+    value[value=="0"] <- "No, 0 "
+    value[value=="5"]<-  "Yes, 5"
+  }
+  if (var=="setIdeologyIssues") {
+    value[value=="0"] <- "No, 0 "
+    value[value=="5"] <- "Yes, 5"
+  }
+  return(value)
+}
+
+facLabels <- data.frame(c("Case #", "State Iss.", "Ideology Iss.", "% Unaffiliated", "% Green"))
+facLabels
+
+png("Garbage Can Model/analysis/plots/votes_byJob_jitterQuints.png", width=800 , height=300)
+
 prov.sat <- qplot(provisions, satisfaction, data=mes,
              geom="point", alpha = I(1/5), 
              main="Average Satisfaction by Number of Additional Provisions \nfor Select Jobs",
-             xlab = "Number of Additional Provisions by (top-to-bottom): \nJob ID, # State Priorities, #Ideology Issues, % Unaffiliated, %Green Party", 
+             xlab = "Number of Additional Provisions", 
              ylab = "Satisfaction") +
   geom_smooth(method = "lm", se = F) + 
 #  scale_y_log10() +
@@ -162,16 +196,37 @@ prov.sat <- qplot(provisions, satisfaction, data=mes,
                setStatePriorities + 
                setIdeologyIssues +
                setUnaffiliatedFraction +
-               setGreenFraction
-             )
+               setGreenFraction#,
+#               labeller=fac_labeller
+             ) 
++ theme(strip.background = element_blank(), strip.text.x = element_blank())
+
 prov.sat
+
+prov.sat + annotation_custom(grob = tableGrob(head(iris[ ,1:3])),
+                             xmin = 3, xmax = 6, ymin = 2, ymax = 8)
+
+# ## Get the title style from the original plot
+# g <- ggplotGrob(prov.sat)
+# legend_style <- g$grobs[[73]]$gp
+# 
+# ## Add the second title and plot
+# g2 <- gtable_add_grob(g, textGrob("Right", x=1, hjust=1, gp=legend_style),
+#                       t=2, l=4, b=2, r=4, name="right-title")
+# grid.draw(g2)
+
+
+
 ggsave(prov.sat, file="main_sat_prov_byJob.png")
 
+
+
+
 prov.votes <- qplot(provisions, total.votes, data=mes,
-                  geom="point", alpha = I(1/5), 
-                  main="Total Votes by Number of Additional Provisions \nfor Select Jobs",
+                  geom="point", alpha = I(1/4), 
+                  main="Total Votes by Number of Additional Provisions: \nfor select cases",
                   xlab = "Number of Additional Provisions by (top-to-bottom): \nJob ID, # State Priorities, #Ideology Issues, % Unaffiliated, %Green Party", 
-                  ylab = "Total \nVotes", scales = "free", space = "free") +
+                  ylab = "Total \nVotes") +
   geom_smooth(method = "lm", se = T) +
   theme(axis.title.y=element_text(angle=0), 
         axis.text.y=element_text(size=5.5)) +
@@ -180,10 +235,13 @@ prov.votes <- qplot(provisions, total.votes, data=mes,
                setStatePriorities + 
                setIdeologyIssues +
                setUnaffiliatedFraction +
-               setGreenFraction 
-               ) 
+               setGreenFraction#,
+             #labeller=fac_labeller
+               )
 prov.votes
+
 ggsave(prov.votes, file="main_votes_prov_byJob_byPrior_byIdeoIssues.png")
+
 
 # How many bills became laws in this matrix?
 prov.laws <- qplot(provisions, laws.count, data=mes,
@@ -204,6 +262,90 @@ prov.laws <- qplot(provisions, laws.count, data=mes,
 prov.laws
 ggsave(prov.laws, file="main_laws_prov_byJob.png")
 
+###################################################
+# 
+# That's a lot of plotting for one paper/article, so I combine the plots
+# into something a bit more dense.
+
+# First, redo each of these narrow plots with no facet labels, titles/labels
+# only where appropriate and with a shorter y axis.
+require(grid)
+
+vplayout <- function(x,y) {
+  viewport(layout.pos.row = x, layout.pos.col = y)
+}
+
+# Satisfaction by provision; to be combined
+cSat <- qplot(provisions, satisfaction, data=mes,
+                  geom="point", alpha = I(1/5), 
+                  main="Average Satisfaction, Laws and Votes by Number of Additional Provisions for Select Cases", ylab = "Satisfaction") +
+  geom_smooth(method = "lm", se = F) + 
+  theme(axis.text=element_text(size=5.5)) +
+  theme(axis.title.x=element_blank()) +
+  facet_grid(. ~ job.f + 
+               setStatePriorities + 
+               setIdeologyIssues +
+               setUnaffiliatedFraction +
+               setGreenFraction,
+               labeller=fac_labeller
+             ) 
+
+# New Laws by provision, to be combined
+cLaws <- qplot(provisions, laws.count, data=mes,
+                   geom="point", alpha = I(1/5), 
+                   ylab = "Laws Passed") +
+  geom_smooth(method = "lm", se = T) + 
+  facet_grid(. ~ job.f + 
+               setStatePriorities + 
+               setIdeologyIssues +
+               setUnaffiliatedFraction +
+               setGreenFraction
+    ) +
+  theme(axis.text=element_text(size=5.5), 
+        axis.title.x=element_blank(),
+        strip.background = element_blank(),
+        strip.text.x = element_blank()
+        ) 
+cLaws
+
+# Votes by provision, to be combined
+
+cVotes <- qplot(provisions, laws.count, data=mes,
+                geom="point", alpha = I(1/5),
+                ylab = "Total Votes", xlab = "Additional povisions through simulated annealing for each Case") +
+  geom_smooth(method = "lm", se = T) + 
+  facet_grid(. ~ job.f + 
+               setStatePriorities + 
+               setIdeologyIssues +
+               setUnaffiliatedFraction +
+               setGreenFraction
+  ) +
+  theme(axis.text=element_text(size=5.5), 
+        strip.background = element_blank(),
+        strip.text.x = element_blank()
+  ) 
+
+cVotes
+
+# Combination of Satisfaction, Laws and Votes into a single viewport
+
+pdf("combinedCases.pdf", width=8.5, height=12, pointsize=10)
+
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(3,1)))
+
+print(cSat, vp = vplayout(1,1))
+print(cLaws, vp =vplayout(2,1))
+print(cVotes, vp = vplayout(3,1))
+
+#ggsave("combinedCases.png", width=8.5, height=11, dpi=600)
+dev.off()
+
+
+
+
+
+
 # So how much do these things matter anyway? 
 mrm <- lm(mes$laws.count ~ mes$provisions * mes$total.votes * mes$satisfaction)
 summary(mrm)
@@ -211,10 +353,10 @@ summary(mrm)
 
 mrme <- lm(me$total.change ~ me$provisions )
              #mes$total.votes * 
-             mes$satisfaction * 
+             #mes$satisfaction * 
              #mes$setUnaffiliatedFraction * 
              #mes$setGreenFraction * 
-             mes$setStatePriorities )
+             #mes$setStatePriorities )
              #mes$setIdeologyIssues) 
 
 red.mrme <- step(mrme, direction="backward")

@@ -65,7 +65,7 @@
 
 \subsection{Model Overview}
 In this section, we describe implementation of a model of policy formation through simulated annealing.
-Conceptually, a bill is sponsored by a single legislator, reviewed and revised through two rounds of simulated annealing (by a network of the sponsor's friends and a committee of interested members), and finally voted on by the entire legislative body.
+Conceptually, a bill is sponsored by a single legislator, reviewed and revised through two rounds of simulated annealing (first, by a network of the sponsor's friends, then by a committee of interested members), and finally voted on by the entire legislative body.
 Legislators are initialized with priorities and positions on a common list of issues, with preferences stochastically generated according to quantified state priorities and party ideologies.
 Legislators are connected to each other in a social network, generated using both homophily \parencite{msc01, br11} and preferential attachment \parencite{Barabasi1999}.
 The initialization and simulation processes are described further in sections below.
@@ -170,20 +170,20 @@ Throughout our research with this model, we collected metrics for the network st
 This paper focuses primarily on the third set of data. 
 
 We assessed group productivity by the number of laws that get passed (the number of \textit{pro} decisions made) in each of the 28 cases (see Figure \ref{lawspassed}). 
-We examine satisfaction by the number of votes for a proposal (Figure \ref{votes}) and by how well a final draft ``fits'' individual preferences at the time of final voting (in Figure \ref{satisfaction}). 
-Although this paper does not cover analysis of the networks in the cases, the seven network structures each produce distinct results.
-Similarly, the four priority combinations produce distinct results. 
+We examined satisfaction by the number of votes for a proposal (Figure \ref{votes}) and by how well a final draft ``fits'' individual preferences at the time of final voting (in Figure \ref{satisfaction}). 
+We found that the seven network structures each produce qualitatively distinct results.
+Similarly, the four priority combinations produce qualitatively distinct results. 
 
 Most notably, 14 of the 28 cases were uniformly unproductive.
 All four cases with 100\% unaffiliated bodies were completely or nearly unproductive, leaving 24 of 28 cases for further analysis.
 Call these \textit{Type I} cases.
 Additionally, the six remaining cases with no external priorities---\textit{Type II} cases---produced no new laws, regardless of network structure; leaving 18 viable cases.
-The three (remaining) cases with a 50\% unaffiliated and 50\% \textit{Green} party make up the \textit{Type III} cases.
-One other case (\#3) with 5\% unaffiliated members, 50\% \textit{Green} members and no ideology-based priorities may be an outlier. 
+Three more cases with a 50\% unaffiliated and 50\% \textit{Green} party make up the \textit{Type III} unproductive cases.
+One other case (\#3) with 5\% unaffiliated members, 50\% \textit{Green} members and no ideology-based priorities consistently failed to produce new laws, though this case is not distinct from other that do. 
 
 \begin{figure}[hb]
 \centering
-\includegraphics[width=4.75in]{laws_byJob_jitterQuints.png}
+\includegraphics[width=4.9in]{laws_byJob_jitterQuints.png}
 \caption[ ]{Only half of structure and priority combinations are productive. The most productive combination has 5\% unaffiliated and 95\% Green members with state and ideology priorities.} 
 \label{lawspassed}
 \end{figure}
@@ -209,7 +209,17 @@ This deserves further discussion and we address it in the next section.
 The experiment data show discernible patters for organizational effectiveness; though, there is variation in satisfaction with decisions, support for decisions and productivity within each case.
 For example, we can generalize about the importance of having external priorities for self-tasking organizations, such as the U.S. Congress, that propose decisions for group approval. 
 Similarly, we see that some structures are more productive; some require more compromise; some are more satisfied with their decisions, \textit{etc}. 
-We can evaluate the results of the experiments to discover these rules. 
+In this section, we evaluate the results of the experiments to discover these rules. 
+We go on to discuss some broader implications of these rules as well as some remaining questions.
+Finally, we point out some implications for policy-making, organization and group dynamics. 
+Figure \ref{combined} provides additional context for this section.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=4.25in]{combinedCases_crop.pdf}
+\caption[ ]{Qualitative differences in linear fit (blue line) typify the relationship between adding provisions through simulated annealing and the average satisfaction, number of new laws and total number of votes in each case.} 
+\label{combined}
+\end{figure}
 
 \subsection{Discussion of Findings}
 %What do your findings mean?
@@ -220,17 +230,22 @@ We can evaluate the results of the experiments to discover these rules.
 %What did you actually find?
 %Different?
 %Why?
+We model Congress as a single organization, which limits applicability of the findings about our model to \textit{e.g.}, the House or the Senate; not the whole of government.
+In that context, we considered the applicability of our findings to our initial motivation: we had been thinking about the U.S. Congress and the popularity of blaming recent lack of productivity on tensions between the two major political parties.  
+The model results seem to not support the assertion that polarization alone leads to an unproductive legislature. 
 
 
-It seems that self-tasking organizations are not productive without having---at least some---priorities defined externally. 
-The cases with more externally-defined priorities, as a rule, are more productive than the cases with fewer externally-defined priorities.  
-Organizations without any internal community (party) are similarly unproductive. 
-
-
-
+Our cases \#1-4 typify organizational structures with 50\% of membership in the majority party---in our case, \textit{Green}---and 45\% in the opposing \textit{Yellow} party .
+Consider the $2 x 2$ priority matrix for this structure: case \#1, with no external priorities is unproductive, case \#2 with only ideology priorities is productive (with wide variation), case \#3 with state priorities and without ideological priorities is unproductive and case \#4 with both state and party priorities is productive. 
+However, we do not support the conclusion that the structure or the lack of ideology-based priorities that causes the current stalemate.
+In eight of the 14 productive cases where 50\% of the membership falls into one of the three categories (\textit{Green}, \textit{Yellow} or unaffiliated) there is a positive correlation between the number of new laws and the number of votes as the number of additional issues get resolved with the proposed legislation.   
+ 
 \subsection{Discussion of Broader Implications}
 %Discuss the implications of your results for a broader set of ideas beyond the specific domain of analysis. Which aspects of your findings can you generalize to a larger set of patterns or cases? Interesting extentions?
-
+It seems that self-tasking organizations are not productive without having---at least some---priorities defined externally. 
+The cases with more externally-defined priorities, as a rule, are more productive than the cases with fewer externally-defined priorities. 
+The cases with no externally-defined priorities were consistently unproductive.  
+Organizations without any internal community (party) are similarly unproductive.
 
 \subsection{Implications for future research}
 %How would you conduct a follow-up study?
