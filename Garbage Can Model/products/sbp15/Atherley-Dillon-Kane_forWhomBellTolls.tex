@@ -20,8 +20,10 @@
 
 \begin{document}
 
-\title{For Whom the Bill Tolls}
-\subtitle{Policy Formation through Simulated Annealing }
+%\title{For Whom the Bill Tolls}
+%\subtitle{Policy Formation through Simulated Annealing }
+\title{A Model of Policy Formation through Simulated Annealing:}
+\subtitle{The Impact of Preference Alignment on Productivity and Satisfaction}
 \author{Scott Atherley \and Clarence Dillon \and Vince Kane}
 \institute{George Mason University\\
 \thanks{We wish to thank Maksim Tsvetovat who introduced us to the garbage can model in his course on Computational Organizational Theory and inspired us to extend it, adapt it, and to think about organizations and processes where it seems to fit especially well.}
@@ -35,9 +37,9 @@
 %
 
 \begin{abstract}
- We are interested in how network types can impact productivity of legislatures. 
- We apply a simulated annealing process in an agent-based model to modify draft legislation with legislator's priority issues in peer and committee reviews before a floor vote determines a congress's approval for a bill.
- The model design enabled extensive experimentation and we present an overview of the most significant insights. We found that having exogenous, common issue priorities has a high impact on productivity but that some structures inhibit productivity.
+ We are interested in how preference correlations can impact productivity of policy-makers. 
+ We apply a simulated annealing process to modify draft legislation in peer and committee reviews before a floor vote determines a congress's approval for a bill.
+ The model design enabled extensive experimentation and we present an overview of the most significant insights. We found that having exogenous, common issue priorities has a high impact on productivity but that some structures inhibit productivity, particularly where preference schedules are uncorrelated.
 \end{abstract}
 
 \section{Vince's Introduction}
@@ -153,11 +155,12 @@ The annealing schedule is discussed in TBD: S?.
 \subsection{Model Calibration}
 We calibrated legislators' \textit{satisfaction thresholds}---the point at which they vote "yes" on legislation---to achieve a ~4\% pass-rate, comparable to passage rates in the actual US Congress (between 2\% and 7\% in recent history).\footnote{Pass rates are equal to the total number of bills passed in a given Congress divided by the total counts of introduced legislation for that Congress. Data to calculate pass rates was collected from Civic Impulse LLC (http://www.govtrack.us).\label{passfn}}
 \subsection{Experiments}
-Table TBD identifies the model parameters and values over which a suite of experiments was run.
-A factorial design was used to select combinations of values on which to run experiments.
-30 realizations were run for each combination of values.
+Table \ref{params} identifies the model parameters and values over which a suite of experiments was run.
+A factorial design was used to run experiments over all combinations of values shown in the table -- excepting \texttt{Green\_Fraction} variation when {\texttt{Unaffilitated\_Fraction} = 1.0}, which is a degenerate case -- resulting in 28 unique experiments.
+30 simulations were realized per experiment.
+
 To keep the data set manageable, the run history for only a single realization was recorded, as a sample, for each experiment.
-However, the following metrics were recorded for each realization: number of laws passed, number of issues addressed by law, and legislative body satisfactions over all bills before and after SA revisions.
+However, the following metrics were recorded for each realization: number of laws passed, number of issues addressed by law (i.e. provisions), and legislative body satisfactions over all bills before and after SA revisions.
 Aggregate statistics (averages and standard deviations) were also calculated and recorded for the output metrics of all realizations of an experiment.
 
 
@@ -182,18 +185,8 @@ Aggregate statistics (averages and standard deviations) were also calculated and
 \section{Results and Findings}
 %(2 pages) Write this section first!
 %
-%Present your results of analysis in this section.
-As described in the previous section, we experimented with variations in network structures and issue priorities to see the effects these have on productivity and satisfaction.
-The fractions of party affiliation (5\%, 50\% or 100\% unaffiliated; 50\%, 75\% or 100\% of remainder in \textit{Green} party) represent a $3 x 4$ option matrix; though, with only seven real possible combinations because there are no other parties when every member is unaffiliated. 
-The number of ``state-level'' priorities (0 or 5) and ``ideology'' priorities (0 or 5) represent a $2 x 2$ option matrix for each of the seven network structures, for a total of 28 possible combinations: the 28 \textit{cases}.
-Throughout our research with this model, we collected metrics for the network structures, individual session history data, and aggregated case results.
-This paper focuses primarily on the third set of data. 
-
-We assessed group productivity by the number of laws that get passed (the number of \textit{pro} decisions made) in each of the 28 cases (see Figure \ref{lawspassed}). 
-We examined satisfaction by the number of votes for a proposal (Figure \ref{votes}) and by how well a final draft ``fits'' individual preferences at the time of final voting (in Figure \ref{satisfaction}). 
-We found that the seven network structures each produce qualitatively distinct results.
-Similarly, the four priority combinations produce qualitatively distinct results. 
-
+%Present your results of analysis in this section. 
+We found that the combinations of preference-generating parameters of the model produce quantitatively distinguishable results.
 Most notably, 14 of the 28 cases were uniformly unproductive.
 All four cases with 100\% unaffiliated bodies were completely or nearly unproductive, leaving 24 of 28 cases for further analysis.
 Call these \textit{Type I} cases.
@@ -207,7 +200,6 @@ One other case (\#3) with 5\% unaffiliated members, 50\% \textit{Green} members 
 \caption[ ]{Only half of structure and priority combinations are productive. The most productive combination has 5\% unaffiliated and 95\% Green members with state and ideology priorities.} 
 \label{lawspassed}
 \end{figure}
- 
   
 The results also indicate that (average) satisfaction with final decisions decreases as more provisions are added.
 Yet, adding provisions produces more votes in six of the 14 productive cases. 
@@ -227,7 +219,7 @@ This deserves further discussion and we address it in the next section.
 %(3 pages including tables, figures) Write this section second!
 %
 %This section is entirely based on section 3.
-The experiment data show discernible patters for organizational effectiveness; though, there is variation in satisfaction with decisions, support for decisions and productivity within each case.
+The experiment data show discernible patterns for organizational effectiveness, though there is variation in satisfaction with decisions, support for decisions, and productivity within each case.
 For example, we can generalize about the importance of having external priorities for self-tasking organizations, such as the U.S. Congress, that propose decisions for group approval. 
 Similarly, we see that some structures are more productive; some require more compromise; some are more satisfied with their decisions, \textit{etc}. 
 In this section, we evaluate the results of the experiments to discover these rules. 
@@ -256,10 +248,10 @@ In that context, we considered the applicability of our findings to our initial 
 The model results seem to not support the assertion that polarization alone leads to an unproductive legislature. 
 While we were thinking about Congress when we designed the model, the model reflects network structure and problem-space structures that can be found in other self-tasking organizations.
 
-Our cases \#1-4 typify organizational structures with 50\% of membership in the majority party---in our case, \textit{Green}---and 45\% in the opposing \textit{Yellow} party .
-Consider the $2 x 2$ priority matrix for this structure: case \#1, with no external priorities is unproductive, case \#2 with only ideology priorities is productive (with wide variation), case \#3 with state priorities and without ideological priorities is unproductive and case \#4 with both state and party priorities is productive. 
-However, the model does not support the conclusion that structure or the lack of priorities alone causes the organizational dysfunction in Congress.
-In eight of the 14 productive cases where 50\% of the membership falls into one of the three categories (\textit{Green}, \textit{Yellow} or unaffiliated) there is a positive correlation between the number of new laws and the number of votes as the number of additional issues get resolved with the proposed legislation.   
+Our cases \#1-4 typify organizational structures with ~50\% of membership in the majority party---in our case, 47.5\% \textit{Green}---and 47.5\% in the opposing \textit{Yellow} party .
+Consider the {2x2} priority matrix for this structure: case \#1, with no external priorities is unproductive, case \#2 with only ideology priorities is productive (with wide variation), case \#3 with state priorities and without ideological priorities is unproductive and case \#4 with both state and party priorities is productive. 
+However, the model does not support the conclusion that structure or lack of priorities alone causes organizational dysfunction in Congress.
+In eight of the 14 productive cases where 50\% of the membership falls into one of the three categories (\textit{Green}, \textit{Yellow} or unaffiliated) there is a positive correlation between the number of new laws and the number of votes as the number of provisions increase to resolve the proposed legislation.   
 
 Finally, in all but one of the productive cases, average satisfaction with a bill declined as additional provisions were added to it. 
 This was not always true of total votes, however.
@@ -269,12 +261,12 @@ In fact, in only five of the 14 cases were both satisfaction and productivity (i
 \subsection{Discussion of Broader Implications}
 %Discuss the implications of your results for a broader set of ideas beyond the specific domain of analysis. Which aspects of your findings can you generalize to a larger set of patterns or cases? Interesting extentions?
 This final observation implies that the congressional policy-making process requires more compromise legislation than is efficient or necessary. 
-Only two of three possible cases (already excluding the case with no external priorities) with evenly-divided parties would regularly produce new laws. 
+In cases with evenly-divided parties, only those with party-aligned preferences produced new laws. 
 (Note Cases \#1-4 in Figure \ref{lawspassed}). 
 Yet, Cases \#2 and \#4 were more productive than many cases with party majority or super-majority.  
 Organizations without any internal community (party) with common positions on issues are similarly unproductive.
 
-Having---at least some---priorities established externally seems to be required for self-tasking organizations to be productive. 
+Having at least some priorities established externally seems to be required for self-tasking organizations to be productive. 
 As a rule, the cases with more externally-defined priorities are more productive than the cases with fewer externally-defined priorities. 
 We observed very few simulations that passed more laws than the number of externally-defined priorities; and in no case was it the rule. 
 The cases with no externally-defined priorities were consistently unproductive. 
@@ -285,7 +277,7 @@ It is tempting to say that this points at the role of leadership---both from wit
 %Would you do things differently?
 %How so?
 Our experiments with this model have been limited to the qualitative characteristics of productivity and satisfaction for highly-typified network structures and a small range of issue priorities.
-We have described the results of these experiments and discussed the implications of those results.
+Experiment results validate a model that demonstrates higher satisfaction and productivity trending with higher preference correlation. 
 Further research might look at the space in between these parameters to discover and understand the tipping points in the dynamic outcomes:
 How much of a majority is needed before compromise yields dissatisfaction and lower productivity? 
 How much leadership intervention is required to overcome inherently unproductive structures?
@@ -293,7 +285,7 @@ How much leadership intervention is required to overcome inherently unproductive
 We are also interested in understanding the effects of party affiliation on proposals and productivity. This paper reviewed aggregate results from our experiments with the model.
 The model could also be extended to produce additional data about how much compromise is needed, given the characteristics of a bill's sponsor.
 We suspect that the sponsor's peer network, if they are in the minority, may modify an otherwise popular proposal with unpopular issues; such that it fails to garner votes at the committee or floor. 
-If a bill's sponsor were to intentionally include members from the majority party, might the annealing process produce more laws?
+If a bill's sponsor were to intentionally include members from the majority party -- or conversely, exclude close connections who may be adverse to a proposal -- might the annealing process produce more laws?
 
 \section{Summary}
 %(<0.5 pages)
