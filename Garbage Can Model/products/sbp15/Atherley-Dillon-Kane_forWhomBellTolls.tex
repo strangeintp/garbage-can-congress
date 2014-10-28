@@ -10,7 +10,7 @@
 % This is where the bibliography stuff needs to happen
 \usepackage[style=apa,backend=biber]{biblatex}
 \DeclareLanguageMapping{english}{american-apa}
-%\addbibresource{billTolls.bib}
+\addbibresource{billTolls.bib}
 %\addbibresource{Projects-garbageCanCongress.bib}
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes} % context sensitive quotes ---makes this look good
@@ -19,10 +19,14 @@
 \usepackage{cleveref}
 
 \begin{document}
+%Cover page: Title, Your Name, ID, Course name, Date, and Abstract ( < 200 words).
+%Title: Descriptive, well-focused, and brief. Use a subtitle to provide more information. Some hypothetical examples: “Power Law Analysis of Wealth in Ireland and Peru: A Comparative Analysis”; “Scaling in the International Airline Network“, “Governmental Capacity and Criticality in Domestic Political Instability”; “Comparing Estimates of the Pareto Exponent”. Pick a tentative title first.
+%
+%Do not settle on a final title until your paper is completely finished.
 
 \title{For Whom the Bill Tolls}
 
-\subtitle{A Simulated Annealing Model of \ldots }
+\subtitle{A Simulated Annealing Model of Draft Legislation}
 
 \author{Scott Atherley \and Clarence Dillon \and Vince Kane}
 
@@ -32,11 +36,11 @@
 
 \maketitle
 
-%Cover page: Title, Your Name, ID, Course name, Date, and Abstract ( < 200 words).
-%Title: Descriptive, well-focused, and brief. Use a subtitle to provide more information. Some hypothetical examples: “Power Law Analysis of Wealth in Ireland and Peru: A Comparative Analysis”; “Scaling in the International Airline Network“, “Governmental Capacity and Criticality in Domestic Political Instability”; “Comparing Estimates of the Pareto Exponent”. Pick a tentative title first.
-%
-%Do not settle on a final title until your paper is completely finished.
-%
+\begin{abstract}
+ We are interested in how network types can impact productivity of legislatures. 
+ We apply a simulated annealing process in an agent-based model to modify draft legislation with legislator's priority issues in peer and committee reviews before a floor vote determines a congress's approval for a bill.
+ The model design enabled extensive experimentation and we present an overview of the most significant insights. We found that having exogenous, common issue priorities has a high impact on productivity but that some structures inhibit productivity.
+\end{abstract}
 
 \section{Introduction}
 %(approximately .5 pages) Write this section last!
@@ -53,7 +57,13 @@
 %main hypothesis examined in your analysis;
 %approach used for this study;
 %major finding. Use boldface each time you use a course term for the first time (e.g., Pareto exponent, criticality, heavy tail, exponential distribution, etc.).
-
+We set out to model the legislative process from the perspective of policy formation within the U.S. Congress as process-oriented organization. 
+Political science usually models congressional politics from the perspective of voting decisions \parencite{m74, k89}, ideology \parencite{pr97}, party influence \parencite{cm93,cm05,a95} or lack thereof \parencite{k91, k98} and committee dynamics \parencite{sw87, gk89, m04}. 
+In spite of this wealth of literature there remains surprisingly little research on the dynamics of policy formation. 
+Existing models tend to reason backwards from votes: constructing measures of ideology from grouped voting decisions, assuming that legislators devise legislation that aligns with their past voting patterns.   
+We model the development of legislation as a sequential bargaining process among sub-groups within the Congress. 
+Our research complements other studies by developing a computational model of policy development through draft legislation.
+Analysis the the model results indicate that party partisanship alone does not explain Congress's current inability to produce legislation.  
 
 
 \section{Methods}
@@ -181,7 +191,7 @@ Additionally, the six remaining cases with no external priorities---\textit{Type
 Three more cases with a 50\% unaffiliated and 50\% \textit{Green} party make up the \textit{Type III} unproductive cases.
 One other case (\#3) with 5\% unaffiliated members, 50\% \textit{Green} members and no ideology-based priorities consistently failed to produce new laws, though this case is not distinct from other that do. 
 
-\begin{figure}[hb]
+\begin{figure}[h]
 \centering
 \includegraphics[width=4.9in]{laws_byJob_jitterQuints.png}
 \caption[ ]{Only half of structure and priority combinations are productive. The most productive combination has 5\% unaffiliated and 95\% Green members with state and ideology priorities.} 
@@ -202,6 +212,7 @@ This deserves further discussion and we address it in the next section.
 %want to include graphs, maps, tables, chronologies, diagrams, etc. to support your
 %analysis. Label each item.
 
+
 \section{Discussion}
 %(3 pages including tables, figures) Write this section second!
 %
@@ -214,9 +225,9 @@ We go on to discuss some broader implications of these rules as well as some rem
 Finally, we point out some implications for policy-making, organization and group dynamics. 
 Figure \ref{combined} provides additional context for this section.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
-\includegraphics[width=4.25in]{combinedCases_crop.pdf}
+\includegraphics[width=4.75in]{combinedCases_crop.pdf}
 \caption[ ]{Qualitative differences in linear fit (blue line) typify the relationship between adding provisions through simulated annealing and the average satisfaction, number of new laws and total number of votes in each case.} 
 \label{combined}
 \end{figure}
@@ -231,34 +242,48 @@ Figure \ref{combined} provides additional context for this section.
 %Different?
 %Why?
 We model Congress as a single organization, which limits applicability of the findings about our model to \textit{e.g.}, the House or the Senate; not the whole of government.
-In that context, we considered the applicability of our findings to our initial motivation: we had been thinking about the U.S. Congress and the popularity of blaming recent lack of productivity on tensions between the two major political parties.  
+In that context, we considered the applicability of our findings to our initial motivation: we had been thinking about the common assertion that low productivity is caused by tensions between the two major political parties in the U.S. Congress.  
 The model results seem to not support the assertion that polarization alone leads to an unproductive legislature. 
-
+While we were thinking about Congress when we designed the model, the model reflects network structure and problem-space structures that can be found in other self-tasking organizations.
 
 Our cases \#1-4 typify organizational structures with 50\% of membership in the majority party---in our case, \textit{Green}---and 45\% in the opposing \textit{Yellow} party .
 Consider the $2 x 2$ priority matrix for this structure: case \#1, with no external priorities is unproductive, case \#2 with only ideology priorities is productive (with wide variation), case \#3 with state priorities and without ideological priorities is unproductive and case \#4 with both state and party priorities is productive. 
-However, we do not support the conclusion that the structure or the lack of ideology-based priorities that causes the current stalemate.
+However, the model does not support the conclusion that structure or the lack of priorities alone causes the organizational dysfunction in Congress.
 In eight of the 14 productive cases where 50\% of the membership falls into one of the three categories (\textit{Green}, \textit{Yellow} or unaffiliated) there is a positive correlation between the number of new laws and the number of votes as the number of additional issues get resolved with the proposed legislation.   
+
+Finally, in all but one of the productive cases, average satisfaction with a bill declined as additional provisions were added to it. 
+This was not always true of total votes, however.
+For some cases, the number of votes increased with additional provisions, even if average satisfaction was lower. 
+In fact, in only five of the 14 cases were both satisfaction and productivity (in terms of votes and new laws) all negatively correlated with adding provisions during annealing. 
  
 \subsection{Discussion of Broader Implications}
 %Discuss the implications of your results for a broader set of ideas beyond the specific domain of analysis. Which aspects of your findings can you generalize to a larger set of patterns or cases? Interesting extentions?
-It seems that self-tasking organizations are not productive without having---at least some---priorities defined externally. 
-The cases with more externally-defined priorities, as a rule, are more productive than the cases with fewer externally-defined priorities. 
-The cases with no externally-defined priorities were consistently unproductive.  
-Organizations without any internal community (party) are similarly unproductive.
+This final observation implies that the congressional policy-making process requires more compromise legislation than is efficient or necessary. 
+Only two of three possible cases (already excluding the case with no external priorities) with evenly-divided parties would regularly produce new laws. 
+(Note Cases \#1-4 in Figure \ref{lawspassed}). 
+Yet, Cases \#2 and \#4 were more productive than many cases with party majority or super-majority.  
+Organizations without any internal community (party) with common positions on issues are similarly unproductive.
+
+Having---at least some---priorities established externally seems to be required for self-tasking organizations to be productive. 
+As a rule, the cases with more externally-defined priorities are more productive than the cases with fewer externally-defined priorities. 
+We observed very few simulations that passed more laws than the number of externally-defined priorities; and in no case was it the rule. 
+The cases with no externally-defined priorities were consistently unproductive. 
+It is tempting to say that this points at the role of leadership---both from within organizations (ideology issues) as well as from above them (state priorities)---but it is really a question for future research.  
 
 \subsection{Implications for future research}
 %How would you conduct a follow-up study?
 %Would you do things differently?
 %How so?
+Our experiments with this model have been limited to the qualitative characteristics of productivity and satisfaction for highly-typified network structures and a small range of issue priorities.
+We have described the results of these experiments and discussed the implications of those results.
+Further research might look at the space in between these parameters to discover and understand the tipping points in the dynamic outcomes:
+How much of a majority is needed before compromise yields dissatisfaction and lower productivity? 
+How much leadership intervention is required to overcome inherently unproductive structures?
 
-
-\subsection{Implications for policy or other applications, if any}
-%Do your findings have any implications for policy?
-%Local policy?
-%National domestic or foreign policy?
-%Global international policy?
-
+We are also interested in understanding the effects of party affiliation on proposals and productivity. This paper reviewed aggregate results from our experiments with the model.
+The model could also be extended to produce additional data about how much compromise is needed, given the characteristics of a bill's sponsor.
+We suspect that the sponsor's peer network, if they are in the minority, may modify an otherwise popular proposal with unpopular issues; such that it fails to garner votes at the committee or floor. 
+If a bill's sponsor were to intentionally include members from the majority party, might the annealing process produce more laws?
 
 \section{Summary}
 %(<0.5 pages)
@@ -266,8 +291,15 @@ Organizations without any internal community (party) are similarly unproductive.
 %State your major finding
 %State your major implication
 %\newpage
+We set out to model the legislative process as a series of organizational functions to adapt issue-based bills into laws.
+Although we were thinking about the U.S. Congress and the American legislative process, this research may be applicable to other organizations.
+We anticipated that legislatures divided along party lines would be unproductive, especially compared to loosely-divided networks; and that unproductive structures would also be dissatisfied.
+Our model suggest that partisanship is not necessarily an impediment to productivity; contrary to pundit complaints that excessive partisanship has hampered legislative productivity.
+The model results show that although evenly divided network structure can be unproductive, they can be more productive than majority or super-majority networks if there are priority issues common to all members.
+The extent of dissatisfaction seems more correlate more closely with compromise than with a lack of productivity. 
+Having external priorities seems to drive productivity more than network structure, in most cases. 
 
-%\printbibliography
+\printbibliography
 %BIBLIOGRAPHIC REFERENCES (1 PAGE)
 %If undecided about style, follow the standard author-year format used in most social
 %science publications: e.g., Smith (1990).

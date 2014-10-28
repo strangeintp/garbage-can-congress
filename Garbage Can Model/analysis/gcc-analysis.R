@@ -18,7 +18,7 @@ library(lattice)
 library(reshape2)
 library(ggplot2)
 library(plyr)
-library(lattice)
+
 
 ## Data
 #  Establish the data directory relative to the working directory, then id
@@ -164,7 +164,7 @@ fac_labeller <- function(var, value){
   }
   if (var=="setUnaffiliatedFraction") {
     value[value=="0.05"] <- "5%  "
-    value[value=="0.50"] <- "50% "
+    value[value=="0.5" ] <- "50% "
   } 
   if (var=="setStatePriorities") {
     value[value=="0"] <- "No, 0 "
@@ -218,9 +218,6 @@ prov.sat + annotation_custom(grob = tableGrob(head(iris[ ,1:3])),
 
 
 ggsave(prov.sat, file="main_sat_prov_byJob.png")
-
-
-
 
 prov.votes <- qplot(provisions, total.votes, data=mes,
                   geom="point", alpha = I(1/4), 
@@ -310,7 +307,7 @@ cLaws
 
 # Votes by provision, to be combined
 
-cVotes <- qplot(provisions, laws.count, data=mes,
+cVotes <- qplot(provisions, total.votes, data=mes,
                 geom="point", alpha = I(1/5),
                 ylab = "Total Votes", xlab = "Additional povisions through simulated annealing for each Case") +
   geom_smooth(method = "lm", se = T) + 
