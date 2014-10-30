@@ -8,7 +8,7 @@
 \usepackage{wrapfig}
 % \newcommand{\x}[1]{ }
 % This is where the bibliography stuff needs to happen
-\usepackage[style=apa,backend=biber]{biblatex}
+\usepackage[style=apa, backend=biber]{biblatex}
 \DeclareLanguageMapping{english}{american-apa}
 \addbibresource{billTolls.bib}
 %\addbibresource{Projects-garbageCanCongress.bib}
@@ -26,7 +26,7 @@
 \subtitle{The Impact of Preference Alignment on Productivity and Satisfaction}
 \author{Scott Atherley \and Clarence Dillon \and Vince Kane}
 \institute{George Mason University\\
-\thanks{We wish to thank Maksim Tsvetovat who introduced us to applications of simulated annealing to Organizational Theory and inspired us to extend it, adapt it, and to think about organizations and processes where it seems to fit especially well.}
+\thanks{We wish to thank Maksim Tsvetovat who introduced us to applications of simulated annealing to Organizational Theory and inspired us to extend it, adapt it, and to think about organizations and processes where it seems to fit especially well.  We also thank an anonymous reviewer for helpful feedback provided on a previous draft of this paper.}
 \email{\{satherle, cdillon2, vkane2\}@gmu.edu}}
 \maketitle
 
@@ -86,7 +86,6 @@ Analysis the the model results indicate that party partisanship alone does not e
 
 
 \section{Model and Methods}
-\section{Methods}
 %(3-4 pages) Write this section third!
 %
 %This section identifies and defines those concepts, models, theories, or other course ideas and tools that you used in order to carry out your analysis. Which concepts, data, theories, principles or other analytical tools from the course—from lectures or readings—did you use in this study? Which sources?
@@ -99,7 +98,7 @@ Conceptually, a bill is sponsored by a single legislator, reviewed and revised t
 Legislators are initialized with priorities and positions on a common list of issues, with preferences stochastically generated according to quantified state priorities and party ideologies.
 Legislators are connected to each other in a social network, generated using both homophily \parencite{msc01, br11} and preferential attachment \parencite{Barabasi1999}.
 The initialization and simulation processes are described further in sections below.
-\footnote{In the interest of brevity, we have omitted some detail descriptions of the initialization and simulation; however, these details may be found in the online supplement at TBD and are referenced where applicable below.}
+\footnote{In the interest of brevity, we have omitted some detail descriptions of the initialization and simulation; however, these details,as well as the model itself, may be found in the online supplement at TBD and are referenced where applicable below.}
 \subsection{Model Initialization}
 Each model realization is initialized by generating default issue priorities and positions via the \texttt{State} object, legislators with heterogeneous priorities and positions, and a social network among the legislators.
 \subsubsection{Initializing the Model Environment}
@@ -194,11 +193,11 @@ Additionally, the six remaining cases with no external priorities---\textit{Type
 Three more cases with a 50\% unaffiliated and 50\% \textit{Green} party make up the \textit{Type III} unproductive cases.
 One other case (\#3) with 5\% unaffiliated members, 50\% \textit{Green} members and no ideology-based priorities consistently failed to produce new laws, though this case is not distinct from other that do. 
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
-\includegraphics[width=4.9in]{laws_byJob_jitterQuints.png}
-\caption[ ]{Only half of structure and priority combinations are productive. The most productive combination has 5\% unaffiliated and 95\% Green members with state and ideology priorities.} 
-\label{lawspassed}
+\includegraphics[width=4.75in]{combinedCases_crop.pdf}
+\caption[ ]{Qualitative differences in linear fit (blue line) typify the relationship between adding provisions through simulated annealing and the average satisfaction, number of new laws and total number of votes in each case.} 
+\label{combined}
 \end{figure}
   
 The results also indicate that (average) satisfaction with final decisions decreases as more provisions are added.
@@ -213,12 +212,19 @@ This deserves further discussion and we address it in the next section.
 %State your first main finding or result. Then the second, and so on. You may
 %want to include graphs, maps, tables, chronologies, diagrams, etc. to support your
 %analysis. Label each item.
-
+Main Findings:
+	- Higher correlation of preferences results in higher productivity
+	- Higher productivity comes at the cost of higher inefficiency as evidenced number of provisions
+	- partisanship is not necessarily an impediment to productivity
+	- evenly divided networks with more external priorities can be more productive majorities or super-majorities
+	- overall satisfaction decreases with compromise (provisions)
 
 \section{Discussion}
 %(3 pages including tables, figures) Write this section second!
 %
 %This section is entirely based on section 3.
+
+	
 The experiment data show discernible patterns for organizational effectiveness, though there is variation in satisfaction with decisions, support for decisions, and productivity within each case.
 For example, we can generalize about the importance of having external priorities for self-tasking organizations, such as the U.S. Congress, that propose decisions for group approval. 
 Similarly, we see that some structures are more productive; some require more compromise; some are more satisfied with their decisions, \textit{etc}. 
@@ -227,12 +233,6 @@ We go on to discuss some broader implications of these rules as well as some rem
 Finally, we point out some implications for policy-making, organization and group dynamics. 
 Figure \ref{combined} provides additional context for this section.
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=4.75in]{combinedCases_crop.pdf}
-\caption[ ]{Qualitative differences in linear fit (blue line) typify the relationship between adding provisions through simulated annealing and the average satisfaction, number of new laws and total number of votes in each case.} 
-\label{combined}
-\end{figure}
 
 \subsection{Discussion of Findings}
 %What do your findings mean?
@@ -297,9 +297,7 @@ We set out to model the legislative process as a series of organizational functi
 Although we were thinking about the U.S. Congress and the American legislative process, this research may be applicable to other organizations.
 We anticipated that legislatures divided along party lines would be unproductive, especially compared to loosely-divided networks; and that unproductive structures would also be dissatisfied.
 Our model suggest that partisanship is not necessarily an impediment to productivity; contrary to pundit complaints that excessive partisanship has hampered legislative productivity.
-The model results show that although evenly divided network structure can be unproductive, they can be more productive than majority or super-majority networks if there are priority issues common to all members.
-The extent of dissatisfaction seems more correlate more closely with compromise than with a lack of productivity. 
-Having external priorities seems to drive productivity more than network structure, in most cases. 
+The model results show that although evenly divided network structure can be unproductive, they can be more productive than majority or super-majority networks if there are priority issues common to all members. 
 
 \printbibliography
 %BIBLIOGRAPHIC REFERENCES (1 PAGE)
