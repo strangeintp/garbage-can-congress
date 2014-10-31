@@ -3,13 +3,14 @@
 %Use any major citation style (Turabian, MLA, Chicago); just be consistent throughout.
 %
 %Use any major citation style (Turabian, MLA, Chicago); just be consistent throughout.
-\documentclass[pdftex,12pt]{llncs}
+\documentclass[pdftex,12pt,oribibl]{llncs}
 \usepackage[american]{babel}
 \usepackage{wrapfig}
 % \newcommand{\x}[1]{ }
 % This is where the bibliography stuff needs to happen
-\usepackage[style=apa, backend=biber]{biblatex}
-\DeclareLanguageMapping{english}{american-apa}
+%\usepackage[style=apa, backend=biber]{biblatex}
+%\DeclareLanguageMapping{english}{american-apa}
+\usepackage{biblatex}
 \addbibresource{billTolls.bib}
 %\addbibresource{Projects-garbageCanCongress.bib}
 \usepackage[utf8]{inputenc}
@@ -24,10 +25,12 @@
 %\subtitle{Policy Formation through Simulated Annealing }
 \title{A Model of Policy Formation through Simulated Annealing:}
 \subtitle{The Impact of Preference Alignment on Productivity and Satisfaction}
+\titlerunning{Policy Formation through Simulated Annealing}
 \author{Scott Atherley \and Clarence Dillon \and Vince Kane}
 \institute{George Mason University\\
 \thanks{We wish to thank Maksim Tsvetovat who introduced us to applications of simulated annealing to Organizational Theory and inspired us to extend it, adapt it, and to think about organizations and processes where it seems to fit especially well.  We also thank an anonymous reviewer for helpful feedback provided on a previous draft of this paper.}
 \email{\{satherle, cdillon2, vkane2\}@gmu.edu}}
+
 \maketitle
 
 %Cover page: Title, Your Name, ID, Course name, Date, and Abstract ( < 200 words).
@@ -42,26 +45,7 @@
  The model design enabled extensive experimentation and we present an overview of the most significant insights. We found that having exogenous, common issue priorities has a high impact on productivity but that some structures inhibit productivity, particularly where preference schedules are uncorrelated.
 \end{abstract}
 
-\section{Vince's Introduction}
-%(approximately .5 pages) Write this section last!
-... straw man ...
-It is a trope of Western democratic ideals that a democracy (representative or otherwise) produces the greatest happiness for its citizenry, or the least unhappiness for a majority of it.
-On the other hand, we also suspect that as a policy-making system, it is highly inefficient and -- in the extreme -- unproductive.
-Our intuition -- and to some extent, political experience -- tells us that a diversity or high bipolarity of policy preferences may result in legislative deadlock and lower overall satisfaction with legislative outcomes.
-Theory abounds on these topics (TBD citations - need Scott's input!); (TBD: what about empirics?); as yet, however, the literature does not evidence any computational models attempting to address these questions quantitatively.
-
-We examine here the dynamics of a body politic generating policy, under the constraints of heterogeneous schedules of preferences on a set of issues, amongst which some issues are more important than others, and between which there are varying levels of correlation in preference (e.g., party platform ideology).
-Through a computational approach, we quantitatively address questions such as: what are the policy impacts of unified, vs. bimodal, vs. completely uncorrelated sets of preferences?
-(Compare the Unites States' two-party system with multi-party systems existing elsewhere, for example).
-How well are the resulting policies received by the policy makers (and by extension, those whom they represent)?
-Can the presence of non-partisan influences (e.g., "independents" in a two-party system) moderate partisan deadlock?
-
-As a case study for policy-making, we model the U.S. Congress.
-We considered simulated annealing to be the non-deterministic optimization method most analogous to the bill revision process, in that it optimizes on total energy state (legislative body satisfaction) within a system of competing constraints (legislator preferences).
-However, as a generalized model of policy-making, the results are broadly applicable to a wide range of policy-making organizations, whether they be legislative bodies at the national or local level, regulatory bodies, standards organizations, or conference committees.
-
-In the following sections, we describe the modeling methodology, present results, discuss the findings, and conclude with suggestions for further work.
-\section{Clarence's Introduction}
+\section{Introduction}
 %(approximately .5 pages) Write this section last!
 %A common (bad) idea is to begin by writing this section first—it just doesn’t work because it tends to get too long and disconnected from core results. Introduce the topic of your research and its motivation. Address these questions:
 %
@@ -76,13 +60,50 @@ In the following sections, we describe the modeling methodology, present results
 %main hypothesis examined in your analysis;
 %approach used for this study;
 %major finding. Use boldface each time you use a course term for the first time (e.g., Pareto exponent, criticality, heavy tail, exponential distribution, etc.).
-We set out to model the legislative process from the perspective of policy formation within the U.S. Congress as process-oriented organization. 
-Political science usually models congressional politics from the perspective of voting decisions \parencite{m74, k89}, ideology \parencite{pr97}, party influence \parencite{cm93,cm05,a95} or lack thereof \parencite{k91, k98} and committee dynamics \parencite{sw87, gk89, m04}. 
-In spite of this wealth of literature there remains surprisingly little research on the dynamics of policy formation. 
-Existing models tend to reason backwards from votes: constructing measures of ideology from grouped voting decisions, assuming that legislators devise legislation that aligns with their past voting patterns.   
-We model the development of legislation as a sequential bargaining process among sub-groups within the Congress. 
-Our research complements other studies by developing a computational model of policy development through draft legislation.
-Analysis the the model results indicate that party partisanship alone does not explain Congress's current inability to produce legislation.  
+
+It is a trope of Western democratic ideals that a democracy---governance by vote---produces the greatest happiness for its citizenry, or the least unhappiness for a majority of it.
+%On the other hand, we also suspect that as a policy-making system, it is highly inefficient and -- in the extreme -- unproductive.
+Our intuition and recent political experience is that diversity of policy preferences can result in legislative deadlock and lower overall satisfaction with legislative outcomes.
+Political science often models congressional ideology backward from voting decisions \parencite{m74, k89}, party influence \parencite{cm93,cm05,a95,k91, k98} and committee dynamics \parencite{sw87, gk89, m04}.
+Our research complements other studies by developing a computational model of policy development through draft legislation as a sequential bargaining process.
+We considered simulated annealing to be the non-deterministic optimization method most analogous to the bill revision process; using it optimize legislative body satisfaction within a system of competing legislator preferences.
+
+As a generalized model of policy-making, the results are broadly applicable to a wide range of policy-making organizations: legislative bodies at the national or local level, regulatory bodies, standards organizations and conference committees, for example.
+
+In this paper, we quantitatively address questions about the productivity and satisfaction of legislators with unified, bi-modal and completely uncorrelated sets of preferences. 
+Specifically, we wanted to study how the presence of non-partisan influences---independents---might moderate partisan deadlock. 
+Analysis the the model results indicate that party partisanship alone does not explain Congress's current inability to produce legislation.
+
+%(Compare the Unites States' two-party system with multi-party systems existing elsewhere, for example).
+%
+%How well are the resulting policies received by the policy makers (and by extension, those whom they represent)?
+%
+%Can the presence of non-partisan influences (e.g., "independents" in a two-party system) moderate partisan deadlock?
+%
+%
+%
+%Existing models tend to reason backwards from votes: constructing measures of ideology from grouped voting decisions, assuming that legislators devise legislation that aligns with their past voting patterns.
+%
+%often  from the perspective of voting decisions .
+%
+%We set out to model a legislative process from the perspective of policy formation within the U.S. Congress as process-oriented organization. 
+%
+% 
+%In spite of this wealth of literature there remains surprisingly little research on the dynamics of policy formation. 
+%   
+% among sub-groups within the Congress.
+%
+%Theory abounds on these topics (TBD citations - need Scott's input!); (TBD: what about empirics?); as yet, however, the literature does not evidence any computational models attempting to address these questions quantitatively.
+
+%We examine here the dynamics of a body politic generating policy, under the constraints of heterogeneous schedules of preferences on a set of issues, amongst which some issues are more important than others, and between which there are varying levels of correlation in preference (e.g., party platform ideology).
+
+%
+%
+%As a case study for policy-making, we model the U.S. Congress.
+%
+%
+%
+%In the following sections, we describe the modeling methodology, present results, discuss the findings, and conclude with suggestions for further work.
 
 
 \section{Model and Methods}
@@ -196,7 +217,7 @@ For the remaining productive cases, Figure \ref{combined} presents run results i
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=4.75in]{combinedCases_crop.pdf}
+\includegraphics[width=4.75in]{combinedResults.png}
 \caption[ ]{Experiment suite results for productive scenarios.  The trend lines indicate a best fit linear correlation to number of provisions.} 
 \label{combined}
 \end{figure}
@@ -263,6 +284,542 @@ We chose the U.S. Congress and the American legislative process as a case study,
 Results indicate that partisanship alone is not necessarily an impediment to productivity, provided that there is sufficient alignment of priorities and preferences.
 However, higher productivity comes at the cost of lower satisfaction and system efficiency.
 We conclude that simulated annealing is a useful method for computationally modeling policy-making, and further research with it should be carried out.
+ 
+%\begin{thebibliography}{}
+%
+%@book{aw12,
+%author = {Adler, Scott and Wilkerson, John},
+%publisher = {Cambridge University Press},
+%title = {Congress and the Politics of Problem Solving},
+%year = {2012},
+%}
+%
+%@book{a95,
+%address = {Chicago},
+%author = {Aldrich, John},
+%publisher = {University of  Press},
+%title = {Why Parties?},
+%year = {1995},
+%}
+%
+%@book{bj93,
+%address = {Chicago},
+%author = {Baumgartner, Frank and Bryan Jones},
+%publisher = {University of  Press},
+%title = {Agendas and Instability in American Politics},
+%year = {1993},
+%}
+%
+%@article{b48,
+%address = {Chicago},
+%author = {Black, Duncan},
+%journal = {Journal of Political Economy},
+%number = {23–34},
+%title = {On the Rationale of Group Decision-making},
+%volume = {56},
+%year = {1948},
+%}
+%
+%
+%@article{br11,
+%author = {Bratton, Kathleen and Rouse, Stella},
+%journal = {Legislative Studies Quarterly},
+%number = {3},
+%title = {Networks in the Legislative Arena: How Group Dynamics Affect Co-Sponsorship},
+%volume = {36},
+%year = {2011},
+%}
+%
+%@article{bhh14,
+%author = {Butts, Carter T. and Mark S. Handcock and David R. Hunter},
+%journal = {R package version 1.9.0. Irvine, CA},
+%title = {network: Classes for Relational Data},
+%year = {2014},
+%url = {http://statnet.org/},
+%}
+%
+%@article{b08,
+%author = {Butts, Carter T.},
+%journal = {Journal of Statistical Software},
+%number = {2},
+%title = {network: a Package for Managing Relational Data in R},
+%volume = {24},
+%year = {2008},
+%}
+%
+%@book{cff87,
+%author = {Cain, Bruce and Ferejohn, John and Fiorina, Morris},
+%title = {The Personal Vote},
+%year = {1987},
+%}
+%
+%@book{cm93,
+%author = {Cox, Gary W. and McCubbins, Mathew},
+%publisher = {University of California Press},
+%title = {Legislative Leviathan: Party Government in the House},
+%year = {1993},
+%}
+%
+%@book{cm05,
+%author = {Cox, Gary and McCubbins, Matthew},
+%publisher = {Cambridge University Press},
+%title = {Setting the Agenda},
+%year = {2005},
+%}
+%
+%@article{gt06,
+%author = {Csardi G and Nepusz T:},
+%journal = {InterJournal, Complex Systems},
+%title = {The igraph software package for complex network research},
+%volume = {1695},
+%year = {2006},
+%url = {http://igraph.org},
+%}
+%
+%@article{drs85,
+%author = {Denzau, Arthur and Riker, William and Shepsle, Kenneth},
+%journal = {The American Political Science Review},
+%number = {4},
+%title = {Farquharson and Fenno: Sophisticated Voting and Home Style},
+%volume = {79},
+%year = {1985},
+%}
+%
+%@article{ec12,
+%author = {Epskamp, Sacha and Verena D. Schmittmann and Angelique O. J. Cramer and Denny Borsboom},
+%edition = {Journal of Statistical Software},
+%series = {4},
+%title = {qgraph: Network Visualizations of Relationships in Psychometric Data},
+%volume = {48},
+%year = {2012},
+%}
+%
+%@article{b12,
+%author = {Denny Borsboom},
+%journal = {Journal of Statistical Software},
+%number = {4},
+%pages = {1-18},
+%title = {qgraph: Network Visualizations of Relationships in Psychometric Data},
+%volume = {48},
+%year = {2012},
+%url = {http://www.jstatsoft.org/v48/i04/},
+%unidentified = {),. URL},
+%}
+%
+%@incollection{f86,
+%address = {New York},
+%author = {Ferejohn, John},
+%booktitle = {Congress and Policy Change},
+%editor = {Gerald C. Wright and Jr., Leroy N. Rieselbach and Lawrence C. Dodd},
+%publisher = {Agathon Press, Inc},
+%title = {Logrolling in an Institutional Context: A Case Study of Food Stamp Legislation},
+%year = {1986},
+%}
+%
+%@article{f06,
+%author = {Fowler, James},
+%journal = {Political Analysis},
+%number = {4},
+%title = {Connecting the Congress: A Study of Co-Sponsorship Networks},
+%volume = {14},
+%year = {2006},
+%}
+%
+%@article{gk89,
+%author = {Gilligan, Thomas and Krehbiel, Keith},
+%journal = {American Journal of Political Science},
+%number = {2},
+%title = {Asymmetric Information and Legislative Rules with a Heterogeneous Committee},
+%volume = {33},
+%year = {1989},
+%}
+%
+%@article{gk90,
+%author = {Gilligan, Thomas and Krehbiel, Keith},
+%journal = {American Journal of Political Science},
+%number = {2},
+%title = {Organization of Informative Committees by a Rational Legislature},
+%volume = {34},
+%year = {1990},
+%}
+%
+%@article{hw90,
+%author = {Hall, Richard and Wayman, Frank},
+%journal = {The American Political Science Review},
+%number = {3},
+%title = {Buying Time: Moneyed Interests and the Mobilization of Bias in Congressional Committees},
+%volume = {84},
+%year = {1990},
+%}
+%
+%@article{mdcspm14,
+%author = {Handcock M and Hunter D and Butts C and Goodreau S and Krivitsky P and Morris M},
+%journal = {The Statnet Project (R package version 2)},
+%number = {1},
+%title = {ergm: Fit, Simulate and Diagnose Exponential-Family Models for Networks},
+%volume = {3},
+%year = {2014},
+%url = {http://www.statnet.org},
+%unidentified = {http://CRAN.R-project.org/package=ergm},
+%}
+%
+%@incollection{h78,
+%author = {Heclo, Hugh},
+%booktitle = {American},
+%editor = {The New American Political System},
+%publisher = {Enterprise Institute},
+%title = {Issue Networks and the Executive Establishment: Government Growth in an Age of Improvement},
+%year = {1978},
+%}
+%
+%@article{hk98,
+%author = {Hojnacki, Marie and Kimball, David},
+%journal = {The American Political Science Review},
+%number = {4},
+%title = {Organized Interests and the Decision of Who to Lobby in Congress},
+%volume = {92},
+%year = {1998},
+%}
+%
+%@article{hg08,
+%author = {Humphries, M. D. and Gurney, K.},
+%journal = {PLoS One},
+%number = {4},
+%title = {Network "small-world-ness": a quantitative method for determining canonical network equivalence},
+%volume = {3},
+%year = {2008},
+%}
+%
+%@article{dmcs,
+%author = {Hunter DR and Handcock MS and Butts CT and Goodreau SM},
+%number = {3},
+%pages = {1-29},
+%title = {Morris and Martina (2008). ``ergm: A Package to Fit Simulate and Diagnose Exponential-Family Models for Networks},
+%volume = {24},
+%year = {2008},
+%}
+%
+%@article{j89,
+%author = {Jacobson, Gary},
+%journal = {American Political Science Review},
+%number = {3},
+%title = {Strategic Politicians and the Dynamics of {U}.S. House Elections, 1946-1986},
+%volume = {83},
+%year = {1989},
+%}
+%
+%@article{j90,
+%author = {Jacobson, Gary},
+%journal = {American Journal of Political Science},
+%number = {2},
+%title = {The Effects of Campaign Spending in House Elections: New Evidence for Old Arguments},
+%volume = {34},
+%year = {1990},
+%}
+%
+%@book{j12,
+%author = {Jacobson, Gary},
+%publisher = {Longman Press},
+%title = {The Politics of Congressional Elections},
+%year = {2012},
+%}
+%
+%@article{jm03,
+%author = {Jenkins, Jeffery and Munger, Michael},
+%journal = {Journal of Politics},
+%number = {2},
+%title = {Investigating the Incidence of Killer Amendments in Congress},
+%volume = {65},
+%year = {2003},
+%}
+%
+%@book{k89,
+%author = {Kingdon, John},
+%publisher = {University of Michigan Press},
+%title = {Congressmen's Voting Decisions},
+%year = {1989},
+%}
+%
+%@book{k95,
+%address = {HarperCollins},
+%author = {Kingdon, John},
+%title = {Agendas, Alternatives and Public Policies},
+%year = {1995},
+%}
+%
+%@article{kgv,
+%author = {Kirkpatrick, S. and Gelatt, C. and Vecchi, M. P. ,1983},
+%journal = {Science},
+%title = {Optimization by Simulated Annealing},
+%volume = {220},
+%}
+%
+%@article{m04,
+%author = {McKelvey, Bill},
+%journal = {Journal of Business Venturing},
+%title = {Toward a complexity science of entrepreneurship},
+%volume = {19},
+%year = {2004},
+%}
+%
+%@book{k91,
+%author = {Krehbiel, Keith},
+%publisher = {University of Michigan Press},
+%title = {Information and Legislative Organization},
+%year = {1991},
+%}
+%
+%@book{k98,
+%address = {Chicago University Press},
+%author = {Krehbiel, Keith},
+%title = {Pivotal Politics: A Theory of US Lawmaking},
+%year = {1998},
+%}
+%
+%@book{m78,
+%author = {Mann, Thomas},
+%title = {Unsafe at Any Margin: Interpreting Congressional Elections},
+%year = {1978},
+%}
+%
+%@book{m74,
+%author = {Mayhew, David},
+%%publisher = {Yale University Press},
+%title = {Congress: The Electoral Connection},
+%year = {1974},
+%}
+%
+%@article{msc01,
+%author = {McPherson, Miller and Smith-Lovin, Lynn and Cool, James},
+%journal = {Annual Review of Sociology},
+%title = {Birds of a Feather: Homophily in Social Networks},
+%volume = {27},
+%year = {2001},
+%}
+%
+%@article{mrrt53,
+%author = {Metropolis, N. and Rosenbluth, A. W. and Rosenbluth, M. N. and Teller, A. H.},
+%journal = {Journal of Chemical Physics},
+%number = {6},
+%title = {Equations of State Calculations by Fast Computing Machines},
+%volume = {21},
+%year = {1953},
+%}
+%
+%@article{n03,
+%author = {Newman, M. E. J.},
+%journal = {SIAM Review},
+%number = {3},
+%pages = {167-256},
+%title = {The structure and function of complex networks},
+%volume = {45},
+%year = {2003},
+%}
+%
+%@article{ns02,
+%author = {Nourse, Victoria and Schacter, Jane},
+%journal = {New York University Law Review},
+%title = {The Politics of Legislative Drafting - A Congressional Case Study},
+%volume = {77},
+%year = {2002},
+%}
+%
+%@article{p68,
+%author = {Polsby, Nelson},
+%journal = {American Political Science Review},
+%number = {1},
+%title = {The Institutionalization of the US House of Representatives},
+%volume = {62},
+%year = {1968},
+%}
+%
+%@book{pr97,
+%author = {Poole, Keith and Rosenthal, Howard},
+%publisher = {Oxford University Press},
+%title = {Congress: A Political-Economic History of Roll Call Voting},
+%year = {1997},
+%}
+%
+%@article{pmnw05,
+%author = {Porter, Mason and Peter J. Mucha and M. E. J. Newman and Casey M. Warmbrand},
+%journal = {Proceedings of the National Academy of Sciences of the United States},
+%number = {20},
+%title = {A network analysis of committees in the U.S. House of Representatives},
+%volume = {120},
+%year = {2005},
+%}
+%
+%@book{r91,
+%address = {Chicago},
+%author = {Rhode, David},
+%publisher = {University Press},
+%title = {Parties and Leaders in the Post-Reform House},
+%year = {1991},
+%}
+%
+%@book{s08,
+%address = {New York},
+%author = {Sarkar, Deepayan},
+%publisher = {Springer},
+%title = {Lattice: Multivariate Data Visualization with R},
+%year = {2008},
+%}
+%
+%@article{sw87,
+%author = {Shepsle, Kenneth and Weingast, Barry},
+%journal = {The American Political Science Review},
+%number = {1},
+%title = {The Institutional Foundations of Committee Power},
+%volume = {81},
+%year = {1987},
+%}
+%
+%@article{tp02,
+%author = {Talbert, Jeff and Potoskia, Matthew},
+%journal = {The Journal of Politics},
+%title = {Setting the Legislative Agenda: The Dimensional Structure of Bill Cosponsoring and Floor Voting},
+%volume = {64},
+%year = {2002},
+%}
+%
+%@article{tf10,
+%author = {Tam-Cho, Wendy and Fowler, James},
+%journal = {The Journal of Politics},
+%number = {1},
+%title = {Legislative Success in a Small World: Social Network Analysis and the Dynamics of Congressional Legislation},
+%volume = {72},
+%year = {2010},
+%}
+%
+%@article{t67,
+%author = {Tullock, Gordon},
+%journal = {Western Economic Journal},
+%number = {3},
+%title = {The Welfare Costs of Tariffs, Monopolies, and Theft},
+%volume = {5},
+%year = {1967},
+%}
+%
+%@article{vr07,
+%author = {Victor, Jennifer and Range, Nils},
+%journal = {American Politics Research},
+%number = {5},
+%title = {The Social Utility of Informal Institutions: Caucuses as Networks in the 110th U.S. House of Representatives},
+%volume = {37},
+%year = {2007},
+%}
+%
+%@article{w07,
+%author = {Wickham, Hadley},
+%journal = {Journal of Statistical Software},
+%number = {12},
+%pages = {1-20},
+%title = {Reshaping Data with the reshape Package},
+%volume = {21},
+%year = {2007},
+%url = {http://www.jstatsoft.org/v21/i12/},
+%}
+%
+%@book{w09,
+%address = {New York},
+%author = {Wickham, H.},
+%publisher = {Springer},
+%title = {ggplot2: elegant graphics for data analysis},
+%year = {2009},
+%}
+%
+%@article{w11,
+%author = {Wickham, Hadley},
+%journal = {Journal of Statistical Software},
+%number = {1},
+%pages = {1-29},
+%title = {The Split-Apply-Combine Strategy for Data Analysis},
+%volume = {40},
+%year = {2011},
+%url = {http://www.jstatsoft.org/v40/i01/},
+%}
+%
+%@article{zftpfm08,
+%author = {Zhang, Yan and A. J. Friend and Amanda L. Traud and Mason A. Porter and James H. Fowler and Peter J. Mucha},
+%journal = {Physica A: Statistical Mechanics and its Applications},
+%number = {7},
+%title = {Community structure in Congressional co-sponsorship networks},
+%volume = {387},
+%year = {2008},
+%}
+%
+%@article{Granovetter1978,
+%author = {Granovetter, M},
+%file = {:home/cw/Documents/School/Research/1978\_Granovetter\_thresholdModels-collectiveBehavior.pdf:pdf},
+%journal = {American journal of sociology},
+%number = {6},
+%pages = {1420--1443},
+%title = {{Threshold models of collective behavior}},
+%url = {http://www.jstor.org/stable/2778111},
+%volume = {83},
+%year = {1978}
+%}
+%@article{Granovetter1973,
+%author = {Granovetter, M},
+%doi = {10.1086/225469},
+%file = {:home/cw/Documents/School/CSS739\_Tsvetovat/COT\_Spring2014/1973\_Granovetter\_strength-weakTies.pdf:pdf},
+%issn = {0002-9602},
+%journal = {American journal of sociology},
+%month = may,
+%number = {6},
+%pages = {1360},
+%title = {{The strength of weak ties}},
+%url = {http://www.jstor.org/stable/2776392?seq=2\&cookieSet=1},
+%volume = {78},
+%year = {1973}
+%}
+%@article{Barabasi1999,
+%author = {Barab\'{a}si, Albert-l\'{a}szl\'{o} and Albert, Reka},
+%doi = {10.1126/science.286.5439.509},
+%issn = {00368075},
+%journal = {October},
+%month = oct,
+%number = {5439},
+%pages = {509--512},
+%title = {{Emergence of Scaling in Random Networks}},
+%url = {http://www.sciencemag.org/cgi/doi/10.1126/science.286.5439.509},
+%volume = {509},
+%year = {1999}
+%}
+%@article{Albert2001,
+%abstract = {Complex networks describe a wide range of systems in nature and society, much quoted examples including the cell, a network of chemicals linked by chemical reactions, or the Internet, a network of routers and computers connected by physical links. While traditionally these systems were modeled as random graphs, it is increasingly recognized that the topology and evolution of real networks is governed by robust organizing principles. Here we review the recent advances in the field of complex networks, focusing on the statistical mechanics of network topology and dynamics. After reviewing the empirical data that motivated the recent interest in networks, we discuss the main models and analytical tools, covering random graphs, small-world and scale-free networks, as well as the interplay between topology and the network's robustness against failures and attacks.},
+%archivePrefix = {arXiv},
+%arxivId = {cond-mat/0106096},
+%author = {Albert, Reka and Barabasi, Albert-Laszlo},
+%doi = {10.1103/RevModPhys.74.47},
+%eprint = {0106096},
+%file = {:home/cw/Documents/School/CSS610\_Axtel/Albert-ReviewofModernPhysics2002.pdf:pdf},
+%month = jun,
+%pages = {54},
+%primaryClass = {cond-mat},
+%title = {{Statistical mechanics of complex networks}},
+%url = {http://arxiv.org/abs/cond-mat/0106096},
+%year = {2001}
+%}
+%@article{McKelvey2004,
+%author = {McKelvey, Bill},
+%doi = {10.1016/S0883-9026(03)00034-X},
+%file = {:home/cw/Documents/School/CSS739\_Tsvetovat/COT\_Spring2014/2004\_McKelvey\_evolutionaryEntrepeneurship.pdf:pdf},
+%issn = {08839026},
+%journal = {Journal of Business Venturing},
+%keywords = {1,apparently,causality,entrepreneurship,entrepreneurship published in,executive summary,journal of business venturing,mediums such as the,order creation,pfeffer and,should ceos pay attention,they do not,to research findings about},
+%month = may,
+%number = {3},
+%pages = {313--341},
+%title = {{Toward a complexity science of entrepreneurship}},
+%url = {http://linkinghub.elsevier.com/retrieve/pii/S088390260300034X},
+%volume = {19},
+%year = {2004}
+%}
+
+
+
+%\end{thebibliography}
  
 
 \printbibliography

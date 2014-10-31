@@ -275,7 +275,7 @@ vplayout <- function(x,y) {
 # Satisfaction by provision; to be combined
 cSat <- qplot(provisions, satisfaction, data=mes,
                   geom="point", alpha = I(1/5), 
-                  main="Average Satisfaction, Laws and Votes by Number of Additional Provisions for Select Cases", ylab = "Satisfaction") +
+                  main="Average Satisfaction and New Laws \nby number of Additional Provisions - Select Cases\n", ylab = "Satisfaction") +
   geom_smooth(method = "lm", se = F) + 
   theme(axis.text=element_text(size=5.5)) +
   theme(axis.title.x=element_blank()) +
@@ -289,8 +289,10 @@ cSat <- qplot(provisions, satisfaction, data=mes,
 
 # New Laws by provision, to be combined
 cLaws <- qplot(provisions, laws.count, data=mes,
-                   geom="point", alpha = I(1/5), 
-                   ylab = "Laws Passed") +
+               geom="point", 
+               alpha = I(1/5), 
+               ylab = "New Laws", 
+               xlab = "Additional Povisions through simulated annealing") +
   geom_smooth(method = "lm", se = T) + 
   facet_grid(. ~ job.f + 
                setStatePriorities + 
@@ -299,7 +301,7 @@ cLaws <- qplot(provisions, laws.count, data=mes,
                setGreenFraction
     ) +
   theme(axis.text=element_text(size=5.5), 
-        axis.title.x=element_blank(),
+        #axis.title.x=element_blank(),
         strip.background = element_blank(),
         strip.text.x = element_blank()
         ) 
@@ -326,14 +328,14 @@ cVotes
 
 # Combination of Satisfaction, Laws and Votes into a single viewport
 
-pdf("combinedCases.pdf", width=8.5, height=12, pointsize=10)
+pdf("combinedCases.pdf", width=8, height=8.5, pointsize=10)
 
 grid.newpage()
-pushViewport(viewport(layout = grid.layout(3,1)))
+pushViewport(viewport(layout = grid.layout(2,1)))
 
 print(cSat, vp = vplayout(1,1))
 print(cLaws, vp =vplayout(2,1))
-print(cVotes, vp = vplayout(3,1))
+#print(cVotes, vp = vplayout(3,1))
 
 #ggsave("combinedCases.png", width=8.5, height=11, dpi=600)
 dev.off()
