@@ -28,7 +28,7 @@
 \titlerunning{Policy Formation through Simulated Annealing}
 \author{Scott Atherley \and Clarence Dillon \and Vince Kane}
 \institute{George Mason University\\
-\thanks{We wish to thank Maksim Tsvetovat who introduced us to applications of simulated annealing to Organizational Theory and inspired us to extend it, adapt it, and to think about organizations and processes where it seems to fit especially well.  We also thank an anonymous reviewer for helpful feedback provided on a previous draft of this paper.}
+\thanks{We wish to thank Maksim Tsvetovat for introducing us to applications of simulated annealing to Organizational Theory and inspiring us to extend and adapt it, and to think about organizations and processes where it seems to fit especially well.  We also thank an anonymous reviewer for helpful feedback provided on a previous draft of this paper.}
 \email{\{satherle, cdillon2, vkane2\}@gmu.edu}}
 
 \maketitle
@@ -42,7 +42,9 @@
 \begin{abstract}
  We are interested in how preference correlations can impact productivity of policy-makers. 
  We apply a simulated annealing process as a model of revising draft legislation in peer and committee reviews before a floor vote determines a congress's approval for a bill.
- The model design enabled extensive experimentation and we present an overview of the most significant insights. We found that having exogenous, common issue priorities has a high impact on productivity but that some structures inhibit productivity, particularly where preference schedules are uncorrelated.
+ We found that having exogenous, common issue priorities has a high impact on productivity but that some structures inhibit productivity, particularly where preferences are uncorrelated.
+ 
+ \textbf{Key words}: simulated annealing, policy formation, organizational theory, preference alignment
 \end{abstract}
 
 \section{Introduction}
@@ -61,50 +63,16 @@
 %approach used for this study;
 %major finding. Use boldface each time you use a course term for the first time (e.g., Pareto exponent, criticality, heavy tail, exponential distribution, etc.).
 
-It is a trope of Western democratic ideals that a democracy---governance by vote---produces the greatest happiness for its citizenry, or the least unhappiness for a majority of it.
-%On the other hand, we also suspect that as a policy-making system, it is highly inefficient and -- in the extreme -- unproductive.
-Our intuition and recent political experience is that diversity of policy preferences can result in legislative deadlock and lower overall satisfaction with legislative outcomes.
-Political science often models congressional ideology backward from voting decisions \parencite{m74, k89}, party influence \parencite{cm93,cm05,a95,k91, k98} and committee dynamics \parencite{sw87, gk89, m04}.
-Our research complements other studies by developing a computational model of policy development through draft legislation as a sequential bargaining process.
-We considered simulated annealing to be the non-deterministic optimization method most analogous to the bill revision process; using it optimize legislative body satisfaction within a system of competing legislator preferences.
+It is a trope of Western democratic ideals that democracy---governance by vote---produces the greatest happiness for its citizenry, or the least unhappiness for the majority.
+Our intuition and recent political experience is that diversity and divides in policy preferences can result in legislative deadlock and lower overall satisfaction with legislative outcomes.
+Political science often models legislature behaviors backward from voting decisions \parencite{m74, k89}, party influence \parencite{cm93,cm05,a95,k91, k98} and committee dynamics \parencite{sw87, gk89, m04}.
+Our research complements other studies by developing a computational model of legislation as a sequential bargaining process.
+We considered simulated annealing (SA) to be the non-deterministic optimization method most analogous to the bill revision process; using it to optimize satisfaction within a system of competing legislator preferences. 
+The results are broadly applicable to a wide range of policy-making organizations: legislative bodies at the national or local level, regulatory bodies, standards organizations and conference committees, for example.
 
-As a generalized model of policy-making, the results are broadly applicable to a wide range of policy-making organizations: legislative bodies at the national or local level, regulatory bodies, standards organizations and conference committees, for example.
-
-In this paper, we quantitatively address questions about the productivity and satisfaction of legislators with unified, bi-modal and completely uncorrelated sets of preferences. 
-Specifically, we wanted to study how the presence of non-partisan influences---independents---might moderate partisan deadlock. 
-Analysis the the model results indicate that party partisanship alone does not explain Congress's current inability to produce legislation.
-
-%(Compare the Unites States' two-party system with multi-party systems existing elsewhere, for example).
-%
-%How well are the resulting policies received by the policy makers (and by extension, those whom they represent)?
-%
-%Can the presence of non-partisan influences (e.g., "independents" in a two-party system) moderate partisan deadlock?
-%
-%
-%
-%Existing models tend to reason backwards from votes: constructing measures of ideology from grouped voting decisions, assuming that legislators devise legislation that aligns with their past voting patterns.
-%
-%often  from the perspective of voting decisions .
-%
-%We set out to model a legislative process from the perspective of policy formation within the U.S. Congress as process-oriented organization. 
-%
-% 
-%In spite of this wealth of literature there remains surprisingly little research on the dynamics of policy formation. 
-%   
-% among sub-groups within the Congress.
-%
-%Theory abounds on these topics (TBD citations - need Scott's input!); (TBD: what about empirics?); as yet, however, the literature does not evidence any computational models attempting to address these questions quantitatively.
-
-%We examine here the dynamics of a body politic generating policy, under the constraints of heterogeneous schedules of preferences on a set of issues, amongst which some issues are more important than others, and between which there are varying levels of correlation in preference (e.g., party platform ideology).
-
-%
-%
-%As a case study for policy-making, we model the U.S. Congress.
-%
-%
-%
-%In the following sections, we describe the modeling methodology, present results, discuss the findings, and conclude with suggestions for further work.
-
+Our simulation model enables quantitative analysis of the productivity and satisfaction of three typified legislatures: with unified, bi-modal or completely uncorrelated sets of preferences. 
+We analyze how the presence of unaffiliated members might moderate partisan deadlock. 
+Model results indicate that party partisanship alone does not explain the U.S. Congress's current inability to produce legislation.
 
 \section{Model and Methods}
 %(3-4 pages) Write this section third!
@@ -114,35 +82,42 @@ Analysis the the model results indicate that party partisanship alone does not e
 %Which data processing procedures? Which cases or samples? Which time periods (epochs)? Key:reproducibility! I must be able to replicate your findings, based on the information provided in this section.
 
 \subsection{Model Overview}
-In this section, we describe implementation of a model of policy formation through simulated annealing.
-Conceptually, a bill is sponsored by a single legislator, reviewed and revised through two rounds of simulated annealing (first, by a network of the sponsor's friends, then by a committee of interested members), and finally voted on by the entire legislative body.
-Legislators are initialized with priorities and positions on a common list of issues, with preferences stochastically generated according to quantified state priorities and party ideologies.
-Legislators are connected to each other in a social network, generated using both homophily \parencite{msc01, br11} and preferential attachment \parencite{Barabasi1999}.
-The initialization and simulation processes are described further in sections below.
+The model runs 30 times for each of 28 cases---840 times, total---to collect statistically-significant results for each set of key parameters.
+We initialize each case by generating a legislature and its internal social network. 
+Legislators have preferences on a set of issues; prioritizing issues in some cases.
+They take turns sponsoring bills, which get reviewed and revised through two rounds of SA before the entire legislative body votes on the bill.
+Our findings reflect data collected about conditions and outcomes for these runs.
+We describe the initialization and simulation processes in more detail below.
 \footnote{In the interest of brevity, we have omitted some detail descriptions of the initialization and simulation; however, these details,as well as the model itself, may be found in the online supplement at TBD and are referenced where applicable below.}
+
 \subsection{Model Initialization}
-Each model realization is initialized by generating default issue priorities and positions via the \texttt{State} object, legislators with heterogeneous priorities and positions, and a social network among the legislators.
+The first step in the simulation initializes the model by generating a \texttt{State} object, which contains a realization for the parameters of that run: a heterogeneous set of 100 legislators, each with their own priorities and positions on a set of 75 issues, assigned through a stochastic process. 
+The \texttt{State} object then organizes the legislators into a social network making a realistic number of connections between the most similar legislators.
+
 \subsubsection{Initializing the Model Environment}
 For our model, we assume that several core issues represent powerful, crystallizing factors that differentiate our simulated parties.
-Thus, party "platforms" consist of vectors of positions and priorities on a set of issues that includes both \texttt{State\_Priorities} and a random sample of high-priority \texttt{Ideology\_Issues} (TBD: S?).
-These vectors are used as "seeds" for the stochastic generation of individual legislator preferences.
+Thus, party ``platforms'' consist of vectors of positions and priorities on a set of issues that includes both \texttt{State\_Priorities} and a random sample of high-priority \texttt{Ideology\_Issues}.
+These vectors are used as ``seeds'' for the stochastic generation of individual legislator preferences.
+
 \subsubsection{Legislator Initialization}
-Each legislator's issue priorities are assigned with a stochastic preferential attachment method (TBD: S?) to the seed values provided by the \texttt{State} object, generating a power law distribution of priorities for that legislator, and providing some correlation in legislator priorities to the extent that seed vectors are correlated through state priorities and party ideology.
+Each legislator's issue priorities are assigned with a stochastic preferential attachment method to the seed values provided by the \texttt{State} object.
+This generates a power law distribution of priorities for that legislator and provides some correlation in legislator priorities to the extent that seed vectors are correlated through state priorities and party ideology.
 
-We assume that party-affiliated legislators adopt the positions of their party; for all other issues (and all issues for unaffiliated legislators), positions are assigned uniform randomly from the range of allowed position values ($2^4$ for our model).
-The end-result of this process is a set of legislator agents with heterogeneous but correlated policy preferences as conditioned by party ideologies and state priorities, and with the strength of correlation determined by party-alignment.
+We assume that party-affiliated legislators adopt the positions of their party. 
+For all other issues (all issues for unaffiliated legislators), the model assigns positions with uniform random probability from the range of allowed position values---$2^4$ for our model.
+The end-result of this process is a set of legislator agents with heterogeneous but correlated policy preferences, conditioned by party ideologies and state priorities; with the strength of correlation determined by party-alignment.
+
 \subsubsection{Network Generation}
-Model initialization is completed with a social network designed to capture the social dynamics of legislating, in that a Congressmen will naturally have a set of friends and close colleagues that he interacts with more than others.
-The network is generated using preferential attachment and total homophily over the generated preferences.
+In the final step of the initialization process, we put legislators into a social network.
+The network is generated using both homophily \parencite{msc01, br11} and preferential attachment \parencite{Barabasi1999}, based on preferences assigned in the previous step. 
+Preferential attachment is as described in Barabasi and Albert (1999), with $m=5$ new edges selected randomly from a \textit{pdf} distribution of degree in the sub-network of potential allies of each legislator. 
+The set of potential allies is selected using an issue-priority weighted likelihood over all issues.
+The typical outcome of this procedure is a network among legislator agents with ``small-world'' properties \parencite{Watts1998}, consistent with existing research on social networks in the U.S. Congress \parencite{Granovetter1978} \footnote{We verify ``small-worldness'' of the networks produced by the model using the Humphries and Gurney metrics \parencite{hg08}.}.
 
-Preferential attachment is as described in Barabasi and Albert (1999), with $m=5$ new edges selected randomly from a \textit{pdf} of degree distribution in the sub-network of potential friends of each legislator.
-The set of potential friends is selected using an issue-priority weighted homophily over all issues (TBD: S?).
-
-The typical outcome of this procedure is a network among legislator agents with "small-world" properties (TBD cite Watts and Strogatz), consistent with existing research on social networks in Congress \parencite{Granovetter1978}.
 \subsection{Simulation Algorithm Overview}
 Having defined a population of legislators and their relationship to each-other, we next establish a procedure for legislators to engage in the business of law-making.\footnote{One might argue that this is a departure from realism, as the current Congress does not appear to do this.
 However, we are attempting to generalize a model of law-making in legislatures.
-Some legislatures do legislate, periodically.}
+Some legislatures do periodically legislate.}
 In our model of law-making, the simulation sequentially repeats the following process for 200 proposals (or halts if all issues are passed into law):
 \begin{enumerate}
 \item Proposal:
@@ -153,13 +128,13 @@ In our model of law-making, the simulation sequentially repeats the following pr
 \item Draft circulation among cosponsors:
 \begin{enumerate}
 \item All legislators connected to the sponsor in the social network are selected as cosponsors.
-\item The cosponsors revise the draft using simulated annealing; new issues may be added to the bill during the revision process and solutions on existing issues may change (TBD: S?).
+\item The cosponsors revise the draft using SA; new issues may be added to the bill during the revision process and solutions on existing issues may change.
 \end{enumerate}
 \item Committee review:
 \begin{enumerate}
 \item The draft is referred to a committee, reflecting committee agenda-setting powers \parencite{cm93, cm05}.
-Legislators for whom the main issue of the bill is a high priority are assigned to the relevant committee (TBD: S?).
-\item The committee revises the bill by simulated annealing; again, new issues may be added and existing solutions changed.
+Legislators for whom the main issue of the bill is a high priority are assigned to the relevant committee.
+\item The committee revises the bill by SA; again, new issues may be added and existing solutions changed.
 \end{enumerate}
 \item Floor vote:
 \begin{enumerate}
@@ -168,21 +143,25 @@ Legislators for whom the main issue of the bill is a high priority are assigned 
 \item If the bill passes by simple majority (\textgreater 50\% votes), the bill is made into law; \textit{i.e.}, the solutions addressed by the bill are recorded and the issues may not be revisited for the remainder of the realization.
 \end{enumerate}
 \end{enumerate}
+
 \subsubsection{Simulated Annealing}
 Bill revision is implemented by the Metropolis algorithm for simulated annealing \parencite{mrrt53, kgv}.
-Our energy function is the cumulative dissatisfaction of all reviewers over all dimensions of the bill (TBD S?). Increases of $0.1$ in dissatisfaction were accepted with probability \sfrac{1}{2} at the maximum temperature (higher satisfaction energy states are automatically accepted).
-The annealing schedule is discussed in TBD: S?.
+Our energy function uses the cumulative dissatisfaction of all reviewers over all dimensions of the bill. 
+Increases of $0.1$ in dissatisfaction were accepted with probability \sfrac{1}{2} at the maximum temperature. 
+Higher satisfaction energy states are automatically accepted.
+See the online appendix for discussion and details about the annealing schedule.
+
 \subsection{Model Calibration}
-We calibrated legislators' \textit{satisfaction thresholds}---the point at which they vote "yes" on legislation---to achieve a ~4\% pass-rate, comparable to passage rates in the actual US Congress (between 2\% and 7\% in recent history).\footnote{Pass rates are equal to the total number of bills passed in a given Congress divided by the total counts of introduced legislation for that Congress. Data to calculate pass rates was collected from Civic Impulse LLC (http://www.govtrack.us).\label{passfn}}
+We calibrated legislators' \textit{satisfaction thresholds}---the point at which they vote ``yes'' on legislation---to achieve a ~4\% pass-rate, comparable to passage rates in the actual U.S. Congress (between 2\% and 7\% in recent history).\footnote{Pass rates are equal to the total number of bills passed in a given Congress divided by the total count of introduced legislation for that Congress. Data to calculate pass rates was collected from Civic Impulse LLC (http://www.govtrack.us).\label{passfn}}
+
 \subsection{Experiments}
-Table \ref{params} identifies the model parameters and values over which a suite of experiments was run.
-A factorial design was used to run experiments over all combinations of values shown in the table -- excepting \texttt{Green\_Fraction} variation when {\texttt{Unaffilitated\_Fraction} = 1.0}, which is a degenerate case -- resulting in 28 unique experiments.
-30 simulations were realized per experiment.
+Table \ref{params} identifies key parameters used in the model for the suite of experiments.
+The simulation program includes a factorial design to run experiments over all combinations of values shown in the table (excepting \texttt{Green\_Fraction} variation when {\texttt{Unaffilitated\_Fraction} = 1.0}, which is a degenerate case), resulting in 28 unique experiments---the cases.
+We realized 30 simulations per experiment.
 
-To keep the data set manageable, the run history for only a single realization was recorded, as a sample, for each experiment.
-However, the following metrics were recorded for each realization: number of laws passed, number of issues addressed by law (i.e. provisions), and legislative body satisfactions over all bills before and after SA revisions.
+For each realization, we recorded: the number of laws passed, the number of issues addressed by law (i.e. provisions), and legislative body satisfactions over all bills before and after SA revisions. 
+To keep the data set manageable, we recorded the run history for only a single realization, as a sample, for each experiment.
 Aggregate statistics (averages and standard deviations) were also calculated and recorded for the output metrics of all realizations of an experiment.
-
 
 \begin{table}
  \caption{Simulation Parameter Space}
@@ -195,18 +174,18 @@ Aggregate statistics (averages and standard deviations) were also calculated and
  \texttt{Unaffilitated\_Fraction} & Fraction of the legislative population with no ideological party  affiliation. & [0.05, 0.5, 1.0] \\
  \texttt{Green\_Fraction} & Fraction of the party-affiliated population belonging to the \textit{Green} party. Remainder belong to the Yellow party. & [0.5, 0.75, 1.0] \\
  \texttt{Ideology\_Issues} & Ideological platform issues for the parties. & [0, 5] \\
- \texttt{State\_Priorities} & High-priority issues for all legislators. & [0, 5] \\
+ \texttt{State\_Priorities} & High-priority issues for all legislators, regardless of position on the issue. & [0, 5] \\
  \hline
  \end{tabular}
  \label{params}
 \end{table}
-
 
 \section{Results and Findings}
 %(2 pages) Write this section first!
 %
 %Present your results of analysis in this section. 
 Fourteen of the 28 experiment combinations were uniformly unproductive (produced no laws):
+
 \begin{enumerate}
 \item All four cases with no party structure,
 \item Scenarios with 50\% unaffiliated, 25\% Green, and 25\% Yellow,
@@ -218,7 +197,7 @@ For the remaining productive cases, Figure \ref{combined} presents run results i
 \begin{figure}[h!]
 \centering
 \includegraphics[width=4.75in]{combinedResults.png}
-\caption[ ]{Experiment suite results for productive scenarios.  The trend lines indicate a best fit linear correlation to number of provisions.} 
+\caption[ ]{Experiment suite results for productive scenarios.  The trend lines indicate a best fit linear correlation to the number of additional provisions.} 
 \label{combined}
 \end{figure}
 
@@ -245,20 +224,23 @@ Interpreting these results, our main findings are:
 Based on our results and findings, we can generalize about the importance of having external priorities for self-tasking organizations, such as the U.S. Congress, that undertake complex tasks (law generation) requiring group approval.\footnote{Note that production of an academic paper with multiple authors may fit this generalized formulation, as well.}
 Having at least some priorities established externally seems to be required for self-tasking organizations to be productive. 
 As a rule, the cases with more externally-defined priorities are more productive than the cases with fewer externally-defined priorities. 
-We observed very few simulations that passed more laws than the number of externally-defined priorities; and in no case was it the rule. 
+We observed very few simulations that passed more laws than the number of externally-defined priorities; and, in no case was it the rule. 
 The cases with no externally-defined priorities were consistently unproductive. 
-It is tempting to say that this points at the role of leadership---both from within organizations (ideology issues) as well as from above them (state priorities)---but it is really a question for future research.
+It is tempting to say that this points at the role of leadership---both from within organizations (ideology issues) and from above them (state priorities)---but that will be a question for future research.
 
 Our initial motivation for this research was consideration of the common assertion that a dysfunctional Congress (if measured by ability to pass law) is caused by tensions between the two major political parties in the U.S.
-Our results -- in particular, findings 3 and 4 -- do not support the assertion that polarization of preferences alone leads to an unproductive legislature; this points to other factors such as political manipulation as more likely factors.
+Our results---in particular, findings 3 and 4---do not support the assertion that polarization of preferences alone leads to an unproductive legislature; other factors such as political manipulation are more likely factors.
 
-Let us turn to finding \#2: higher productivity requires increased provisions.
-In a legislative context, these provisions (or ``riders'') represent effort diverted to individual interests that are not [necessarily] focused on the task at hand.
-While district representatives may balk at the assertion that this is wasted effort, these riders are nonetheless recognized as the ``cost of doing business''.
-Abstracting this from a legislative context, then, we may generalize this as higher productivity coming with the cost of lower system efficiency.
+Finding \#2 demonstrates that higher productivity requires increased provisions.
+In a legislative context, these additional provisions, sometimes called, ``riders,'' represent effort diverted to individual interests that are not [necessarily] focused on the task at hand.
+These riders represent a the ``cost of doing business''.
+Abstracting this from the legislative context, we can generalize that this is higher productivity coming with the cost of lower system efficiency.
 
-Finally, our finding \#5 -- that satisfaction decreases with increasing provisions -- captures the social aspects of negotiation and compromise.  
-In other words, policy makers are willing to accede adverse positions on their lower-priority issues as a cost of attaining higher satisfaction with the total law, and total satisfaction of course decreases as these issues are added; conversely, bills start off in a low-satisfaction state and gather provisions as a way of garnering votes.  In either case, however, more issues are needed to retain or attain the requisite satisfaction for pushing legislation through.
+Finally, finding \#5---that satisfaction decreases with increasing provisions---captures the social aspects of negotiation and compromise.  
+In other words, policy makers are willing to accede adverse positions on their lower-priority issues as a cost of attaining higher satisfaction with the total law, and total satisfaction decreases as these issues are added. 
+Conversely, bills start off in a low-satisfaction state and gather provisions as a way of garnering votes.  
+In either case, more issues are needed to retain or attain the enough satisfaction to pass new legislation.
+
 \subsection{Implications for future research}
 %How would you conduct a follow-up study?
 %Would you do things differently?
@@ -269,9 +251,9 @@ How much leadership intervention (ideology) is required to overcome inherently u
 For completely unaffiliated legislatures, how many state priorities are required to ensure sufficient preference correlation?
 
 We are also interested in understanding the effects of party affiliation on proposals and productivity. This paper reviewed aggregate results from our experiments with the model.
-The model could also be extended to produce additional data about how much compromise is needed, given the characteristics of a bill's sponsor.
-We suspect that the sponsor's peer network, if they are in the minority, may modify an otherwise popular proposal with unpopular issues; such that it fails to garner votes at the committee or floor. 
-If a bill's sponsor were to intentionally include members from the majority party -- or conversely, exclude close connections who may be adverse to a proposal -- might the annealing process produce more laws?
+The model could be extended to produce additional data about how much compromise is needed, given the characteristics of a bill's sponsor.
+We suspect that the sponsor's peer network, if they are in the minority, may modify an otherwise popular proposal with unpopular issues, such that it fails to garner votes at the committee or floor.
+If a bill's sponsor were to intentionally include members from the majority party or, conversely exclude close connections who may be adverse to a proposal, the annealing process might produce more laws.
 
 \section{Summary}
 %(<0.5 pages)
@@ -279,548 +261,12 @@ If a bill's sponsor were to intentionally include members from the majority part
 %State your major finding
 %State your major implication
 %\newpage
-We modeled policy-making as a simulated annealing algorithm to finding solutions in a complex problem space with interdependent constraints.
+We modeled policy-making as a simulated annealing algorithm to find solutions in a complex problem space with interdependent constraints.
 We chose the U.S. Congress and the American legislative process as a case study, but this research may be applied to other policy-making organizations.
 Results indicate that partisanship alone is not necessarily an impediment to productivity, provided that there is sufficient alignment of priorities and preferences.
 However, higher productivity comes at the cost of lower satisfaction and system efficiency.
-We conclude that simulated annealing is a useful method for computationally modeling policy-making, and further research with it should be carried out.
- 
-%\begin{thebibliography}{}
-%
-%@book{aw12,
-%author = {Adler, Scott and Wilkerson, John},
-%publisher = {Cambridge University Press},
-%title = {Congress and the Politics of Problem Solving},
-%year = {2012},
-%}
-%
-%@book{a95,
-%address = {Chicago},
-%author = {Aldrich, John},
-%publisher = {University of  Press},
-%title = {Why Parties?},
-%year = {1995},
-%}
-%
-%@book{bj93,
-%address = {Chicago},
-%author = {Baumgartner, Frank and Bryan Jones},
-%publisher = {University of  Press},
-%title = {Agendas and Instability in American Politics},
-%year = {1993},
-%}
-%
-%@article{b48,
-%address = {Chicago},
-%author = {Black, Duncan},
-%journal = {Journal of Political Economy},
-%number = {23–34},
-%title = {On the Rationale of Group Decision-making},
-%volume = {56},
-%year = {1948},
-%}
-%
-%
-%@article{br11,
-%author = {Bratton, Kathleen and Rouse, Stella},
-%journal = {Legislative Studies Quarterly},
-%number = {3},
-%title = {Networks in the Legislative Arena: How Group Dynamics Affect Co-Sponsorship},
-%volume = {36},
-%year = {2011},
-%}
-%
-%@article{bhh14,
-%author = {Butts, Carter T. and Mark S. Handcock and David R. Hunter},
-%journal = {R package version 1.9.0. Irvine, CA},
-%title = {network: Classes for Relational Data},
-%year = {2014},
-%url = {http://statnet.org/},
-%}
-%
-%@article{b08,
-%author = {Butts, Carter T.},
-%journal = {Journal of Statistical Software},
-%number = {2},
-%title = {network: a Package for Managing Relational Data in R},
-%volume = {24},
-%year = {2008},
-%}
-%
-%@book{cff87,
-%author = {Cain, Bruce and Ferejohn, John and Fiorina, Morris},
-%title = {The Personal Vote},
-%year = {1987},
-%}
-%
-%@book{cm93,
-%author = {Cox, Gary W. and McCubbins, Mathew},
-%publisher = {University of California Press},
-%title = {Legislative Leviathan: Party Government in the House},
-%year = {1993},
-%}
-%
-%@book{cm05,
-%author = {Cox, Gary and McCubbins, Matthew},
-%publisher = {Cambridge University Press},
-%title = {Setting the Agenda},
-%year = {2005},
-%}
-%
-%@article{gt06,
-%author = {Csardi G and Nepusz T:},
-%journal = {InterJournal, Complex Systems},
-%title = {The igraph software package for complex network research},
-%volume = {1695},
-%year = {2006},
-%url = {http://igraph.org},
-%}
-%
-%@article{drs85,
-%author = {Denzau, Arthur and Riker, William and Shepsle, Kenneth},
-%journal = {The American Political Science Review},
-%number = {4},
-%title = {Farquharson and Fenno: Sophisticated Voting and Home Style},
-%volume = {79},
-%year = {1985},
-%}
-%
-%@article{ec12,
-%author = {Epskamp, Sacha and Verena D. Schmittmann and Angelique O. J. Cramer and Denny Borsboom},
-%edition = {Journal of Statistical Software},
-%series = {4},
-%title = {qgraph: Network Visualizations of Relationships in Psychometric Data},
-%volume = {48},
-%year = {2012},
-%}
-%
-%@article{b12,
-%author = {Denny Borsboom},
-%journal = {Journal of Statistical Software},
-%number = {4},
-%pages = {1-18},
-%title = {qgraph: Network Visualizations of Relationships in Psychometric Data},
-%volume = {48},
-%year = {2012},
-%url = {http://www.jstatsoft.org/v48/i04/},
-%unidentified = {),. URL},
-%}
-%
-%@incollection{f86,
-%address = {New York},
-%author = {Ferejohn, John},
-%booktitle = {Congress and Policy Change},
-%editor = {Gerald C. Wright and Jr., Leroy N. Rieselbach and Lawrence C. Dodd},
-%publisher = {Agathon Press, Inc},
-%title = {Logrolling in an Institutional Context: A Case Study of Food Stamp Legislation},
-%year = {1986},
-%}
-%
-%@article{f06,
-%author = {Fowler, James},
-%journal = {Political Analysis},
-%number = {4},
-%title = {Connecting the Congress: A Study of Co-Sponsorship Networks},
-%volume = {14},
-%year = {2006},
-%}
-%
-%@article{gk89,
-%author = {Gilligan, Thomas and Krehbiel, Keith},
-%journal = {American Journal of Political Science},
-%number = {2},
-%title = {Asymmetric Information and Legislative Rules with a Heterogeneous Committee},
-%volume = {33},
-%year = {1989},
-%}
-%
-%@article{gk90,
-%author = {Gilligan, Thomas and Krehbiel, Keith},
-%journal = {American Journal of Political Science},
-%number = {2},
-%title = {Organization of Informative Committees by a Rational Legislature},
-%volume = {34},
-%year = {1990},
-%}
-%
-%@article{hw90,
-%author = {Hall, Richard and Wayman, Frank},
-%journal = {The American Political Science Review},
-%number = {3},
-%title = {Buying Time: Moneyed Interests and the Mobilization of Bias in Congressional Committees},
-%volume = {84},
-%year = {1990},
-%}
-%
-%@article{mdcspm14,
-%author = {Handcock M and Hunter D and Butts C and Goodreau S and Krivitsky P and Morris M},
-%journal = {The Statnet Project (R package version 2)},
-%number = {1},
-%title = {ergm: Fit, Simulate and Diagnose Exponential-Family Models for Networks},
-%volume = {3},
-%year = {2014},
-%url = {http://www.statnet.org},
-%unidentified = {http://CRAN.R-project.org/package=ergm},
-%}
-%
-%@incollection{h78,
-%author = {Heclo, Hugh},
-%booktitle = {American},
-%editor = {The New American Political System},
-%publisher = {Enterprise Institute},
-%title = {Issue Networks and the Executive Establishment: Government Growth in an Age of Improvement},
-%year = {1978},
-%}
-%
-%@article{hk98,
-%author = {Hojnacki, Marie and Kimball, David},
-%journal = {The American Political Science Review},
-%number = {4},
-%title = {Organized Interests and the Decision of Who to Lobby in Congress},
-%volume = {92},
-%year = {1998},
-%}
-%
-%@article{hg08,
-%author = {Humphries, M. D. and Gurney, K.},
-%journal = {PLoS One},
-%number = {4},
-%title = {Network "small-world-ness": a quantitative method for determining canonical network equivalence},
-%volume = {3},
-%year = {2008},
-%}
-%
-%@article{dmcs,
-%author = {Hunter DR and Handcock MS and Butts CT and Goodreau SM},
-%number = {3},
-%pages = {1-29},
-%title = {Morris and Martina (2008). ``ergm: A Package to Fit Simulate and Diagnose Exponential-Family Models for Networks},
-%volume = {24},
-%year = {2008},
-%}
-%
-%@article{j89,
-%author = {Jacobson, Gary},
-%journal = {American Political Science Review},
-%number = {3},
-%title = {Strategic Politicians and the Dynamics of {U}.S. House Elections, 1946-1986},
-%volume = {83},
-%year = {1989},
-%}
-%
-%@article{j90,
-%author = {Jacobson, Gary},
-%journal = {American Journal of Political Science},
-%number = {2},
-%title = {The Effects of Campaign Spending in House Elections: New Evidence for Old Arguments},
-%volume = {34},
-%year = {1990},
-%}
-%
-%@book{j12,
-%author = {Jacobson, Gary},
-%publisher = {Longman Press},
-%title = {The Politics of Congressional Elections},
-%year = {2012},
-%}
-%
-%@article{jm03,
-%author = {Jenkins, Jeffery and Munger, Michael},
-%journal = {Journal of Politics},
-%number = {2},
-%title = {Investigating the Incidence of Killer Amendments in Congress},
-%volume = {65},
-%year = {2003},
-%}
-%
-%@book{k89,
-%author = {Kingdon, John},
-%publisher = {University of Michigan Press},
-%title = {Congressmen's Voting Decisions},
-%year = {1989},
-%}
-%
-%@book{k95,
-%address = {HarperCollins},
-%author = {Kingdon, John},
-%title = {Agendas, Alternatives and Public Policies},
-%year = {1995},
-%}
-%
-%@article{kgv,
-%author = {Kirkpatrick, S. and Gelatt, C. and Vecchi, M. P. ,1983},
-%journal = {Science},
-%title = {Optimization by Simulated Annealing},
-%volume = {220},
-%}
-%
-%@article{m04,
-%author = {McKelvey, Bill},
-%journal = {Journal of Business Venturing},
-%title = {Toward a complexity science of entrepreneurship},
-%volume = {19},
-%year = {2004},
-%}
-%
-%@book{k91,
-%author = {Krehbiel, Keith},
-%publisher = {University of Michigan Press},
-%title = {Information and Legislative Organization},
-%year = {1991},
-%}
-%
-%@book{k98,
-%address = {Chicago University Press},
-%author = {Krehbiel, Keith},
-%title = {Pivotal Politics: A Theory of US Lawmaking},
-%year = {1998},
-%}
-%
-%@book{m78,
-%author = {Mann, Thomas},
-%title = {Unsafe at Any Margin: Interpreting Congressional Elections},
-%year = {1978},
-%}
-%
-%@book{m74,
-%author = {Mayhew, David},
-%%publisher = {Yale University Press},
-%title = {Congress: The Electoral Connection},
-%year = {1974},
-%}
-%
-%@article{msc01,
-%author = {McPherson, Miller and Smith-Lovin, Lynn and Cool, James},
-%journal = {Annual Review of Sociology},
-%title = {Birds of a Feather: Homophily in Social Networks},
-%volume = {27},
-%year = {2001},
-%}
-%
-%@article{mrrt53,
-%author = {Metropolis, N. and Rosenbluth, A. W. and Rosenbluth, M. N. and Teller, A. H.},
-%journal = {Journal of Chemical Physics},
-%number = {6},
-%title = {Equations of State Calculations by Fast Computing Machines},
-%volume = {21},
-%year = {1953},
-%}
-%
-%@article{n03,
-%author = {Newman, M. E. J.},
-%journal = {SIAM Review},
-%number = {3},
-%pages = {167-256},
-%title = {The structure and function of complex networks},
-%volume = {45},
-%year = {2003},
-%}
-%
-%@article{ns02,
-%author = {Nourse, Victoria and Schacter, Jane},
-%journal = {New York University Law Review},
-%title = {The Politics of Legislative Drafting - A Congressional Case Study},
-%volume = {77},
-%year = {2002},
-%}
-%
-%@article{p68,
-%author = {Polsby, Nelson},
-%journal = {American Political Science Review},
-%number = {1},
-%title = {The Institutionalization of the US House of Representatives},
-%volume = {62},
-%year = {1968},
-%}
-%
-%@book{pr97,
-%author = {Poole, Keith and Rosenthal, Howard},
-%publisher = {Oxford University Press},
-%title = {Congress: A Political-Economic History of Roll Call Voting},
-%year = {1997},
-%}
-%
-%@article{pmnw05,
-%author = {Porter, Mason and Peter J. Mucha and M. E. J. Newman and Casey M. Warmbrand},
-%journal = {Proceedings of the National Academy of Sciences of the United States},
-%number = {20},
-%title = {A network analysis of committees in the U.S. House of Representatives},
-%volume = {120},
-%year = {2005},
-%}
-%
-%@book{r91,
-%address = {Chicago},
-%author = {Rhode, David},
-%publisher = {University Press},
-%title = {Parties and Leaders in the Post-Reform House},
-%year = {1991},
-%}
-%
-%@book{s08,
-%address = {New York},
-%author = {Sarkar, Deepayan},
-%publisher = {Springer},
-%title = {Lattice: Multivariate Data Visualization with R},
-%year = {2008},
-%}
-%
-%@article{sw87,
-%author = {Shepsle, Kenneth and Weingast, Barry},
-%journal = {The American Political Science Review},
-%number = {1},
-%title = {The Institutional Foundations of Committee Power},
-%volume = {81},
-%year = {1987},
-%}
-%
-%@article{tp02,
-%author = {Talbert, Jeff and Potoskia, Matthew},
-%journal = {The Journal of Politics},
-%title = {Setting the Legislative Agenda: The Dimensional Structure of Bill Cosponsoring and Floor Voting},
-%volume = {64},
-%year = {2002},
-%}
-%
-%@article{tf10,
-%author = {Tam-Cho, Wendy and Fowler, James},
-%journal = {The Journal of Politics},
-%number = {1},
-%title = {Legislative Success in a Small World: Social Network Analysis and the Dynamics of Congressional Legislation},
-%volume = {72},
-%year = {2010},
-%}
-%
-%@article{t67,
-%author = {Tullock, Gordon},
-%journal = {Western Economic Journal},
-%number = {3},
-%title = {The Welfare Costs of Tariffs, Monopolies, and Theft},
-%volume = {5},
-%year = {1967},
-%}
-%
-%@article{vr07,
-%author = {Victor, Jennifer and Range, Nils},
-%journal = {American Politics Research},
-%number = {5},
-%title = {The Social Utility of Informal Institutions: Caucuses as Networks in the 110th U.S. House of Representatives},
-%volume = {37},
-%year = {2007},
-%}
-%
-%@article{w07,
-%author = {Wickham, Hadley},
-%journal = {Journal of Statistical Software},
-%number = {12},
-%pages = {1-20},
-%title = {Reshaping Data with the reshape Package},
-%volume = {21},
-%year = {2007},
-%url = {http://www.jstatsoft.org/v21/i12/},
-%}
-%
-%@book{w09,
-%address = {New York},
-%author = {Wickham, H.},
-%publisher = {Springer},
-%title = {ggplot2: elegant graphics for data analysis},
-%year = {2009},
-%}
-%
-%@article{w11,
-%author = {Wickham, Hadley},
-%journal = {Journal of Statistical Software},
-%number = {1},
-%pages = {1-29},
-%title = {The Split-Apply-Combine Strategy for Data Analysis},
-%volume = {40},
-%year = {2011},
-%url = {http://www.jstatsoft.org/v40/i01/},
-%}
-%
-%@article{zftpfm08,
-%author = {Zhang, Yan and A. J. Friend and Amanda L. Traud and Mason A. Porter and James H. Fowler and Peter J. Mucha},
-%journal = {Physica A: Statistical Mechanics and its Applications},
-%number = {7},
-%title = {Community structure in Congressional co-sponsorship networks},
-%volume = {387},
-%year = {2008},
-%}
-%
-%@article{Granovetter1978,
-%author = {Granovetter, M},
-%file = {:home/cw/Documents/School/Research/1978\_Granovetter\_thresholdModels-collectiveBehavior.pdf:pdf},
-%journal = {American journal of sociology},
-%number = {6},
-%pages = {1420--1443},
-%title = {{Threshold models of collective behavior}},
-%url = {http://www.jstor.org/stable/2778111},
-%volume = {83},
-%year = {1978}
-%}
-%@article{Granovetter1973,
-%author = {Granovetter, M},
-%doi = {10.1086/225469},
-%file = {:home/cw/Documents/School/CSS739\_Tsvetovat/COT\_Spring2014/1973\_Granovetter\_strength-weakTies.pdf:pdf},
-%issn = {0002-9602},
-%journal = {American journal of sociology},
-%month = may,
-%number = {6},
-%pages = {1360},
-%title = {{The strength of weak ties}},
-%url = {http://www.jstor.org/stable/2776392?seq=2\&cookieSet=1},
-%volume = {78},
-%year = {1973}
-%}
-%@article{Barabasi1999,
-%author = {Barab\'{a}si, Albert-l\'{a}szl\'{o} and Albert, Reka},
-%doi = {10.1126/science.286.5439.509},
-%issn = {00368075},
-%journal = {October},
-%month = oct,
-%number = {5439},
-%pages = {509--512},
-%title = {{Emergence of Scaling in Random Networks}},
-%url = {http://www.sciencemag.org/cgi/doi/10.1126/science.286.5439.509},
-%volume = {509},
-%year = {1999}
-%}
-%@article{Albert2001,
-%abstract = {Complex networks describe a wide range of systems in nature and society, much quoted examples including the cell, a network of chemicals linked by chemical reactions, or the Internet, a network of routers and computers connected by physical links. While traditionally these systems were modeled as random graphs, it is increasingly recognized that the topology and evolution of real networks is governed by robust organizing principles. Here we review the recent advances in the field of complex networks, focusing on the statistical mechanics of network topology and dynamics. After reviewing the empirical data that motivated the recent interest in networks, we discuss the main models and analytical tools, covering random graphs, small-world and scale-free networks, as well as the interplay between topology and the network's robustness against failures and attacks.},
-%archivePrefix = {arXiv},
-%arxivId = {cond-mat/0106096},
-%author = {Albert, Reka and Barabasi, Albert-Laszlo},
-%doi = {10.1103/RevModPhys.74.47},
-%eprint = {0106096},
-%file = {:home/cw/Documents/School/CSS610\_Axtel/Albert-ReviewofModernPhysics2002.pdf:pdf},
-%month = jun,
-%pages = {54},
-%primaryClass = {cond-mat},
-%title = {{Statistical mechanics of complex networks}},
-%url = {http://arxiv.org/abs/cond-mat/0106096},
-%year = {2001}
-%}
-%@article{McKelvey2004,
-%author = {McKelvey, Bill},
-%doi = {10.1016/S0883-9026(03)00034-X},
-%file = {:home/cw/Documents/School/CSS739\_Tsvetovat/COT\_Spring2014/2004\_McKelvey\_evolutionaryEntrepeneurship.pdf:pdf},
-%issn = {08839026},
-%journal = {Journal of Business Venturing},
-%keywords = {1,apparently,causality,entrepreneurship,entrepreneurship published in,executive summary,journal of business venturing,mediums such as the,order creation,pfeffer and,should ceos pay attention,they do not,to research findings about},
-%month = may,
-%number = {3},
-%pages = {313--341},
-%title = {{Toward a complexity science of entrepreneurship}},
-%url = {http://linkinghub.elsevier.com/retrieve/pii/S088390260300034X},
-%volume = {19},
-%year = {2004}
-%}
+We conclude that simulated annealing is a useful method for computational models of policy-making and that recommend it for other research projects.
 
-
-
-%\end{thebibliography}
- 
 
 \printbibliography
 %BIBLIOGRAPHIC REFERENCES (1 PAGE)
