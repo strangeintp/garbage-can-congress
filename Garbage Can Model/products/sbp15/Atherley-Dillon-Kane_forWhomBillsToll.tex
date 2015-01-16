@@ -67,6 +67,7 @@
 It is a trope of Western democratic ideals that a democracy---govern-\\ance by vote---produces the greatest happiness for its citizenry, or the least unhappiness for a majority of it.
 %On the other hand, we also suspect that as a policy-making system, it is highly inefficient and -- in the extreme -- unproductive.
 Our intuition is that diversity and divides in policy preferences can result in legislative deadlock and lower overall satisfaction with legislative outcomes.
+We were motivated to this research wanting to understand why the $113^{th}$ U.S. Congress was particularly unproductive.
 Political science often models congressional ideology backward from voting decisions \parencite{m74, k89}, party influence \parencite{cm93,cm05,a95,k91, k98}, and committee dynamics \parencite{sw87, gk89, m04}.
 Our research complements other studies by developing a computational model of policy development through draft legislation, working forward from arbitrary ideological foundations.
 Viewing bill revision as a process that optimizes legislative body satisfaction within a system of competing legislator preferences, we judged simulated annealing (SA, hereafter) to be the non-deterministic optimization method most suited for modeling this.
@@ -90,7 +91,7 @@ Legislators have preferences on a set of issues, prioritizing some issues over o
 They take turns sponsoring bills, which get reviewed and revised through two rounds of SA before the entire legislative body votes on the bill.
 We captured productivity, satisfaction, and amount of compromise as the relevant metrics for each simulation run.
 We describe the initialization and simulation processes and experimentation methods in more detail below.
-\footnote{In the interest of brevity, we have omitted some detail descriptions of the initialization and simulation; however, these details,as well as the model itself, may be found in the online supplement at TBD.}
+\footnote{In the interest of brevity, we have omitted some detail descriptions of the initialization and simulation; however, these details,as well as the model itself, may be found in the online supplement at https://github.com/strangeintp/garbage-can-congress/wiki}.
 
 \subsection{Model Initialization}
 The first step in the simulation initializes the model by generating a \texttt{State} object, which realizes the parameters of that run scenario: a heterogeneous set of 100 legislators, each with priority-ranked positions on a set of 75 issues, assigned stochastically but correlated through State- and party-provided seed vectors. 
